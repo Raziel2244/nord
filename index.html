@@ -1,18 +1,24 @@
 <html>
   <head>
     <!-- <base href="/"> -->
+    <base href="">
     <title>Nordanner Tools</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script type="text/javascript" src="js/nord.js"></script>
-    <script type="text/javascript" src="js/tools/cart.js"></script>
-    <script type="text/javascript" src="js/tools/arena.js"></script>
     <script type="text/javascript" src="../rzl/js/core.js"></script>
     <script type="text/javascript" src="../rzl/js/ui.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../rzl/css/core.css">
+
+    <script type="text/javascript" src="js/nord.js"></script>
+    <script type="text/javascript" src="tools/arena/arena.js"></script>
+    <script type="text/javascript" src="tools/cart/cart.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="tools/arena/arena.css">
   </head>
   <body onload="nord.init()">
-    <div id="rzlBox"></div>
+    <div id="rzlBox" class="rzl-col-12"></div>
   </body>
 </html>
