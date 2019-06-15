@@ -27,11 +27,6 @@ nord = {
     nord.data[ui] = new rzl.UI(def);
   },
 
-  // generate a random number from 1 to n (inclusive)
-  rand1tn: function(n) {
-    return Math.floor(Math.random() * n) + 1;
-  },
-
   // ======================================================================
   // SECTION: Definitions
   uiDefs: {
@@ -52,11 +47,16 @@ nord = {
           {
             tag: 'div',
             id: 'nordToolbar',
-            style: {width:'100%'},
+            style: {
+              width:'100%',
+              display:'flex',
+              'justify-content':'center'
+            },
             children: [
               {
                 tag: 'button',
                 id: 'btnArenaTool',
+                class: 'rzl-btn',
                 content: 'Arena',
                 events: {
                   click: 'nord.drawUI'
@@ -68,12 +68,14 @@ nord = {
               {
                 tag: 'button',
                 id: 'btnCartTool',
+                class: 'rzl-btn',
                 content: 'Cartography',
                 events: {
                   click: 'nord.drawUI'
                 },
                 props: {
-                  nordui: 'cartography'
+                  nordui: 'cartography',
+                  disabled: true
                 }
               },
             ]
