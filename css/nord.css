@@ -2,8 +2,44 @@
 
 * {
   font-family: 'Roboto Mono', monospace;
+  /* border: 1px solid red; */
 }
 
 label,button,div {
   font-size: 12px;
+}
+
+[id*='-root'] .title {
+  text-align: center;
+  margin: 5px;
+}
+
+[id*='-root'] [class*='rzl-form'] {
+  justify-content: center;
+}
+
+[id*='-root'] .rzl-form {
+  padding: 10px;
+  border: 1px dashed black;
+}
+
+[id*='-root'] .rzl-form-row,
+[id*='-root'] .rzl-form-item {
+  display: flex;
+  flex-flow: row;
+  text-align: center;
+  align-items: center;
+  /* margin: 5px; */
+}
+[id*='-root'] .rzl-form-row > * {
+  margin: 5px;
+}
+[id*='-root'] .rzl-form-item > label {
+  padding-right: 5px;
+}
+[id*='-root'] #output {
+  border: 1px dashed black;
+}
+[id*='-root'] #output > * {
+  margin: 10px;
 }

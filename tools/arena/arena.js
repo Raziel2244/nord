@@ -47,21 +47,6 @@ nord.arena = {
   ],
 
   // ======================================================================
-  // helper functions
-  cacheRoll: function(cachechance) {
-    // cache roll
-    if (rzl.rand1tn(500) <= cachechance || cachechance === 500){
-      var bazitem = nord.arena.items[rzl.randomArrayItem(cache.bazaar)];
-      var baritem = nord.arena.items[rzl.randomArrayItem(cache.barracks)];
-      console.log('cache',bazitem,baritem)
-      rzl.addDiv(output,{content:`Cache : 1500AG, ${bazitem.name} and ${baritem.name}`});
-    } else {
-      console.log('no cache');
-      rzl.addDiv(output,{content:'No cache found'});
-    }
-  },
-
-  // ======================================================================
   // event handlers
 
   // called on arena UI build
@@ -137,7 +122,16 @@ nord.arena = {
           console.log(`win ${dragondata.reward}`);
           rzl.addDiv(output,{content:`Victory! Earned ${dragondata.reward}AG`});
 
-          nord.arena.cacheRoll();
+          // cache roll
+          if (rzl.rand1tn(500) <= cachechance || cachechance === 500){
+            var bazitem = nord.arena.items[rzl.randomArrayItem(cache.bazaar)];
+            var baritem = nord.arena.items[rzl.randomArrayItem(cache.barracks)];
+            console.log('cache',bazitem,baritem)
+            rzl.addDiv(output,{content:`Cache : 1500AG, ${bazitem.name} and ${baritem.name}`});
+          } else {
+            console.log('no cache');
+            rzl.addDiv(output,{content:'No cache found'});
+          }
           return;
         } else {
           console.log('battle cry failed');
@@ -240,7 +234,7 @@ nord.uiDefs.arena = {
             {tag:'label',content:'Live bait:',props:{for:'bait'}},
             {
               tag:'input',class:'itemWidth',id:'bait',
-              props:{type:'number',min:'0',max:'5',value:'0',step:'1'}
+              props:{type:'number',min:'0',max:'5',value:'0',step:'0.5'}
             }
           ]},
           // +1 horse level, energy boost
@@ -263,7 +257,7 @@ nord.uiDefs.arena = {
             {tag:'label',content:'Hound trust:',props:{for:'trust'}},
             {
               tag:'input',class:'itemWidth',id:'trust',
-              props:{type:'number',min:'0',max:'500',value:'0',step:'1'}
+              props:{type:'number',min:'0',max:'500',value:'0',step:'0.5'}
             }
           ]},
         ]},

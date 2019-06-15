@@ -1,4 +1,4 @@
-nord.cart = {
+nord.cartography = {
   regions: {
     forest: {
       chance: 100,
@@ -51,7 +51,7 @@ nord.cart = {
     });
 
     // check no more than 'max' items are returned
-    items = nord.cart.reduce({ items: items, max: args.max });
+    items = nord.cartography.reduce({ items: items, max: args.max });
 
     // console.log(`Rolled ${items.length} items:`);
     // items.forEach(i => {console.log(i.name)})
@@ -93,11 +93,11 @@ nord.cart = {
   built: function(ev) {
     // this is ui
     var selRegion = rzl.findChild(this.rootNode,'select','selRegion');
-    var optsRegion = rzl.getSelOpts(nord.cart.regions);
+    var optsRegion = rzl.getSelOpts(nord.cartography.regions);
     rzl.setSelOpts(selRegion,optsRegion);
 
     var selBonus = rzl.findChild(this.rootNode,'select','selBonus');
-    var optsBonus = nord.cart.getSelectBonuses(nord.cart.bonuses);
+    var optsBonus = nord.cart.getSelectBonuses(nord.cartography.bonuses);
     rzl.setOptions(selBonus,optsBonus);
 
     var btn = rzl.findChild(this.rootNode,'button','btnRoll');
@@ -114,16 +114,16 @@ nord.cart = {
     var max = 3;
     var items = [];
     var output = this._output;
-    var region = nord.cart.regions[this._region.value];
+    var region = nord.cartography.regions[this._region.value];
     var bonusid = this._bonus.value || false;
-    var bonus = nord.cart.bonuses[bonusid] || {};
+    var bonus = nord.cartography.bonuses[bonusid] || {};
 
     // clear output from previous use
     if (output.children.length) rzl.destroyChildElements(output);
 
     // check region roll chance
     if (nord.rand1tn(100) <= region.chance) {
-      items = nord.cart.roll({
+      items = nord.cartography.roll({
         region: region,
         max: max,
         bonus: bonus
@@ -150,13 +150,10 @@ nord.uiDefs.cartography = {
   },
   view: {
     0: {
-      type: 'block',
       style: {},
       children: {
         0: {
           tag: 'h1',
-          class: '',
-          style: {},
           content: 'Cartography Roller'
         },
         1: {
@@ -172,11 +169,10 @@ nord.uiDefs.cartography = {
           id: 'btnRoll',
           content: 'Roll',
           events: {
-            click: 'nord.cart.rollClick'
+            click: 'nord.cartography.rollClick'
           }
         },
         4: {
-          tag: 'div',
           id: 'output'
         }
       }

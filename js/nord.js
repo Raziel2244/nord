@@ -1,5 +1,5 @@
 nord = {
-  tools: ['arena','cart'],
+  tools: ['arena','cartography','breeding'],
 
   // initialise variables and other session details
   init: function() {
@@ -35,7 +35,6 @@ nord = {
         name: 'tools',
       },
       view: {
-        // type: 'block',
         style: {'max-width':'1080px',margin:'auto'},
         children: [
           // {
@@ -45,7 +44,6 @@ nord = {
           //   content: 'Choose a tool'
           // },
           {
-            tag: 'div',
             id: 'nordToolbar',
             style: {
               width:'100%',
@@ -55,7 +53,6 @@ nord = {
             children: [
               {
                 tag: 'button',
-                id: 'btnArenaTool',
                 class: 'rzl-btn',
                 content: 'Arena',
                 events: {
@@ -67,7 +64,18 @@ nord = {
               },
               {
                 tag: 'button',
-                id: 'btnCartTool',
+                class: 'rzl-btn',
+                content: 'Breeding',
+                events: {
+                  click: 'nord.drawUI'
+                },
+                props: {
+                  nordui: 'breeding',
+                  disabled: true
+                }
+              },
+              {
+                tag: 'button',
                 class: 'rzl-btn',
                 content: 'Cartography',
                 events: {
@@ -81,7 +89,6 @@ nord = {
             ]
           },
           {
-            tag: 'div',
             id: 'norduiBox',
             style: {width:'100%'}
           },
