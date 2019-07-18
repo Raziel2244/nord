@@ -265,15 +265,18 @@ nord.cartography = {
       console.dir(uiData);//debugger;
 
       // clear output from previous use
-      if (output.children.length) rzl.destroyChildren(output);
+      if (output.firstChild) rzl.destroyChildren(output);
+      if (stats.firstChild) rzl.destroyChildren(stats);
 
       if (!this.rollRegion()) {
         output.classList.remove("rzl-hidden");
+        stats.classList.remove("rzl-hidden");
         return;
       }
       this.rollItems();
 
       output.classList.remove("rzl-hidden");
+      stats.classList.remove("rzl-hidden");
     } catch (e) {
       console.error(e);
       return;
@@ -322,7 +325,9 @@ nord.cartography = {
     // limit to 100 percent to avoid possible false negatives
     if (reg.chance > 100) reg.chance = 100;
 
-    if (reg.chance === 100 || rzl.rng1to(100) <= reg.chance){
+    reg.rollVal = rzl.rng1to(100);
+    rzl.addDiv(stats,{content:`Region > Chance: ${reg.chance} Roll: ${reg.rollVal}`});
+    if (reg.chance === 100 || reg.rollVal <= reg.chance){
       console.log("region success");
       rzl.addDiv(output,{content:"Region : Success"});
       // rzl.addDiv(output,{content:"__ is victorious!"});
@@ -352,7 +357,9 @@ nord.cartography = {
     risk.chance = (risk.potion) ? r.pchance : r.chance;
     risk.cooldown = r.cooldown;
 
-    if (risk.chance === 100 || rzl.rng1to(100) <= risk.chance){
+    risk.rollVal = rzl.rng1to(100);
+    rzl.addDiv(stats,{content:`Risk > Chance: ${risk.chance} Roll: ${risk.rollVal}`});
+    if (risk.chance === 100 || risk.rollVal <= risk.chance){
       console.log("hurt by risk");
       rzl.addDiv(output,{content:"Risk : Hurt"});
       // rzl.addDiv(output,{content:"__ was hurt by risk! Cooldown: " + risk.cooldown});
@@ -447,6 +454,7 @@ nord.cartography = {
       this.form = rzl.findChild(this.rootNode, "form", "arena-form");
       this.fields = rzl.getFormFields(this.form);
       this.output = rzl.findChild(this.rootNode, "div", "output");
+      this.stats = rzl.findChild(this.rootNode, "div", "stats");
       this.rollData = {};
 
       this.optsRegion = rzl.getSelectOptionsFromKeyInObjectsInArray(nord.cartography.regions, "name");
@@ -552,7 +560,8 @@ nord.uiDefs.cartography = {
             events:{click:"nord.cartography.rollClick"},props:{type:"button"}},
         ]},
       ]},
-      {id:"output",class:"rzl-hidden",style:{"text-align":"center"}}
+      {id:"output",class:"rzl-hidden",style:{"text-align":"center"}},
+      {id:"stats",class:"rzl-hidden",style:{"text-align":"center"}}
     ]
   }
 };

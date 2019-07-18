@@ -56,6 +56,7 @@ nord.arena = {
       this.form = rzl.findChild(this.rootNode,"form","arena-form");
       this.fields = rzl.getFormFields(this.form);
       this.output = rzl.findChild(this.rootNode,"div","output");
+      this.stats = rzl.findChild(this.rootNode,"div","stats");
       this.cache = {};
       this.cache.all = rzl.arrayForCountInObjectsInArray(nord.arena.items,"count");
       this.cache.bazaar = rzl.arrayForCountInObjectsInArrayFilter(
@@ -81,6 +82,7 @@ nord.arena = {
       const fields = uidata.fields;
       const cache = uidata.cache;
       const output = uidata.output;
+      const stats = uidata.stats;
       const date = new Date();
       const curMonth = date.getMonth() + 1;
       let chance = 0;
@@ -90,6 +92,7 @@ nord.arena = {
 
       // clear output from previous use
       if (output.children.length) rzl.destroyChildren(output);
+      if (stats.children.length) rzl.destroyChildren(stats);
 
       // gather required variables
       const dragonid = fields.dragon.selectedIndex;
@@ -155,7 +158,9 @@ nord.arena = {
             console.log("no cache");
             rzl.addDiv(output,{content:"No cache found"});
           }
-          rzl.addDiv(output,{content:`Chance: ${chance} Roll: ${rollVal}`})
+          rzl.addDiv(stats,{content:`Chance: ${chance} Roll: ${rollVal}`});
+          // rzl.addDiv(stats,{content:`Battle Cry > Chance: ${chance} Roll: ${rollVal}`});
+          // rzl.addDiv(output,{content:`Chance: ${chance} Roll: ${rollVal}`})
           return;
         } else {
           console.log("battle cry failed");
@@ -210,8 +215,11 @@ nord.arena = {
         console.log("no cache");
         rzl.addDiv(output,{content:"No cache found"});
       }
-      rzl.addDiv(output,{content:`Chance: ${chance} Roll: ${rollVal}`})
+      rzl.addDiv(stats,{content:`Chance: ${chance} Roll: ${rollVal}`});
+      // rzl.addDiv(stats,{content:`Fight > Chance: ${chance} Roll: ${rollVal}`});
+      // rzl.addDiv(output,{content:`Chance: ${chance} Roll: ${rollVal}`})
       output.classList.remove("rzl-hidden");
+      stats.classList.remove("rzl-hidden");
     } catch (e) {
       console.error(e);return;
     }
@@ -313,7 +321,8 @@ nord.uiDefs.arena = {
           },props:{type:"button"}},
         ]}
       ]},
-      {id:"output",class:"rzl-hidden",style:{"text-align":"center"}}
+      {id:"output",class:"rzl-hidden",style:{"text-align":"center"}},
+      {id:"stats",class:"rzl-hidden",style:{"text-align":"center"}}
     ]
   },
 };

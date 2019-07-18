@@ -41,10 +41,13 @@ label,button,div {
 [id*='-root'] .rzl-form-item > label {
   padding-right: 5px;
 }
-[id*='-root'] #output {
+[id*='-root'] #output,
+[id*='-root'] #stats {
   border: 1px dashed black;
+  margin-bottom: 1em;
 }
-[id*='-root'] #output > * {
+[id*='-root'] #output > *,
+[id*='-root'] #stats > * {
   margin: 10px;
 }
 
