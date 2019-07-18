@@ -3,6 +3,7 @@ nord.cartography = {
   regions: [
     {
       name: "Aleria",
+      level: 0,
       chance: 95,
       advantages: ["chkd","grfn","pfwl","stgl"],
       disadvantages: ["crvd","inks","orth","pmkn","unvs"],
@@ -17,6 +18,7 @@ nord.cartography = {
     },
     {
       name: "Isles of Invermay",
+      level: 1,
       chance: 85,
       advantages: ["clpd","jgur","mdrn","tbby","tigr","tgrn"],
       disadvantages: ["blsp","chkd","flmt","stgl"],
@@ -31,6 +33,7 @@ nord.cartography = {
     },
     {
       name: "Amadora: Eplana",
+      level: 2,
       chance: 70,
       advantages: ["btfl","embm","hmbd","kscl"],
       disadvantages: ["cmph","hnna","mdrn","pnda","wood"],
@@ -45,6 +48,7 @@ nord.cartography = {
     },
     {
       name: "Amadora: Estrana",
+      level: 2,
       chance: 70,
       advantages: ["agis","fawn","hnna","lctb","zbra"],
       disadvantages: ["cndy","chbl","chlt","egng","frst","sndp","snfl","sngb"],
@@ -59,6 +63,7 @@ nord.cartography = {
     },
     {
       name: "Korandyire",
+      level: 3,
       chance: 55,
       advantages: ["aglr","atln","glmr","muln","unvs"],
       disadvantages: ["clpd","jgur","tbby","tigr","tgrn"],
@@ -73,6 +78,7 @@ nord.cartography = {
     },
     {
       name: "Kisanara",
+      level: 4,
       chance: 40,
       advantages: ["cmph","flmt","pnda","wood"],
       disadvantages: ["aglr","btfl","embm","hmbd","kscl"],
@@ -87,6 +93,7 @@ nord.cartography = {
     },
     {
       name: "Quendorin",
+      level: 5,
       chance: 24,
       advantages: ["cndy","chbl","chlt","egng","frst","sndp","snfl","sngb"],
       disadvantages: ["agis","atln","fawn","lctb","zbra"],
@@ -101,6 +108,7 @@ nord.cartography = {
     },
     {
       name: "Malgosfrom",
+      level: 6,
       chance: 10,
       advantages: ["blsp","crvd","inks","orth","pmkn"],
       disadvantages: ["glmr","grfn","muln","pfwl"],
@@ -297,14 +305,21 @@ nord.cartography = {
 
     // get id of region selected and level of horse selected
     reg.id = fields.region.selectedIndex;
-    reg.level = fields.horse.selectedIndex;
+    reg.rlevel = this.regions[reg.id].level;
+    reg.hlevel = fields.horse.selectedIndex;
 
     // check horse level is high enough
-    if (reg.level < reg.regionId) return;
+    if (reg.hlevel < reg.rlevel) {
+      console.log("region failure");
+      rzl.addDiv(output,{content:"Region : Failure"});
+      return false;
+    }
 
     // chance calculation
     reg.chance = this.regions[reg.id].chance; // set base chance from region
-    for (let i = reg.level; i > reg.id; i--) reg.chance += 15; // boost per level
+    console.log(reg.chance);
+    for (let i = reg.hlevel; i > reg.rlevel; i--) reg.chance += 15; // boost per level
+    console.log(reg.chance);
     if (fields.group.checked) reg.chance += 15; // group horse boost
     if (fields.compass.checked) reg.chance += 20; // compass boost
 
