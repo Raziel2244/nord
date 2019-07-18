@@ -5,6 +5,10 @@
   /* border: 1px solid red; */
 }
 
+body {
+  overflow-x: hidden;
+}
+
 label,button,div {
   font-size: 12px;
 }
@@ -26,7 +30,7 @@ label,button,div {
 [id*='-root'] .rzl-form-row,
 [id*='-root'] .rzl-form-item {
   display: flex;
-  flex-flow: row;
+  flex-flow: row wrap;
   text-align: center;
   align-items: center;
   /* margin: 5px; */
@@ -42,4 +46,21 @@ label,button,div {
 }
 [id*='-root'] #output > * {
   margin: 10px;
+}
+
+.rzl-btn:hover {
+  border-color: red;
+  color: red;
+}
+
+
+@media only screen and (min-width: 1080px) {
+  body {
+    /* background-color: lightblue; */
+  }
+
+  [id*='-root'] {
+    max-width: 1080px;
+    margin: auto;
+  }
 }

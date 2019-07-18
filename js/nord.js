@@ -1,13 +1,13 @@
 nord = {
-  tools: ['arena','cartography','breeding'],
+  tools: ["arena","cartography","breeding"],
 
   // initialise variables and other session details
   init: function() {
-    console.log('Nordanner tools loaded');
+    console.log("Nordanner tools loaded");
     this.data = {};
     // this.loadToolJS();
     // rzl.loadJS("tools/arena/arena.js",true)
-    this.drawUI({ui: 'tools'});
+    this.drawUI({ui: "tools"});
   },
 
   // load all of the JS files for nordanner tools
@@ -18,13 +18,13 @@ nord = {
   // draw the UI - ui must be in this.nordui or args.ui
   drawUI: function(args) {
     if (!args && !args.nordui && !this.nordui) return;
-    var ui;
+    let ui;
     if (this.nordui) ui = this.nordui;
     else if (args && args.ui) ui = args.ui;
     else return;
-    var def = nord.uiDefs[ui];
-    if (typeof def === 'undefined') return;
-    nord.data[ui] = new rzl.UI(def);
+    const def = nord.uiDefs[ui];
+    if (typeof def === "undefined") return;
+    new rzl.UI(def);
   },
 
   // ======================================================================
@@ -32,65 +32,64 @@ nord = {
   uiDefs: {
     tools: {
       meta: {
-        name: 'tools',
+        name: "tools",
+        domain: "nord",
+        data: "data"
       },
       view: {
-        style: {'max-width':'1080px',margin:'auto'},
+        style: {
+          "max-width":"90vw",
+          margin:"auto"
+        },
         children: [
-          // {
-          //   tag: 'h1',
-          //   class: '',
-          //   style: {margin:'auto'},
-          //   content: 'Choose a tool'
-          // },
           {
-            id: 'nordToolbar',
+            id: "nordToolbar",
             style: {
-              width:'100%',
-              display:'flex',
-              'justify-content':'center'
+              width:"100%",
+              display:"flex",
+              "justify-content":"center"
             },
             children: [
               {
-                tag: 'button',
-                class: 'rzl-btn',
-                content: 'Arena',
+                tag: "button",
+                class: "rzl-btn",
+                content: "Arena",
                 events: {
-                  click: 'nord.drawUI'
+                  click: "nord.drawUI"
                 },
                 props: {
-                  nordui: 'arena'
+                  nordui: "arena"
                 }
               },
               {
-                tag: 'button',
-                class: 'rzl-btn',
-                content: 'Breeding',
+                tag: "button",
+                class: "rzl-btn",
+                content: "Breeding",
                 events: {
-                  click: 'nord.drawUI'
+                  click: "nord.drawUI"
                 },
                 props: {
-                  nordui: 'breeding',
+                  nordui: "breeding",
                   disabled: true
                 }
               },
               {
-                tag: 'button',
-                class: 'rzl-btn',
-                content: 'Cartography',
+                tag: "button",
+                class: "rzl-btn",
+                content: "Cartography",
                 events: {
-                  click: 'nord.drawUI'
+                  click: "nord.drawUI"
                 },
                 props: {
-                  nordui: 'cartography',
-                  disabled: true
+                  nordui: "cartography",
+                  // disabled: true
                 }
               },
             ]
           },
           {
-            id: 'norduiBox',
-            style: {width:'100%'}
+            id: "norduiBox",
+            style: {width:"100%"}
           },
         ]
       }
