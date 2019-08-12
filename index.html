@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <!-- <base href="/"> -->
     <base href="">
@@ -6,20 +7,34 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Description" content="Nordanner Tools.">
 
-    <script type="text/javascript" src="/rzl/js/core.js"></script>
-    <script type="text/javascript" src="/rzl/js/ui.js"></script>
+    <link rel="manifest" href="manifest.json">
 
-    <link rel="stylesheet" type="text/css" href="/rzl/css/core.css">
+    <script type="text/javascript" src="../rzl/js/core.js"></script>
+    <script type="text/javascript" src="../rzl/js/ui.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../rzl/css/core.css">
 
     <script type="text/javascript" src="js/nord.js"></script>
     <script type="text/javascript" src="tools/arena/arena.js"></script>
     <script type="text/javascript" src="tools/breeding/breeding.js"></script>
     <script type="text/javascript" src="tools/cartography/cartography.js"></script>
+    <script type="text/javascript" src="tools/tools.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/nord.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=NmP4yQwvY7">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=NmP4yQwvY7">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=NmP4yQwvY7">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg?v=NmP4yQwvY7" color="#00aa00">
+    <link rel="shortcut icon" href="/favicon.ico?v=NmP4yQwvY7">
+    <meta name="msapplication-TileColor" content="#00a300">
+    <meta name="theme-color" content="#ffffff">
   </head>
   <body onload="nord.init()">
-    <div id="rzlBox" class="rzl-col-12"></div>
+    <div id="rzlBox" class="rzl-col-12">
+      <h1>Javascript required, please check your network connection</h1>
+    </div>
   </body>
 </html>

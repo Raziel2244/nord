@@ -1,6 +1,6 @@
 nord.cartography = {
   // regions of the world
-  regions: [
+  regions : [
     {
       name: "Aleria",
       level: 0,
@@ -124,7 +124,7 @@ nord.cartography = {
   ],
 
   // data for horses
-  horses: [
+  horses : [
     { level: "0", name: "No registered level" },
     { level: "1", name: "Basic training"      },
     { level: "2", name: "Quality blood"       },
@@ -135,7 +135,7 @@ nord.cartography = {
   ],
 
   // reward tiers
-  tiers: [
+  tiers : [
     { name: "Very Common", chance: 50, binoChance: 33 },
     { name: "Common",      chance: 29, binoChance: 26 },
     { name: "Uncommon",    chance: 13, binoChance: 23 },
@@ -144,7 +144,7 @@ nord.cartography = {
   ],
 
   // possible rewards
-  items: {
+  items : {
     aric : { name: "Arcane Ice Shard" },
     arsh : { name: "Arcane Shard" },
     astd : { name: "Asteroid Fragment" },
@@ -214,7 +214,7 @@ nord.cartography = {
   },
 
   // nordanner mutations
-  mutations: {
+  mutations : {
     agis : { name: "Agis" },
     aglr : { name: "Angler" },
     atln : { name: "Atlanticus" },
@@ -268,23 +268,23 @@ nord.cartography = {
   roll: function() {
     // "this" is module - nord.cartography
     try {
-      let uiData = nord.data.cartography;
-      let output = uiData.output;
-      console.dir(uiData);//debugger;
+      const output = nord.state.cartography.output,
+            statsout = nord.state.cartography.statsout;
+      // console.dir(state);//debugger;
 
       // clear output from previous use
       if (output.firstChild) rzl.destroyChildren(output);
-      if (stats.firstChild) rzl.destroyChildren(stats);
+      if (statsout.firstChild) rzl.destroyChildren(statsout);
 
       if (!this.rollRegion()) {
         output.classList.remove("rzl-hidden");
-        stats.classList.remove("rzl-hidden");
+        statsout.classList.remove("rzl-hidden");
         return;
       }
       this.rollItems();
 
       output.classList.remove("rzl-hidden");
-      stats.classList.remove("rzl-hidden");
+      statsout.classList.remove("rzl-hidden");
     } catch (e) {
       console.error(e);
       return;
@@ -294,14 +294,10 @@ nord.cartography = {
   // roll for region success
   rollRegion: function() {
     // "this" is module - nord.cartography
-    let uiData = nord.data.cartography;
-    let fields = uiData.fields;
-    let rollData = uiData.rollData;
-
-    rollData.region = {};
-
-    // data for this stage of the roll
-    let reg = rollData.region;
+    const fields = nord.state.cartography.fields,
+          output = nord.state.cartography.output,
+          statsout = nord.state.cartography.statsout,
+          reg = nord.state.cartography.rollState.region;
 
     // get id of region selected and level of horse selected
     reg.id = fields.region.selectedIndex;
@@ -340,16 +336,18 @@ nord.cartography = {
     // limit to 100 percent to avoid possible false negatives
     if (reg.chance > 100) reg.chance = 100;
 
-    reg.rollVal = rzl.rng1to(100);
-    rzl.addDiv(stats,{content:`Region > Chance: ${reg.chance} Roll: ${reg.rollVal}`});
-    if (reg.chance === 100 || reg.rollVal <= reg.chance){
+    reg.rng = rzl.rng1to(100);
+    rzl.addDiv(statsout,{
+      content : "Region > Chance: "+reg.chance+" Roll: "+reg.rng
+    });
+    if (reg.chance === 100 || reg.rng <= reg.chance){
       console.log("region success");
       rzl.addDiv(output,{content:"Region : Success"});
-      // rzl.addDiv(output,{content:"__ is victorious!"});
+      // rzl.addDiv(fields.output,{content:"__ is victorious!"});
     } else {
       console.log("region failure");
       rzl.addDiv(output,{content:"Region : Failure"});
-      // rzl.addDiv(output,{content:"__ was unsuccessful!"});
+      // rzl.addDiv(fields.output,{content:"__ was unsuccessful!"});
       return false;
     }
 
@@ -360,21 +358,18 @@ nord.cartography = {
   // roll risk for region
   rollRisk: function() {
     // "this" is module - nord.cartography
-    let uiData = nord.data.cartography;
-    let fields = uiData.fields;
-    let rollData = uiData.rollData;
-    let output = uiData.output;
-    let reg = uiData.rollData.region;
+    const output = nord.state.cartography.output,
+          statsout = nord.state.cartography.statsout,
+          r = this.regions[nord.state.cartography.rollState.region.id].risk,
+          risk = nord.state.cartography.rollState.risk;
 
-    const r = this.regions[reg.id].risk;
-    let risk = rollData.risk = {};
-    risk.potion = fields.potion.checked;
+    risk.potion = nord.state.cartography.fields.potion.checked;
     risk.chance = (risk.potion) ? r.pchance : r.chance;
     risk.cooldown = r.cooldown;
+    risk.rng = rzl.rng1to(100);
 
-    risk.rollVal = rzl.rng1to(100);
-    rzl.addDiv(stats,{content:`Risk > Chance: ${risk.chance} Roll: ${risk.rollVal}`});
-    if (risk.chance === 100 || risk.rollVal <= risk.chance){
+    rzl.addDiv(statsout,{content:`Risk > Chance: ${risk.chance} Roll: ${risk.rng}`});
+    if (risk.chance === 100 || risk.rng <= risk.chance){
       console.log("hurt by risk");
       rzl.addDiv(output,{content:"Risk : Hurt"});
       // rzl.addDiv(output,{content:"__ was hurt by risk! Cooldown: " + risk.cooldown});
@@ -389,52 +384,50 @@ nord.cartography = {
   // roll item rewards
   rollItems: function() {
     // "this" is module - nord.cartography
-    let uiData = nord.data.cartography;
-    let fields = uiData.fields;
-    let rollData = uiData.rollData;
-    let output = uiData.output;
+    const fields = nord.state.cartography.fields,
+          rollState = nord.state.cartography.rollState,
+          output = nord.state.cartography.output,
+          statsout = nord.state.cartography.statsout,
+          item = rollState.items = {};
 
-    let it = rollData.items = {};
-    it.count = (fields.falrap.checked) ? rzl.rng1to(3) + 1 : rzl.rng1to(3);
-    it.rolled = [];it.tiers = [];
-    it.binoculars = fields.binoculars.checked;
-    it.chanceKey = (it.binoculars) ? "binoChance" : "chance";
+    item.count = (fields.falrap.checked) ? rzl.rng1to(3) + 1 : rzl.rng1to(3);
+    item.rolled = [];item.tiers = [];
+    item.binoculars = fields.binoculars.checked;
+    item.chanceKey = (item.binoculars) ? "binoChance" : "chance";
+
     let text = "";
-    for (let i = 1; i <= it.count; i++) {
-      let tierArr = rzl.arrayForCountInObjectsInArray(this.tiers,it.chanceKey);
+    for (let i = 1; i <= item.count; i++) {
+      let tierArr = rzl.arrayForCountInObjectsInArray(this.tiers,item.chanceKey);
       let tierId = rzl.randomArrayItem(tierArr);
-      it.tiers.push(this.tiers[tierId]);
-      let itemArr = this.regions[rollData.region.id].items[tierId];
+      item.tiers.push(this.tiers[tierId]);
+      let itemArr = this.regions[rollState.region.id].items[tierId];
       let itemId = rzl.randomArrayItem(itemArr);
-      it.rolled.push(this.items[itemId]);
+      item.rolled.push(this.items[itemId]);
       switch (true) {
-        case (i === it.count && it.count > 1):
+        case (i === item.count && item.count > 1):
           text += " and " + this.items[itemId].name;
         break;
-        case (i === it.count - 1 || it.count === 1):
+        case (i === item.count - 1 || item.count === 1):
           text += this.items[itemId].name;
         break;
-        case (i < it.count - 1):
+        case (i < item.count - 1):
           text += this.items[itemId].name + ", "
         break;
       }
     }
     rzl.addDiv(output,{content:"Found : " + text});
-    console.log(it)
+    console.log(item)
   },
 
   // update the ui based on region
   applyRegion: function() {
     // "this" is module - nord.cartography
-    // console.log(nord.data)
-    let uiData = nord.data.cartography;
-    let fields = uiData.fields;
-    let rollData = uiData.rollData;
+    const fields = nord.state.cartography.fields,
+          rootNode = nord.state.cartography.rootNode,
+          rollState = nord.state.cartography.rollState,
+          region = this.regions[fields.region.selectedIndex],
+          potionBox = rzl.findChild(rootNode,"div","potionBox");
 
-    let region = this.regions[fields.region.selectedIndex];
-
-    // potion checkbox
-    let potionBox = rzl.findChild(uiData.rootNode,"div","potionBox");
     if (region.risk && region.risk.pchance) {
       potionBox.classList.remove("rzl-hidden");
       potionBox.firstChild.innerHTML = region.risk.potion + " Potion:";
@@ -444,8 +437,7 @@ nord.cartography = {
     }
 
     // mutations
-    let adv = {};
-    let dis = {};
+    const adv = {}, dis = {};
     region.advantages.forEach((m) => {
       adv[m] = this.mutations[m].name;
     });
@@ -469,8 +461,8 @@ nord.cartography = {
       this.form = rzl.findChild(this.rootNode, "form", "arena-form");
       this.fields = rzl.getFormFields(this.form);
       this.output = rzl.findChild(this.rootNode, "div", "output");
-      this.stats = rzl.findChild(this.rootNode, "div", "stats");
-      this.rollData = {};
+      this.statsout = rzl.findChild(this.rootNode, "div", "statsout");
+      this.rollState = { region : {}, risk : {}, stats : {} };
 
       this.optsRegion = rzl.getSelectOptionsFromKeyInObjectsInArray(nord.cartography.regions, "name");
       rzl.setSelOpts(this.fields.region, this.optsRegion);
@@ -494,89 +486,88 @@ nord.cartography = {
   regionChange: function(ev) {
     nord.cartography.applyRegion();
   },
-};
 
 
 
 
-// ======================================================================
-// SECTION: Definitions
+  // ======================================================================
+  // SECTION: Definitions
 
-nord.uiDefs.cartography = {
-  meta: {
-    name: "cartography",
-    domain: "nord",
-    data: "data",
-    pnode: "norduiBox",
-    builtCB: "nord.cartography.built",
-    displayedCB: "nord.cartography.displayed",
-  },
-  view: {
-    style: {
-      margin:"auto",
-      display:"flex",
-      "flex-flow":"column nowrap",
-      "align-items":"center",
+  uiDef : {
+    meta: {
+      name: "cartography",
+      domain: "nord",
+      pnode: "norduiBox",
+      builtCB: "nord.cartography.built",
+      displayedCB: "nord.cartography.displayed",
     },
-    children: [
-      {tag:"h2",class:"title",content:"Cartography Roller"},
-      {tag:"form",id:"arena-form",class:"rzl-form",children:[
-        {class:"rzl-form-row",children:[
-          {class:"rzl-form-item",children:[
-            {tag:"label",content:"Region:",props:{for:"region"}},
-            {tag:"select",id:"region",events:{change:"nord.cartography.regionChange"}}
+    view: {
+      style: {
+        margin:"auto",
+        display:"flex",
+        "flex-flow":"column nowrap",
+        "align-items":"center",
+      },
+      children: [
+        {tag:"h1",class:"title",content:"Cartography Roller"},
+        {tag:"form",id:"arena-form",class:"rzl-form",children:[
+          {class:"rzl-form-row",children:[
+            {class:"rzl-form-item",children:[
+              {tag:"label",content:"Region:",props:{htmlFor:"region"}},
+              {tag:"select",id:"region",events:{change:"nord.cartography.regionChange"}}
+            ]},
+            {class:"rzl-form-item",children:[
+              {tag:"label",content:"Horse:",props:{htmlFor:"horse"}},
+              {tag:"select",id:"horse"}
+            ]}
           ]},
-          {class:"rzl-form-item",children:[
-            {tag:"label",content:"Horse:",props:{for:"horse"}},
-            {tag:"select",id:"horse"}
-          ]}
+          {class:"rzl-form-row",children:[
+            // 15% chance boost
+            {class:"rzl-form-item",children:[
+              {tag:"label",content:"Group Horse:",props:{htmlFor:"group"}},
+              {tag:"input",id:"group",props:{type:"checkbox"}}
+            ]},
+            // 20% chance boost
+            {class:"rzl-form-item",children:[
+              {tag:"label",content:"Compass:",props:{htmlFor:"compass"}},
+              {tag:"input",id:"compass",props:{type:"checkbox"}}
+            ]},
+            // risk reduction
+            {id:"potionBox",class:"rzl-form-item rzl-hidden",children:[
+              {tag:"label",content:"Potion:",props:{htmlFor:"potion"}},
+              {tag:"input",id:"potion",props:{type:"checkbox"}}
+            ]},
+          ]},
+          {class:"rzl-form-row",children:[
+            // +1 item
+            {class:"rzl-form-item",children:[
+              {tag:"label",content:"Falcon/Raptor:",props:{htmlFor:"falrap"}},
+              {tag:"input",id:"falrap",props:{type:"checkbox"}}
+            ]},
+            // tier chance boost
+            {class:"rzl-form-item",children:[
+              {tag:"label",content:"Binoculars:",props:{htmlFor:"binoculars"}},
+              {tag:"input",id:"binoculars",props:{type:"checkbox"}}
+            ]},
+          ]},
+          {class:"rzl-form-row",children:[
+            {class:"rzl-form-item",children:[
+              {tag:"label",content:"Advantages:",props:{htmlFor:"advantages"}},
+              {tag:"select",id:"advantages",props:{multiple:true},style:{"max-height":"32px"}}
+            ]},
+            {class:"rzl-form-item",children:[
+              {tag:"label",content:"Disadvantages:",props:{htmlFor:"disadvantages"}},
+              {tag:"select",id:"disadvantages",props:{multiple:true},style:{"max-height":"32px"}}
+            ]},
+          ]},
+          {class:"rzl-form-row",children:[
+            {tag:"button",id:"btnRoll",class:"rzl-btn",content:"Roll",
+              events:{click:"nord.cartography.rollClick"},props:{type:"button"}},
+          ]},
         ]},
-        {class:"rzl-form-row",children:[
-          // 15% chance boost
-          {class:"rzl-form-item",children:[
-            {tag:"label",content:"Group Horse:",props:{for:"group"}},
-            {tag:"input",id:"group",props:{type:"checkbox"}}
-          ]},
-          // 20% chance boost
-          {class:"rzl-form-item",children:[
-            {tag:"label",content:"Compass:",props:{for:"compass"}},
-            {tag:"input",id:"compass",props:{type:"checkbox"}}
-          ]},
-          // risk reduction
-          {id:"potionBox",class:"rzl-form-item rzl-hidden",children:[
-            {tag:"label",content:"Potion:",props:{for:"potion"}},
-            {tag:"input",id:"potion",props:{type:"checkbox"}}
-          ]},
-        ]},
-        {class:"rzl-form-row",children:[
-          // +1 item
-          {class:"rzl-form-item",children:[
-            {tag:"label",content:"Falcon/Raptor:",props:{for:"falrap"}},
-            {tag:"input",id:"falrap",props:{type:"checkbox"}}
-          ]},
-          // tier chance boost
-          {class:"rzl-form-item",children:[
-            {tag:"label",content:"Binoculars:",props:{for:"binoculars"}},
-            {tag:"input",id:"binoculars",props:{type:"checkbox"}}
-          ]},
-        ]},
-        {class:"rzl-form-row",children:[
-          {class:"rzl-form-item",children:[
-            {tag:"label",content:"Advantages:",props:{for:"advantages"}},
-            {tag:"select",id:"advantages",props:{multiple:true},style:{"max-height":"32px"}}
-          ]},
-          {class:"rzl-form-item",children:[
-            {tag:"label",content:"Disadvantages:",props:{for:"disadvantages"}},
-            {tag:"select",id:"disadvantages",props:{multiple:true},style:{"max-height":"32px"}}
-          ]},
-        ]},
-        {class:"rzl-form-row",children:[
-          {tag:"button",id:"btnRoll",class:"rzl-btn",content:"Roll",
-            events:{click:"nord.cartography.rollClick"},props:{type:"button"}},
-        ]},
-      ]},
-      {id:"output",class:"rzl-hidden",style:{"text-align":"center"}},
-      {id:"stats",class:"rzl-hidden",style:{"text-align":"center"}}
-    ]
-  }
+        {id:"output",class:"rzl-hidden",style:{"text-align":"center"}},
+        {id:"statsout",class:"rzl-hidden",style:{"text-align":"center"}}
+      ]
+    }
+  },
 };
