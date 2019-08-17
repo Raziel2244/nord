@@ -1,100 +1,95 @@
 nord.breeding = {
   // details of possible horse genes
-  geneData: {
-    agouti: {
-      rgx: /\b(A\+|At|A|a)(A\+|At|A|a)/,
-      sort: ["A+","At","A","a"],
+  geneData : {
+    agouti : {
+      rgx  : /\b(A\+|At|A|a)(A\+|At|A|a)\b/,
+      sort : ["A+","At","A","a"],
     },
-    black: {
-      rgx: /\b(E|e)(E|e)/,
-      sort: ["E","e"],
+    appaloosa : {
+      rgx  : /\b(Lp|n)(Lp)\b/,
+      sort : ["n","Lp"],
     },
-    champagne: {
-      rgx: /\b(Ch|n)(Ch)/,
-      sort: ["n","Ch"],
+    black : {
+      rgx  : /\b(E|e)(E|e)\b/,
+      sort : ["E","e"],
     },
-    cream: {
-      rgx: /\b(Cr|n)(Cr)/,
-      sort: ["n","Cr"],
+    champagne : {
+      rgx  : /\b(Ch|n)(Ch)\b/,
+      sort : ["n","Ch"],
     },
-    dun: {
-      rgx: /\b(D|n)(D)/,
-      sort: ["n","D"],
+    cream : {
+      rgx  : /\b(Cr|n)(Cr)\b/,
+      sort : ["n","Cr"],
     },
-    flaxen: {
-      rgx: /\b(f|n)(f)/,
-      sort: ["n","f"],
+    dun : {
+      rgx  : /\b(D|n)(D)\b/,
+      sort : ["n","D"],
     },
-    grey: {
-      rgx: /\b(G|n)(G)/,
-      sort: ["n","G"],
+    flaxen : {
+      rgx  : /\b(f|n)(f)\b/,
+      sort : ["n","f"],
     },
-    overo: {
-      rgx: /\b(O|n)(O)/,
-      sort: ["n","O"],
+    grey : {
+      rgx  : /\b(G|n)(G)\b/,
+      sort : ["n","G"],
     },
-    pangare: {
-      rgx: /\b(P|n)(P)/,
-      sort: ["n","P"],
+    overo : {
+      rgx  : /\b(O|n)(O)\b/,
+      sort : ["n","O"],
     },
-    pearl: {
-      rgx: /\b(prl|n)(prl)/,
-      sort: ["n","prl"],
+    pangare : {
+      rgx  : /\b(P|n)(P)\b/,
+      sort : ["n","P"],
     },
-    rabicano: {
-      rgx: /\b(Rb|n)(Rb)/,
-      sort: ["n","Rb"],
+    pearl : {
+      rgx  : /\b(prl|n)(prl)\b/,
+      sort : ["n","prl"],
     },
-    roan: {
-      rgx: /\b(R|n)(R)/,
-      sort: ["n","R"],
+    rabicano : {
+      rgx  : /\b(Rb|n)(Rb)\b/,
+      sort : ["n","Rb"],
     },
-    sabino: {
-      rgx: /\b(Sb|n)(Sb)/,
-      sort: ["n","Sb"],
+    roan : {
+      rgx  : /\b(R|n)(R)\b/,
+      sort : ["n","R"],
     },
-    silver: {
-      rgx: /\b(Z|n)(Z)/,
-      sort: ["n","Z"],
+    sabino : {
+      rgx  : /\b(Sb|n)(Sb)\b/,
+      sort : ["n","Sb"],
     },
-    sooty: {
-      rgx: /\b(Sty|n)(Sty)/,
-      sort: ["n","Sty"],
+    silver : {
+      rgx  : /\b(Z|n)(Z)\b/,
+      sort : ["n","Z"],
     },
-    splash: {
-      rgx: /\b(Spl|n)(Spl)/,
-      sort: ["n","Spl"],
+    sooty : {
+      rgx  : /\b(Sty|n)(Sty)\b/,
+      sort : ["n","Sty"],
     },
-    tobiano: {
-      rgx: /\b(Tb|n)(Tb)/,
-      sort: ["n","Tb"],
+    splash : {
+      rgx  : /\b(Spl|n)(Spl)\b/,
+      sort : ["n","Spl"],
     },
-    white: {
-      rgx: /\b(W|n)(W)/,
-      sort: ["n","W"],
+    tobiano : {
+      rgx  : /\b(Tb|n)(Tb)\b/,
+      sort : ["n","Tb"],
     },
-    pumpkin: {
-      month: [8,9,10],
-      rgx: /\b(Pkn|n)(Pkn)/,
-      sort: ["n","Pkn"],
+    white : {
+      rgx  : /\b(W|n)(W)\b/,
+      sort : ["n","W"],
     },
-    eggnog: {
-      month: [10,11,0,1],
-      rgx: /\b(Nog|n)(Nog)/,
-      sort: ["n","Nog"],
-    },
-    test: {
-      rgx: /\b(Z|n)(Z)/,
-      sort: ["n","Z"],
+    test : {
+      rgx  : /\b(Z|n)(Z)\b/,
+      sort : ["n","Z"],
     },
   },
 
-  geneSets: {
-    common: [
+  // groups of genes to be rolled
+  geneSets : {
+    common  : [
       "black",
       "agouti"
     ],
-    dilutes: [
+    dilutes : [
       "champagne",
       "sooty",
       "silver",
@@ -106,7 +101,7 @@ nord.breeding = {
       "pearl",
       "flaxen",
     ],
-    whites: [
+    whites  : [
       "sabino",
       "tobiano",
       "rabicano",
@@ -114,77 +109,329 @@ nord.breeding = {
       "splash",
       "white"
     ],
-    potions: [
+    potions : [
       "",
     ],
-    mutations: [
+    // mutations: [
+    //   "agis",
+    //   "angler",
+    //   "atlanticus",
+    //   "bloodsplash",
+    //   "butterfly",
+    //   "candycane",
+    //   "carved",
+    //   "cemophora",
+    //   "checkered",
+    //   "christmasbells",
+    //   "christmaslights",
+    //   "cloudedleopard",
+    //   "eggnog",
+    //   "emblem",
+    //   "fawn",
+    //   "flametouched",
+    //   "frostsplash",
+    //   "glimmer",
+    //   "griffinstouch",
+    //   "henna",
+    //   "hummingbird",
+    //   "inkspill",
+    //   "jaguar",
+    //   "kascel",
+    //   "lacedtobiano",
+    //   "mandarin",
+    //   "masquerade",
+    //   "moulin",
+    //   "panda",
+    //   "peafowl",
+    //   "pumpkin",
+    //   "snowdripple",
+    //   "snowglobe",
+    //   "stainedglass",
+    //   "tabby",
+    //   "tiger",
+    //   "tigerroan",
+    //   "universe",
+    //   "wooded",
+    //   "zebra",
+    // ],
+  },
+
+  // list of all appaloosa patterns
+  patterns : [
+    "nopatn",
+    "patn1",
+    "patn2",
+    "varn",
+    "snow",
+    "frost",
+    "fall",
+  ],
+
+  // details of different mutations
+  mutationData : {
+    agis : {
+      rgx  : /\b(Ags|n)(Ags)\b/,
+      sort : ["n","Ags"]
+    },
+    angler : {
+      rgx  : /\b(Ang|n)(Ang)\b/,
+      sort : ["n","Ang"]
+    },
+    atlanticus : {
+      rgx  : /\b(Atl|n)(Atl)\b/,
+      sort : ["n","Atl"]
+    },
+    bloodsplash : {
+      rgx  : /\b(Bsh|n)(Bsh)\b/,
+      sort : ["n","Bsh"]
+    },
+    butterfly : {
+      rgx  : /\b(Bp|n)(Bp)\b/,
+      sort : ["n","Bp"]
+    },
+    candycane : {
+      rgx  : /\b(Cnd|n)(Cnd)\b/,
+      sort : ["n","Cnd"]
+    },
+    carved : {
+      rgx  : /\b(Crv|n)(Crv)\b/,
+      sort : ["n","Crv"]
+    },
+    cemophora : {
+      rgx  : /\b(Cmp|n)(Cmp)\b/,
+      sort : ["n","Cmp"]
+    },
+    checkered : {
+      rgx  : /\b(Cc|n)(Cc)\b/,
+      sort : ["n","Cc"]
+    },
+    christmasbells : {
+      rgx  : /\b(Bls|n)(Bls)\b/,
+      sort : ["n","Bls"]
+    },
+    christmaslights : {
+      rgx  : /\b(Lht|n)(Lht)\b/,
+      sort : ["n","Lht"]
+    },
+    cloudedleopard : {
+      rgx  : /\b(Cd|n)(Cd)\b/,
+      sort : ["n","Cd"]
+    },
+    eggnog : {
+      month : [10,11,0,1],
+      rgx   : /\b(Nog|n)(Nog)\b/,
+      sort  : ["n","Nog"],
+    },
+    emblem : {
+      rgx  : /\b(Em|n)(Em)\b/,
+      sort : ["n","Em"]
+    },
+    fawn : {
+      rgx  : /\b(Fwn|n)(Fwn)\b/,
+      sort : ["n","Fwn"]
+    },
+    flametouched : {
+      rgx  : /\b(Flm|n)(Flm)\b/,
+      sort : ["n","Flm"]
+    },
+    frostsplash : {
+      rgx  : /\b(Fspl|n)(Fspl)\b/,
+      sort : ["n","Fspl"]
+    },
+    glimmer : {
+      rgx  : /\b(Glm|Glm\^r|n)(Glm|Glm\^r)\b/,
+      sort : ["n","Glm","Glm\^r"]
+    },
+    griffinstouch : {
+      rgx  : /\b(Gft|n)(Gft)\b/,
+      sort : ["n","Gft"]
+    },
+    henna : {
+      rgx  : /\b(Hn|n)(Hn)\b/,
+      sort : ["n","Hn"]
+    },
+    hummingbird : {
+      rgx  : /\b(Hmg|n)(Hmg)\b/,
+      sort : ["n","Hmg"]
+    },
+    inkspill : {
+      rgx  : /\b(Iks|n)(Iks)\b/,
+      sort : ["n","Iks"]
+    },
+    jaguar : {
+      rgx  : /\b(Ja|n)(Ja)\b/,
+      sort : ["n","Ja"]
+    },
+    kascel : {
+      rgx  : /\b(Kc|n)(Kc)\b/,
+      sort : ["n","Kc"]
+    },
+    lacedtobiano : {
+      rgx  : /\b(Tl|n)(Tl)\b/,
+      sort : ["n","Tl"]
+    },
+    mandarin : {
+      rgx  : /\b(Mnd|n)(Mnd)\b/,
+      sort : ["n","Mnd"]
+    },
+    masquerade : {
+      rgx  : /\b(Msq|n)(Msq)\b/,
+      sort : ["n","Msq"]
+    },
+    moulin : {
+      rgx  : /\b(M|n)(M)\b/,
+      sort : ["n","M"]
+    },
+    panda : {
+      rgx  : /\b(Pan|n)(Pan)\b/,
+      sort : ["n","Pan"]
+    },
+    peafowl : {
+      rgx  : /\b(Pwl|n)(Pwl)\b/,
+      sort : ["n","Pwl"]
+    },
+    pumpkin : {
+      month : [8,9,10],
+      rgx   : /\b(Pkn|n)(Pkn)\b/,
+      sort  : ["n","Pkn"],
+    },
+    snowdripple : {
+      rgx  : /\b(Sd|n)(Sd)\b/,
+      sort : ["n","Sd"]
+    },
+    snowglobe : {
+      rgx  : /\b(Glb|n)(Glb)\b/,
+      sort : ["n","Glb"]
+    },
+    stainedglass : {
+      rgx  : /\b(Sgl|n)(Sgl)\b/,
+      sort : ["n","Sgl"]
+    },
+    tabby : {
+      rgx  : /\b(Ty|n)(Ty)\b/,
+      sort : ["n","Ty"]
+    },
+    tiger : {
+      rgx  : /\b(Ti|n)(Ti)\b/,
+      sort : ["n","Ti"]
+    },
+    tigerroan : {
+      rgx  : /\b(Tr|n)(Tr)\b/,
+      sort : ["n","Tr"]
+    },
+    universe : {
+      rgx  : /\b(Unv|n)(Unv)\b/,
+      sort : ["n","Unv"]
+    },
+    wooded : {
+      rgx  : /\b(Wd|n)(Wd)\b/,
+      sort : ["n","Wd"]
+    },
+    zebra : {
+      rgx  : /\b(Ze|n)(Ze)\b/,
+      sort : ["n","Ze"]
+    },
+  },
+
+  // groups of mutations to be rolled
+  mutationSets : {
+    breedable : [
+      "pumpkin",
+      "eggnog"
+    ],
+    normal : [
+      "glimmer",
+      "snowglobe",
+      "mandarin",
       "agis",
       "angler",
       "atlanticus",
       "bloodsplash",
       "butterfly",
       "candycane",
-      "carved",
       "cemophora",
       "checkered",
       "christmasbells",
       "christmaslights",
       "cloudedleopard",
-      "eggnog",
-      "emblem",
       "fawn",
-      "flametouched",
       "frostsplash",
-      "glimmer",
       "griffinstouch",
-      "henna",
-      "hummingbird",
-      "inkspill",
       "jaguar",
       "kascel",
       "lacedtobiano",
-      "mandarin",
-      "masquerade",
       "moulin",
+      "masquerade",
       "panda",
       "peafowl",
-      "pumpkin",
       "snowdripple",
-      "snowglobe",
       "stainedglass",
       "tabby",
       "tiger",
       "tigerroan",
-      "universe",
-      "wooded",
       "zebra",
-    ],
-    test: [
-      "",
-    ],
+      "inkspill",
+      "carved",
+      "wooded",
+      "universe",
+      "hummingbird",
+      "henna",
+      "flametouched",
+      "emblem",
+    ]
   },
 
   // breeding potion data
-  potionData: [
-    { id: "none", name: "No Potion"       },
-    { id: "glch", name: "Glitch"          },
-    { id: "wrap", name: "Wrapping Paper"  },
-    { id: "cook", name: "Cookiedanner"    },
-    { id: "gold", name: "Pot 'o' Gold"    },
-    { id: "fire", name: "Firedapple"      },
-    { id: "grdn", name: "Guardian"        },
-    { id: "hndd", name: "Houndanner"      },
-    { id: "lava", name: "Lava"            },
-    { id: "pstl", name: "Pastel Dun"      },
-    { id: "atms", name: "Atmospherica"    }
+  potionData : [
+    { name : "No Potion"      },
+    { name : "Glitch"         },
+    { name : "Wrapping Paper" },
+    { name : "Cookiedanner"   },
+    { name : "Pot 'o' Gold"   },
+    { name : "Firedapple"     },
+    { name : "Guardian"       },
+    { name : "Houndanner"     },
+    { name : "Lava"           },
+    { name : "Pastel Dun"     },
+    { name : "Atmospherica"   }
   ],
 
-
-  Horse: class {
-    constructor(geno="") {
+  // Horse class for constructing Horse objects
+  Horse : class {
+    constructor(geno="",appy=[]) {
+      this._pheno = "", this._geno = "", this._genes = [], this._appaloosa=[];
       this.geno = geno;
-      this.genes = (geno=="") ? [] : geno.split(" ");
-      this.pheno = "PHENOTYPE";
+      this.appaloosa = appy;
+    }
+
+    get pheno() { return this._pheno; }
+    set pheno(pheno) { return false; }
+
+    get geno() { return this._geno; }
+    set geno(geno) {
+      if (!geno||typeof geno !== 'string') return false;
+      this._geno = geno;
+      this._genes = (geno == "") ? [] : geno.split(" ");
+      return true;
+    }
+
+    get genes() { return this._genes; }
+    set genes(genes) {
+      if (!genes||typeof genes !== 'array') return false;
+      this._genes = genes;
+      this._geno = genes.join(" ");
+    }
+
+    addGene(gene) {
+      if (!gene||typeof gene !== "string") return false;
+      this.genes = this._genes.push(gene);
+    }
+
+    isAppaloosa() { return this.geno.match(/\b(Lp|n)(Lp)\b/) ? true : false; }
+    get appaloosa() { return this._appaloosa; }
+    set appaloosa(appy) {
+      if (!appy||typeof appy !== 'object') return false;
+      this._appaloosa = appy;
     }
   },
 
@@ -195,19 +442,19 @@ nord.breeding = {
   // helper functions
 
   // called from breed button handler
-  breed: function() {
+  breed : function() {
     // 'this' is module - nord.breeding
     this.initBreed();
     try {
       const output = nord.state.breeding.output,
             twins = nord.state.breeding.breed.twins,
             foals = nord.state.breeding.breed.foals;
-      this.rollTwins();
+      this.rollTwinsChance();
       this.rollFoals();
 
       const join = (twins) ? "AND" : "OR",
-            str0 = "Geno: " + foals[0].geno + "<br>Colour: " + foals[0].pheno,
-            str1 = "Geno: " + foals[1].geno + "<br>Colour: " + foals[1].pheno,
+            str0 = "Geno: " + foals[0].geno + "<br>Pheno: " + foals[0].pheno,
+            str1 = "Geno: " + foals[1].geno + "<br>Pheno: " + foals[1].pheno,
             out = str0 + "<br>" + join + "<br>" + str1;
       rzl.addDiv(output,{content:out});
 
@@ -219,17 +466,21 @@ nord.breeding = {
   },
 
   // initialise breed data
-  initBreed: function() {
-    const fields = nord.state.breeding.fields,
-          breed = nord.state.breeding.breed;
+  initBreed : function() {
+    const breed = nord.state.breeding.breed,
+          fields = nord.state.breeding.fields,
+          siregeno = fields.siregeno.value,
+          sireappy = [fields.sirepatn1.value,fields.sirepatn2.value],
+          damgeno = fields.damgeno.value,
+          damappy = [fields.dampatn1.value,fields.dampatn2.value];
     rzl.destroyChildren(nord.state.breeding.output);
-    breed.sire = new this.Horse(fields.siregeno.value);
-    breed.dam = new this.Horse(fields.damgeno.value);
+    breed.sire = new this.Horse(siregeno,sireappy);
+    breed.dam = new this.Horse(damgeno,damappy);
     breed.foals = [new this.Horse(),new this.Horse()];
   },
 
   // roll for twins
-  rollTwins: function() {
+  rollTwinsChance: function() {
     const state = nord.state.breeding,
           potion = state.fields.luck2.checked;
           cap = 1000,
@@ -237,10 +488,10 @@ nord.breeding = {
           chance = (potion) ? 150 : 8,
     state.breed.twins = (rng <= chance) ? true : false;
     state.breed.stats.twins = {
-      potion : potion,
-      rng : rng,
-      chance : chance,
-      cap : cap,
+      potion  : potion,
+      rng     : rng,
+      chance  : chance,
+      cap     : cap,
       success : state.breed.twins
     };
     return state.breed.twins;
@@ -250,54 +501,122 @@ nord.breeding = {
   rollFoals: function() {
     const foals = nord.state.breeding.breed.foals;
     for (f in foals) {
-      this.rollSet(foals[f],"common");
-      this.rollSet(foals[f],"dilutes");
-      this.rollSet(foals[f],"whites");
-      // this.rollAppaloosa(foals[f]);
+      this.rollGeneSet(foals[f],"common");
+      this.rollGeneSet(foals[f],"dilutes");
+      this.rollGeneSet(foals[f],"whites");
+      this.rollAppaloosa(foals[f]);
+      this.rollMutations(foals[f]);
 
       foals[f].geno = foals[f].genes.join(" ");
     }
   },
 
   // roll set of genes for foal using geneSets[setName]
-  rollSet: function(foal,setName) {
+  rollGeneSet: function(foal,setName) {
     if (!foal || !setName) return false;
     const geneSet = this.geneSets[setName];
-    // geneSet.forEach(function(geneName) { this.rollGene(foal,geneName) });
     for (g in geneSet) this.rollGene(foal,geneSet[g]);
   },
   // roll gene for foal using geneData[geneName]
   rollGene: function(foal,geneName) {
     if (!foal || !geneName) return false;
-    const breed = nord.state.breeding.breed;
-
-    const geneData = this.geneData[geneName];
-    const rgx = geneData.rgx;
-    const sort = geneData.sort;
+    const breed = nord.state.breeding.breed,
+          geneData = this.geneData[geneName],
+          rgx = geneData.rgx,
+          sort = geneData.sort;
 
     // gather parent and roll foal genes
-    const sireGene = this.matchGenes(breed.sire.geno,rgx);
-    const damGene = this.matchGenes(breed.dam.geno,rgx);
+    let sireGene = this.matchGenes(breed.sire.geno,rgx);
+    let damGene = this.matchGenes(breed.dam.geno,rgx);
 
-    // in case of error push unknown
-    if (!sireGene || !damGene) {
-      if (geneName==="agouti") foal.genes.push("??");
-      return;
+    // handle specific needs for certain genes
+    if (geneName === "agouti") {
+      // in case of error push unknown
+      // is this needed? found in old breeder - Elliot(Raziel)
+      if (!sireGene||!damGene) { foal.genes.push("??");return; }
+    } else {
+      if (!sireGene) sireGene = ["n","n"];
+      if (!damGene) damGene = ["n","n"];
     }
 
-    // roll a random gene from each of the parent genes
-    const sireIndex = rzl.rng0to(sireGene.length-1);
-    const damIndex = rzl.rng0to(damGene.length-1);
-    let foalGene = [sireGene[sireIndex],damGene[damIndex]];
-
-    // if sort parameter is present then sort the parts
-    if (sort) foalGene.sort((a,b) => {return sort.indexOf(a) - sort.indexOf(b);});
+    let foalGene = this.finalisePart(sireGene,damGene,sort);
 
     // join the parts together into gene
     foalGene = foalGene.join("");
 
-    // push gene to foal data
-    if (foalGene!=="nn") foal.genes.push(foalGene);
+    // if gene true, push gene to foal data and return
+    // if (foalGene!=="nn") return foal.genes.push(foalGene);
+    if (foalGene!=="nn") return foal.addGene(foalGene);
+    else return false;
+  },
+  // roll appaloosa gene and markings
+  rollAppaloosa: function(foal) {
+    if (!foal) return false;
+
+    // roll appaloosa gene and update foal.isAppaloosa
+    this.rollGene(foal,"appaloosa");
+
+    // return now if foal not appaloosa
+    if (foal.isAppaloosa) {
+      const sort = ["patn1","patn2","varn","snow","frost","fall","nopatn"],
+            sireappy = nord.state.breeding.breed.sire.appaloosa,
+            damappy = nord.state.breeding.breed.dam.appaloosa;
+      foal.appaloosa = this.finalisePart(sireappy,damappy,sort);
+    }
+  },
+  //
+  rollMutations : function(foal) {
+    if (!foal) return false;
+
+    const siregeno = nord.state.breeding.breed.sire.geno,
+          damgeno = nord.state.breeding.breed.dam.geno;
+
+    // breedables
+    for (let m in this.mutationSets.breedable) {
+      const mut = this.mutationSets.breedable[m],
+            sort = this.mutationData[mut].sort,
+            rgx = this.mutationData[mut].rgx,
+            rng = rzl.rng1to(1000),
+            curDate = new Date(),
+            curMonth = curDate.getMonth(),
+            mutMonth = this.mutationData[mut].month;
+      let sireGene = this.matchGenes(siregeno,rgx),
+          damGene = this.matchGenes(damgeno,rgx);
+      if (sireGene||damGene) {
+        if (mutMonth.includes(curMonth)||rng===1) {
+          if (!sireGene) sireGene = ["n","n"];
+          if (!damGene) damGene = ["n","n"];
+          let foalGene = this.finalisePart(sireGene,damGene,sort);
+          foalGene = foalGene.join("");
+          if (foalGene!=="nn") foal.addGene(foalGene);
+        }
+      } else if (mutMonth.includes(curMonth)&&rng<=47) {
+        foal.addGene(sort.join(""));
+      }
+    }
+
+    // normal
+    for (let m in this.mutationSets.normal) {
+      const mut = this.mutationSets.normal[m],
+            sort = this.mutationData[mut].sort,
+            rgx = this.mutationData[mut].rgx;
+      let sireGene = this.matchGenes(siregeno,rgx),
+          damGene = this.matchGenes(damgeno,rgx);
+      if (!sireGene) sireGene = ["n","n"];
+      if (!damGene) damGene = ["n","n"];
+      if (mut === "glimmer") {
+        const rng = rzl.rng1to(10000),
+              x = rzl.rng1to(100),
+              rad = (((sireGene.includes("Glm^r")||damGene.includes("Glm^r"))&&x<=50)||rng<=80),
+              gfrom = rad ? "Glm" : "Glm^r",
+              gto = rad ? "Glm^r" : "Glm";
+        while (sireGene.includes(gfrom)) {sireGene[sireGene.indexOf(gfrom)]=gto;}
+        while (damGene.includes(gfrom)) {damGene[damGene.indexOf(gfrom)]=gto;}
+      }
+      let foalGene = this.finalisePart(sireGene,damGene,sort);
+      foalGene = foalGene.join("");
+      if (foalGene!=="nn") foal.addGene(foalGene);
+    }
   },
   // get gene array from given geno using given regexp
   matchGenes: function(geno,rgx) {
@@ -306,22 +625,17 @@ nord.breeding = {
     if (!match) return false;
     return [match[1],match[2]];
   },
-  // //
-  // rollAppaloosa: function(foal) {
-  //   if (!foal || !geneName) return false;
-  //   const breedData = this.state.breed;
-  //
-  //   const rgx = ;
-  //   const sort = ;
-  // },
-  // appaloosa: {
-  //   rgx: /\b(Lp|n)(Lp)/,
-  //   sort: ["n","Lp"],
-  // },
-  // appymarks: {
-  //   rgx: /(patn1|patn2|snow|roan|frost|ZfallZ)(patn1|patn2|snow|roan|frost|ZfallZ)|(patn1|patn2|snow|roan|frost|ZfallZ)/,
-  //   sort: ["patn1","patn2","snow","roan","frost","ZfallZ"],
-  // },
+  finalisePart: function(sirepart,dampart,sort) {
+    // roll a random gene from each of the parent genes
+    const sireIndex = rzl.rng0to(sirepart.length-1),
+          damIndex = rzl.rng0to(dampart.length-1);
+    let foalpart = [sirepart[sireIndex],dampart[damIndex]];
+
+    // if sort parameter is present then sort the parts
+    if (sort) foalpart.sort((a,b) => {return sort.indexOf(a) - sort.indexOf(b);});
+
+    return foalpart;
+  },
 
 
   // ======================================================================
@@ -336,8 +650,17 @@ nord.breeding = {
       this.fields = rzl.getFormFields(this.form);
       this.output = rzl.findChild(this.rootNode,"div","output");
       this.breed = { stats : {} };
+      // this.patterns = {};
+      // for (let p in nord.breeding.patterns) {
+        // this.patterns
+      // }
 
+      // this.patterns = rzl.getSelectOptionsFromKeyInObjectsInArray(nord.breeding.patterns,"name");
       this.potions = rzl.getSelectOptionsFromKeyInObjectsInArray(nord.breeding.potionData,"name");
+      rzl.setSelOpts(this.fields.sirepatn1,nord.breeding.patterns);
+      rzl.setSelOpts(this.fields.sirepatn2,nord.breeding.patterns);
+      rzl.setSelOpts(this.fields.dampatn1,nord.breeding.patterns);
+      rzl.setSelOpts(this.fields.dampatn2,nord.breeding.patterns);
       rzl.setSelOpts(this.fields.sirebp1,this.potions);
       rzl.setSelOpts(this.fields.sirebp2,this.potions);
       rzl.setSelOpts(this.fields.dambp1,this.potions);
@@ -384,6 +707,10 @@ nord.breeding = {
               {tag:"input",id:"siregeno",props:{type:"text"}}
             ]},
             {class:"rzl-form-item",children: [
+              {tag:"select",class:"itemWidth",id:"sirepatn1"},
+              {tag:"select",class:"itemWidth",id:"sirepatn2"}
+            ]},
+            {class:"rzl-form-item",children: [
               {tag:"select",class:"itemWidth",id:"sirebp1"},
               {tag:"select",class:"itemWidth",id:"sirebp2"}
             ]},
@@ -392,6 +719,10 @@ nord.breeding = {
             {class:"rzl-form-item",children: [
               {tag:"label",content:"Dam :",props:{for:"damgeno"}},
               {tag:"input",id:"damgeno",props:{type:"text"}}
+            ]},
+            {class:"rzl-form-item",children: [
+              {tag:"select",class:"itemWidth",id:"dampatn1"},
+              {tag:"select",class:"itemWidth",id:"dampatn2"}
             ]},
             {class:"rzl-form-item",children: [
               {tag:"select",class:"itemWidth",id:"dambp1"},
@@ -414,7 +745,8 @@ nord.breeding = {
             },props:{type:"button"}},
           ]}
         ]},
-        {id:"output",class:"rzl-hidden",style:{"text-align":"center"}}
+        {id:"output",class:"rzl-hidden",style:{"text-align":"center"}},
+        {id:"statsout",class:"rzl-hidden",style:{"text-align":"center"}}
       ]
     },
   },
