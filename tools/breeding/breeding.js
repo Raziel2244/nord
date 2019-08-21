@@ -30,7 +30,7 @@ nord.breeding = {
   },
 
   // list of all appaloosa patterns
-  patterns : [ "nopatn", "patn1", "patn2", "varn", "snow", "frost", "fall" ],
+  patterns : [ "", "patn1", "patn2", "varn", "snow", "frost", "fall" ],
 
   // details of different mutations
   mutationData : {
@@ -337,7 +337,7 @@ nord.breeding = {
               "Gold Cream Champagne Dun",
               "Gold Champagne Dun",
               "Cremello Champagne",
-              "Gold Champagne",
+              "Gold Cream Champagne",
               "Cremello Dun",
               "Dunalino",
               "Chestnut Pearl",
@@ -484,7 +484,7 @@ nord.breeding = {
                   phenoStrings[index] = bases[base][7];
                 break;
 
-                case (/[nR]R/.test(horse.geno)):
+                case (/[nR]R\s/.test(horse.geno)):
                   phenoStrings.splice(phenoStrings.indexOf("Roan"),1);
                   index = phenoStrings.indexOf(base);
                   phenoStrings[index] = bases[base][8];
@@ -744,6 +744,7 @@ nord.breeding = {
       let genes = this.genes;
       genes.push(gene);
       this.genes = genes;
+      return gene;
     }
 
     isAppaloosa() { return this.geno.test(/\b(?:n|Lp)Lp\b/); }
@@ -784,8 +785,10 @@ nord.breeding = {
       this.rollFoals();
 
       const join = (twins) ? "AND" : "OR",
-            str0 = "Geno: " + foals[0].geno + "<br>Pheno: " + foals[0].pheno,
-            str1 = "Geno: " + foals[1].geno + "<br>Pheno: " + foals[1].pheno,
+            str0 = "Geno: " + foals[0].geno + "<br>Pheno: " + foals[0].pheno +
+            "( " + foals[0].appaloosa.join(" ") + " )",
+            str1 = "Geno: " + foals[1].geno + "<br>Pheno: " + foals[1].pheno +
+            "( " + foals[1].appaloosa.join(" ") + " )",
             out = str0 + "<br>" + join + "<br>" + str1;
       rzl.addDiv(output,{content:out});
 
@@ -892,14 +895,30 @@ nord.breeding = {
     if (!foal) return false;
 
     // roll appaloosa gene and update foal.isAppaloosa
-    this.rollGene(foal,"appaloosa");
+    const gene = this.rollGene(foal,"appaloosa");
 
     // return now if foal not appaloosa
     if (foal.isAppaloosa) {
-      const sort = ["patn1","patn2","varn","snow","frost","fall","nopatn"],
+      const sort = ["patn1","patn2","varn","snow","frost","fall"],
             sireappy = nord.state.breeding.breed.sire.appaloosa,
             damappy = nord.state.breeding.breed.dam.appaloosa;
-      foal.appaloosa = this.finalisePart(sireappy,damappy,sort);
+      if (sireappy[0] && sireappy[1]) {
+        if (damappy[0] && damappy[1]) {
+          foal.appaloosa = this.finalisePart(sireappy,damappy,sort);
+        } else {
+          console.log(gene)
+          if (gene === "LpLp") {
+            let newdam = [damappy[0],damappy[0]];
+            foal.appaloosa = this.finalisePart(sireappy,newdam,sort);
+          } else { foal.appaloosa = [sireappy[rzl.rng0to(1)],""]; }
+        }
+      } else {
+        if (gene === "LpLp") {
+          let newsire = [sireappy[0],sireappy[0]];
+          foal.appaloosa = this.finalisePart(newsire,damappy,sort);
+        } else { foal.appaloosa = [damappy[rzl.rng0to(1)],""]; }
+      }
+
     }
   },
   // roll mutations
@@ -1000,9 +1019,6 @@ nord.breeding = {
       rzl.setSelOpts(this.fields.dambp1,nord.breeding.potionData);
       rzl.setSelOpts(this.fields.dambp2,nord.breeding.potionData);
       // console.log(this.fields.sirebp1.selectedIndex)
-
-      this.fields.siregeno.value = "Ee AtA ";
-      this.fields.damgeno.value = "ee A+a ";
     } catch (e) {
       console.error(e);return;
     }
@@ -1087,3 +1103,6 @@ nord.breeding = {
     },
   },
 };
+
+
+// rabicano throws roan in, look for R NOT FOLLOWED BY B
