@@ -23,27 +23,27 @@ nord.arena = {
 
   // items for sneak-o-matic and cache
   items : [
-    {name:"RNG trait",           group:"bazaar",  count:"5"},
-    {name:"Roaning triturate",   group:"bazaar",  count:"5"},
-    {name:"+1 mutation slot",    group:"bazaar",  count:"5"},
-    {name:"+1 natural slot",     group:"bazaar",  count:"5"},
-    {name:"Luck potion 1",       group:"bazaar",  count:"5"},
-    {name:"Luck potion 2",       group:"bazaar",  count:"5"},
-    {name:"Potion choice",       group:"bazaar",  count:"5"},
-    {name:"Semi custom import",  group:"bazaar",  count:"2"},
-    {name:"A touch of glimmer",  group:"bazaar",  count:"1"},
-    {name:"Pretty plump pumpkin",group:"bazaar",  count:"100",season:{month:[9,10,11]}},
-    {name:"Glass full of eggnog",group:"bazaar",  count:"100",season:{month:[1,11,12]}},
-    {name:"Future glimpse",      group:"bazaar",  count:"1"},
+    { name:"RNG trait",            group:"bazaar", count:"5" },
+    { name:"Roaning triturate",    group:"bazaar", count:"5" },
+    { name:"+1 mutation slot",     group:"bazaar", count:"5" },
+    { name:"+1 natural slot",      group:"bazaar", count:"5" },
+    { name:"Luck potion 1",        group:"bazaar", count:"5" },
+    { name:"Luck potion 2",        group:"bazaar", count:"5" },
+    { name:"Potion choice",        group:"bazaar", count:"5" },
+    { name:"Semi custom import",   group:"bazaar", count:"2" },
+    { name:"A touch of glimmer",   group:"bazaar", count:"1" },
+    { name:"Pretty plump pumpkin", group:"bazaar", count:"100", season:{ month:[9,10,11] } },
+    { name:"Glass full of eggnog", group:"bazaar", count:"100", season:{ month:[1,11,12] } },
+    { name:"Future glimpse",       group:"bazaar", count:"1" },
 
-    {name:"Sneak-O-Matic",       group:"barracks",count:"3"},
-    {name:"Time travel token",   group:"barracks",count:"3"},
-    {name:"Enchanted armour",    group:"barracks",count:"1"},
-    {name:"Enchanted sword",     group:"barracks",count:"3"},
-    {name:"Hound familiar",      group:"barracks",count:"1"},
-    {name:"Battle cry buff",     group:"barracks",count:"3"},
-    {name:"Live bait x30",       group:"barracks",count:"3"},
-    {name:"Energy boost",        group:"barracks",count:"3"},
+    { name:"Sneak-O-Matic",     group:"barracks", count:"3" },
+    { name:"Time travel token", group:"barracks", count:"3" },
+    { name:"Enchanted armour",  group:"barracks", count:"1" },
+    { name:"Enchanted sword",   group:"barracks", count:"3" },
+    { name:"Hound familiar",    group:"barracks", count:"1" },
+    { name:"Battle cry buff",   group:"barracks", count:"3" },
+    { name:"Live bait x30",     group:"barracks", count:"3" },
+    { name:"Energy boost",      group:"barracks", count:"3" },
   ],
 
   // ======================================================================
@@ -73,7 +73,7 @@ nord.arena = {
             bazaar : rzl.arrayForCountInObjectsInArrayFilter(nord.arena.items,"count",{key:"group",value:"bazaar"}),
             barracks : rzl.arrayForCountInObjectsInArrayFilter(nord.arena.items,"count",{key:"group",value:"barracks"}),
           },
-          rng : { cap : 500, chance : 1, roll : 0 },
+          rng : { cap : 100000, chance : 2, roll : 0 },
         },
         input : {},
         sneak : {
@@ -133,6 +133,7 @@ nord.arena = {
         const sneak = entry.sneak;
         sneak.checked = true;
         sneak.rng.roll = rzl.rng1to(sneak.rng.cap);
+        rzl.addDiv(statsout,{content:`Sneak > Chance: ${sneak.rng.chance} Roll: ${sneak.rng.roll}`});
 
         if (sneak.rng.roll <= sneak.rng.chance) {
           sneak.item = items[rzl.randomArrayItem(cache.data.all)];
@@ -141,34 +142,35 @@ nord.arena = {
             sneak.item = items[rzl.randomArrayItem(cache.data.all)];
           }
           console.log("sneak item",sneak.item);
-          // rzl.addDiv(output,{content:`Sneak-O-Matic : ${sneak.item.name}`});
           rzl.addDiv(output,{content:`__ sneaks past the dragon and steals ${sneak.item.name}`});
         } else {
           console.log("no sneak item");
-          // rzl.addDiv(output,{content:"No Sneak-O-Matic Item"});
           rzl.addDiv(output,{content:"__ failed to sneak past the dragon."});
         }
       }
 
       // calculate cache roll chance
-      cache.rng.chance = 1;
-      if (fields.hound.checked) cache.rng.chance = 50;
-      if (fields.trust.value >= 10) {
-        cache.rng.chance += 10 * (Math.floor(fields.trust.value / 10));
+      if (fields.hound.checked) cache.rng.chance = 5000;
+      switch (fields.trust.value) {
+        case  "30%": cache.rng.chance +=  5000;break;
+        case  "70%": cache.rng.chance += 10000;break;
+        case "100%": cache.rng.chance += 15000;break;
       }
 
       // battle cry roll
       if (fields.battlecry.checked) {
         const cry = entry.battlecry;
         cry.checked = true; cry.rng.roll = rzl.rng1to(cry.rng.cap);
+        rzl.addDiv(statsout,{content:`Cry > Chance: ${cry.rng.chance} Roll: ${cry.rng.roll}`});
+
         if (cry.rng.roll <= cry.rng.chance){
           console.log("battle cry win");
           console.log(`win ${input.dragondata.reward}`);
           rzl.addDiv(output,{content:"Your ferocious battle cry scared off the dragon"});
-          // rzl.addDiv(output,{content:`Victory : ${input.dragondata.reward}AG`});
           rzl.addDiv(output,{content:`__ is victorious! They bring home ${input.dragondata.reward}AG`});
 
           // cache roll
+          rzl.addDiv(statsout,{content:`Cache > Chance: ${cache.rng.chance} Roll: ${cache.rng.roll}`});
           if (rzl.rng1to(cache.rng.cap) <= cache.rng.chance || cache.rng.chance === cache.rng.cap){
             let bazitem = cache.items.bazaar = nord.arena.items[rzl.randomArrayItem(cache.data.bazaar)];
             let baritem = cache.items.barracks = nord.arena.items[rzl.randomArrayItem(cache.data.barracks)];
@@ -181,15 +183,11 @@ nord.arena = {
               baritem = nord.arena.items[rzl.randomArrayItem(cache.data.barracks)];
             }
             console.log("cache",bazitem,baritem)
-            // rzl.addDiv(output,{content:`Cache : 1500AG, ${bazitem.name} and ${baritem.name}`});
             rzl.addDiv(output,{content:`What’s this? You found a supply cache! It contained 1500AG, ${bazitem.name} and ${baritem.name}`});
           } else {
             console.log("no cache");
             rzl.addDiv(output,{content:"No cache found"});
           }
-          rzl.addDiv(statsout,{content:`Chance: ${cache.rng.chance} Roll: ${cache.rng.roll}`});
-          // rzl.addDiv(statsout,{content:`Battle Cry > Chance: ${cache.rng.chance} Roll: ${cache.rng.roll}`});
-          // rzl.addDiv(output,{content:`Chance: ${cache.rng.chance} Roll: ${cache.rng.roll}`})
           return;
         } else {
           console.log("battle cry failed");
@@ -211,6 +209,7 @@ nord.arena = {
 
       // actual roll value
       battle.rng.roll = rzl.rng1to(battle.rng.cap);
+      rzl.addDiv(statsout,{content:`Battle > Chance: ${battle.rng.chance} Roll: ${battle.rng.roll}`});
 
       // print correct output for victory / loss
       if (battle.rng.roll <= battle.rng.chance || battle.rng.chance === battle.rng.cap){
@@ -225,6 +224,7 @@ nord.arena = {
       }
 
       // cache roll
+      rzl.addDiv(statsout,{content:`Cache > Chance: ${cache.rng.chance} Roll: ${cache.rng.roll}`});
       if (rzl.rng1to(cache.rng.cap) <= cache.rng.chance || cache.rng.chance === cache.rng.cap){
         let bazitem = cache.items.bazaar = nord.arena.items[rzl.randomArrayItem(cache.data.bazaar)];
         let baritem = cache.items.barracks = nord.arena.items[rzl.randomArrayItem(cache.data.barracks)];
@@ -244,9 +244,6 @@ nord.arena = {
         rzl.addDiv(output,{content:"No cache found"});
       }
 
-      rzl.addDiv(statsout,{content:`Chance: ${battle.rng.chance} Roll: ${battle.rng.roll}`});
-      // rzl.addDiv(statsout,{content:`Fight > Chance: ${battle.rng.chance} Roll: ${battle.rng.roll}`});
-      // rzl.addDiv(output,{content:`Chance: ${battle.rng.chance} Roll: ${battle.rng.roll}`})
       output.classList.remove("rzl-hidden");
       statsout.classList.remove("rzl-hidden");
     } catch (e) {
@@ -328,10 +325,12 @@ nord.arena = {
             // 10 chance per 10 trust
             {class:"rzl-form-item",children: [
               {tag:"label",content:"Hound trust:",props:{htmlFor:"trust"}},
-              {
-                tag:"input",class:"itemWidth",id:"trust",
-                props:{type:"number",min:"0",max:"500",value:"0",step:"1"}
-              }
+              {tag:"select",class:"itemWidth",id:"trust",children:[
+                {tag:"option",content:  "0%"},
+                {tag:"option",content: "30%"},
+                {tag:"option",content: "70%"},
+                {tag:"option",content:"100%"},
+              ]}
             ]},
             // 5% boost per live bait
             {class:"rzl-form-item",children: [

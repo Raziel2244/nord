@@ -1028,6 +1028,11 @@ nord.breeding = {
               {tag:"select",class:"itemWidth",id:"sirepotion1"},
               {tag:"select",class:"itemWidth",id:"sirepotion2"}
             ]},
+            // {class:"rzl-form-item",children: [
+            //   {tag:"label",content:"Gene Modifier:",props:{for:"siregenemod"}},
+            //   {tag:"input",id:"siregenemod",props:{type:"checkbox"}},
+            //   {tag:"input",id:"siregenechosen",props:{type:"text"}}
+            // ]},
           ]},
           {class:"rzl-form-row",children: [
             {class:"rzl-form-item",children: [
@@ -1042,6 +1047,11 @@ nord.breeding = {
               {tag:"select",class:"itemWidth",id:"dampotion1"},
               {tag:"select",class:"itemWidth",id:"dampotion2"}
             ]},
+            // {class:"rzl-form-item",children: [
+            //   {tag:"label",content:"Gene Modifier:",props:{for:"damgenemod"}},
+            //   {tag:"input",id:"damgenemod",props:{type:"checkbox"}},
+            //   {tag:"input",id:"damgenechosen",props:{type:"text"}}
+            // ]},
           ]},
           {class:"rzl-form-row",children: [
             {class:"rzl-form-item",children: [

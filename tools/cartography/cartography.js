@@ -8,11 +8,11 @@ nord.cartography = {
       advantages: ["chkd","grfn","pfwl","stgl"],
       disadvantages: ["crvd","inks","orth","pmkn","unvs"],
       items: [
-        ["bkcl","fthr","sstk","tnrk"],
-        ["lstk","ebtl"],
-        ["lpt1","scps"],
-        ["cnps","glft"],
-        ["lsdn","lcps","lsct","lshd","frfx","frsn"]
+        ["bkcl","fthr","sstk","tnrk","tcng"],
+        ["lstk","ebtl","smgb"],
+        ["lpt1","smcn","atgb"],
+        ["scps","glft","chbs"],
+        ["lsdn","bcps","lsct","lshd","frfx","frsn","atss","tghs"]
       ],
       risk: false
     },
@@ -23,11 +23,11 @@ nord.cartography = {
       advantages: ["clpd","jgur","mdrn","tbby","tigr","tgrn"],
       disadvantages: ["blsp","chkd","flmt","stgl"],
       items: [
-        ["bkcl","fthr","sstk","plbk","tnrk","trsn"],
-        ["ntvn","ebtl"],
-        ["lstk","scps"],
-        ["cnps","nthb"],
-        ["lcps","tmcl","lsdn","prbd"]
+        ["bkcl","fthr","sstk","plbk","tnrk","trsn","tcng"],
+        ["ntvn","ebtl","smgb"],
+        ["lstk","smcn","gogb"],
+        ["scps","rahb","edrc"],
+        ["bcps","tmcl","lsdn","prbd","atss","tmfl"]
       ],
       risk: {chance:5,cooldown:"1 days"}
     },
@@ -38,10 +38,10 @@ nord.cartography = {
       advantages: ["btfl","embm","hmbd","kscl"],
       disadvantages: ["cmph","hnna","mdrn","pnda","wood"],
       items: [
-        ["plft","plst"],
-        ["lstk","scps"],
-        ["cnps","pram"],
-        ["lcps","plfr"],
+        ["plft","plst","tcng"],
+        ["lstk","smcn","smgb"],
+        ["scps","pram","brsp"],
+        ["bcps","plfr","atss"],
         ["frwf","wfsk","frwl"]
       ],
       risk: {chance:7,cooldown:"3 days"}
@@ -53,11 +53,11 @@ nord.cartography = {
       advantages: ["agis","fawn","hnna","lctb","zbra"],
       disadvantages: ["cndy","chbl","chlt","egng","frst","sndp","snfl","sngb"],
       items: [
-        ["plft","plst"],
-        ["lstk","scps"],
-        ["cnps","pram"],
-        ["lcps","mgld"],
-        ["fefx","fsvl","obsd","lgld"]
+        ["plft","plst","tcng"],
+        ["lstk","smcn","smgb"],
+        ["scps","pram","sthr"],
+        ["bcps","mgld","atss","fsdh"],
+        ["fefx","fsvl","obsd","lgld","sdtm"]
       ],
       risk: {chance:7,cooldown:"3 days"}
     },
@@ -68,10 +68,10 @@ nord.cartography = {
       advantages: ["aglr","atln","glmr","muln","unvs"],
       disadvantages: ["clpd","jgur","tbby","tigr","tgrn"],
       items: [
-        ["nthb","odgm"],
-        ["sash","mggm"],
-        ["astd","dngr"],
-        ["arsh","vdng"],
+        ["rahb","odgm","tcng"],
+        ["sash","mggm","bskm"],
+        ["astd","dngr","arwt"],
+        ["arsh","vdng","atss"],
         ["wdbc","nksk","spfm","dndl","xfth"]
       ],
       risk: {chance:25,cooldown:"5 days",pchance:10,potion:"Auralight"}
@@ -83,10 +83,10 @@ nord.cartography = {
       advantages: ["cmph","flmt","pnda","wood"],
       disadvantages: ["aglr","btfl","embm","hmbd","kscl"],
       items: [
-        ["skfg","sksn"],
-        ["dngr","cnps"],
-        ["vdng","lcps"],
-        ["bkcm","hfmp"],
+        ["skfg","sksn","tcng"],
+        ["dngr","scps","smgb"],
+        ["vdng","bcps"],
+        ["bkcm","hfmp","atss","acdh"],
         ["wdsc","rtgn","frpl"]
       ],
       risk: {chance:25,cooldown:"7 days",pchance:10,potion:"Toxicate"}
@@ -101,7 +101,7 @@ nord.cartography = {
         ["icsh","dngr"],
         ["vdng","rpft"],
         ["nseg","aric"],
-        ["mtrt","xdng"],
+        ["mtrt","xdng","atss","icfl"],
         ["wdgc","tcgl","fzck"]
       ],
       risk: {chance:12,cooldown:"10 days"}
@@ -115,8 +115,8 @@ nord.cartography = {
       items: [
         ["vdng","pksd"],
         ["rtgn","astd"],
-        ["mtrt","xdng"],
-        ["lsdn","rdsv"],
+        ["mtrt","xdng","atss"],
+        ["lsdn","rdsv","nchd"],
         ["wdpc","rtgm"]
       ],
       risk: {chance:30,cooldown:"14 days",pchance:15,potion:"Blood/Nightshade"}
@@ -145,20 +145,29 @@ nord.cartography = {
 
   // possible rewards
   items : {
+    acdh : { name: "Anaconda Head" },
+    atgb : { name: "Antique Gold Bridle" },
     aric : { name: "Arcane Ice Shard" },
     arsh : { name: "Arcane Shard" },
+    arwt : { name: "Arcane Water" },
     astd : { name: "Asteroid Fragment" },
+    atss : { name: "Attachment Stone Shard" },
+    bskm : { name: "Basket of Arcane Mushrooms" },
+    brsp : { name: "Bear Spine" },
+    bcps : { name: "Bursting Coin Purse" },
     bkcl : { name: "Broken Chalice" },
     bkcm : { name: "Broken Compass" },
+    chbs : { name: "Cherry Blossom Seeds" },
     obsd : { name: "Chunk of Obsidian" },
-    cnps : { name: "Coin Purse" },
     dngr : { name: "Dangerous Encounter" },
     dndl : { name: "Destabilising Nodule" },
     ebtl : { name: "Empty Potion Bottle" },
     xfth : { name: "Exquisite Feather (Roaning Triturate)" },
+    edrc : { name: "Extinct Dragon" },
     xdng : { name: "Extremely Dangerous Encounter" },
     fthr : { name: "Feather" },
     frpl : { name: "Fire Opal" },
+    fsdh : { name: "Fossilised Dragon Horn" },
     frwl : { name: "Friendly Barn Owl (Swan Familiar)" },
     fefx : { name: "Friendly Fennec Fox (Fox Familiar)" },
     frfx : { name: "Friendly Fox (Fox Familiar)" },
@@ -167,12 +176,12 @@ nord.cartography = {
     frwf : { name: "Friendly Wolf (Hound Familiar)" },
     fzck : { name: "Frozen Cookie" },
     glft : { name: "Glimpse of The Future" },
+    gogb : { name: "Golden Grub" },
     hfmp : { name: "Half of a Pirates Map" },
+    icfl : { name: "Ice Flower" },
     icsh : { name: "Ice Shard" },
     nksk : { name: "Ink Sack" },
-    nthb : { name: "Interesting Herb" },
     ntvn : { name: "Interesting Vine" },
-    lcps : { name: "Large Coin Purse" },
     lgld : { name: "Large Gold Ore" },
     lstk : { name: "Large Stick" },
     lsct : { name: "Lost Cat (Cat Familiar)" },
@@ -182,6 +191,7 @@ nord.cartography = {
     mggm : { name: "Magnificently Odd Gemstone" },
     mgld : { name: "Medium Gold Nugget" },
     mtrt : { name: "Meteorite" },
+    nchd : { name: "Necromancer's Hand" },
     nseg : { name: "Nest of Eggs" },
     odgm : { name: "Odd Gemstone" },
     plbk : { name: "Peeled Bark" },
@@ -193,18 +203,26 @@ nord.cartography = {
     pksd : { name: "Pumpkin Seeds" },
     rdsv : { name: "Radioactive Sliver" },
     rpft : { name: "Raptor Feathers" },
+    rahb : { name: "Rare Herb" },
     rtgm : { name: "Relic of The Gods (Mutation)" },
     rtgn : { name: "Relic of The Gods (Natural)" },
+    sdtm : { name: "Sands of Time" },
     sash : { name: "Small Arcane Shard" },
     scps : { name: "Small Coin Purse" },
+    smgb : { name: "Small Grub" },
+    smcn : { name: "Small Pile of Coins" },
     sstk : { name: "Small Stick" },
+    sthr : { name: "Small Thread" },
     skfg : { name: "Snake Fang" },
     sksn : { name: "Snake Skin" },
     spfm : { name: "Sprite Familiar" },
     tmcl : { name: "Tameable Ocelot (Cat Familiar)" },
+    tcng : { name: "Tiny Copper Nugget" },
     tnrk : { name: "Tiny Rock" },
     tcgl : { name: "Touch of Glimmer (nGlm Foal Only)" },
     trsn : { name: "Tree Resin" },
+    tghs : { name: "Tulia's Golden Horse Shoe" },
+    tmfl : { name: "Tulia's Mane Flower" },
     vdng : { name: "Very Dangerous Encounter" },
     wdbc : { name: "Weird Bronze Coin" },
     wdgc : { name: "Weird Gold Coin" },
@@ -426,7 +444,8 @@ nord.cartography = {
           rootNode = nord.state.cartography.rootNode,
           rollState = nord.state.cartography.rollState,
           region = this.regions[fields.region.selectedIndex],
-          potionBox = rzl.findChild(rootNode,"div","potionBox");
+          potionBox = rzl.findChild(rootNode,"div","potionBox"),
+          size = rzl.largestOf([region.advantages.length,region.disadvantages.length]);
 
     if (region.risk && region.risk.pchance) {
       potionBox.classList.remove("rzl-hidden");
@@ -438,14 +457,12 @@ nord.cartography = {
 
     // mutations
     const adv = {}, dis = {};
-    region.advantages.forEach((m) => {
-      adv[m] = this.mutations[m].name;
-    });
+    region.advantages.forEach((m) => { adv[m] = this.mutations[m].name; });
     rzl.setSelOpts(fields.advantages,adv);
-    region.disadvantages.forEach((m) => {
-      dis[m] = this.mutations[m].name;
-    });
+    fields.advantages.size = size;
+    region.disadvantages.forEach((m) => { dis[m] = this.mutations[m].name; });
     rzl.setSelOpts(fields.disadvantages,dis);
+    fields.disadvantages.size = size;
   },
 
 
@@ -553,11 +570,13 @@ nord.cartography = {
           {class:"rzl-form-row",children:[
             {class:"rzl-form-item",children:[
               {tag:"label",content:"Advantages:",props:{htmlFor:"advantages"}},
-              {tag:"select",id:"advantages",props:{multiple:true},style:{"max-height":"32px"}}
+              {tag:"select",id:"advantages",props:{multiple:true}}
+              // {tag:"select",id:"advantages",props:{multiple:true},style:{"max-height":"32px"}}
             ]},
             {class:"rzl-form-item",children:[
               {tag:"label",content:"Disadvantages:",props:{htmlFor:"disadvantages"}},
-              {tag:"select",id:"disadvantages",props:{multiple:true},style:{"max-height":"32px"}}
+              {tag:"select",id:"disadvantages",props:{multiple:true}}
+              // {tag:"select",id:"disadvantages",props:{multiple:true},style:{"max-height":"32px"}}
             ]},
           ]},
           {class:"rzl-form-row",children:[
