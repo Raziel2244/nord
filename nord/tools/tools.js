@@ -1,6 +1,7 @@
 nord.tools = {
+
   // initialise variables and other session details
-  init: function() {
+  init : function() {
     console.log("Nordanner tools loaded");
     const state = nord.state;
 
@@ -16,14 +17,8 @@ nord.tools = {
     if (hashTool && nord[hashTool]) this.drawUI({ui: hashTool});
   },
 
-  // // load all of the JS files for nordanner tools
-  // loadToolJS: function() {
-  //   for (let k in nord.uiDefs) console.log(k);
-  //   return;
-  // },
-
   // draw the UI - ui must be in this.nordui or args.ui
-  drawUI: function(args) {
+  drawUI : function(args) {
     if (!args && !args.nordui && !this.nordui) return;
     let ui = this.nordui || args.ui || false;
     if (!ui) return;
@@ -37,10 +32,7 @@ nord.tools = {
   // ======================================================================
   // SECTION: Definitions
   uiDef : {
-    meta: {
-      name: "tools",
-      domain: "nord"
-    },
+    meta: { name: "tools", domain: "nord" },
     view: {
       style: {
         "max-width":"90vw",
@@ -97,5 +89,6 @@ nord.tools = {
         },
       ]
     },
-},
+}
+
 };

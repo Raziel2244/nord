@@ -73,7 +73,7 @@ nord.arena = {
             bazaar : rzl.arrayForCountInObjectsInArrayFilter(nord.arena.items,"count",{key:"group",value:"bazaar"}),
             barracks : rzl.arrayForCountInObjectsInArrayFilter(nord.arena.items,"count",{key:"group",value:"barracks"}),
           },
-          rng : { cap : 100000, chance : 2, roll : 0 },
+          rng : { cap : 5000, chance : 1, roll : 0 },
         },
         input : {},
         sneak : {
@@ -150,12 +150,14 @@ nord.arena = {
       }
 
       // calculate cache roll chance
-      if (fields.hound.checked) cache.rng.chance = 5000;
+      cache.rng.chance = (fields.hound.checked) ? 250 : 2;
       switch (fields.trust.value) {
-        case  "30%": cache.rng.chance +=  5000;break;
-        case  "70%": cache.rng.chance += 10000;break;
-        case "100%": cache.rng.chance += 15000;break;
+        case  "30%": cache.rng.chance += 250;break;
+        case  "70%": cache.rng.chance += 500;break;
+        case "100%": cache.rng.chance += 750;break;
       }
+
+      cache.rng.roll = rzl.rng1to(cache.rng.cap);
 
       // battle cry roll
       if (fields.battlecry.checked) {
@@ -171,7 +173,7 @@ nord.arena = {
 
           // cache roll
           rzl.addDiv(statsout,{content:`Cache > Chance: ${cache.rng.chance} Roll: ${cache.rng.roll}`});
-          if (rzl.rng1to(cache.rng.cap) <= cache.rng.chance || cache.rng.chance === cache.rng.cap){
+          if (cache.rng.roll <= cache.rng.chance || cache.rng.chance === cache.rng.cap){
             let bazitem = cache.items.bazaar = nord.arena.items[rzl.randomArrayItem(cache.data.bazaar)];
             let baritem = cache.items.barracks = nord.arena.items[rzl.randomArrayItem(cache.data.barracks)];
             while (typeof bazitem.season !== "undefined" && !bazitem.season.month.includes(curMonth)) {
@@ -225,7 +227,7 @@ nord.arena = {
 
       // cache roll
       rzl.addDiv(statsout,{content:`Cache > Chance: ${cache.rng.chance} Roll: ${cache.rng.roll}`});
-      if (rzl.rng1to(cache.rng.cap) <= cache.rng.chance || cache.rng.chance === cache.rng.cap){
+      if (cache.rng.roll <= cache.rng.chance || cache.rng.chance === cache.rng.cap){
         let bazitem = cache.items.bazaar = nord.arena.items[rzl.randomArrayItem(cache.data.bazaar)];
         let baritem = cache.items.barracks = nord.arena.items[rzl.randomArrayItem(cache.data.barracks)];
         while (typeof bazitem.season !== "undefined" && !bazitem.season.month.includes(curMonth)) {

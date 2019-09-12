@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
+
+h1 {
+  font-size: 1.5em;
+}
+
+label,button,div {
+  font-size: 12px;
+}
+
+[id*='-root'] .title {
+  text-align: center;
+  margin: 5px;
+}
+
+[id*='-root'] .rzl-form {
+  padding: 10px;
+  border: 1px dashed var(--rzl-color);
+  margin-bottom: 1em;
+}
+
+[id*='-root'] #output,
+[id*='-root'] #statsout {
+  border: 1px dashed var(--rzl-color);
+  margin-bottom: 1em;
+}
+[id*='-root'] #output > *,
+[id*='-root'] #statsout > * {
+  margin: 10px;
+}
+
+@media only screen and (min-width: 1080px) {
+  [id*='-root'] {
+    max-width: 1080px;
+    margin: auto;
+  }
+}
