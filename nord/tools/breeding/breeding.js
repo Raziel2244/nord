@@ -3,33 +3,42 @@ nord.breeding = {
   // [ name, rgx, sort ]
   geneData : {
     common  : [
-      [ "black",     /\b(E|e)(E|e)\b/,       ["E","e"]           ],
-      [ "agouti",    /(A[t+]?|a)(A[t+]?|a)/, ["A+","At","A","a"] ],
+      [ "black",  /\b(E|e)(E|e)\b/,       ["E","e"]           ],
+      [ "agouti", /(A[t+]?|a)(A[t+]?|a)/, ["A+","At","A","a"] ],
     ],
     dilutes : [
-      [ "champagne", /\b(Ch|n)(Ch)\b/,       ["n","Ch"]          ],
-      [ "sooty",     /\b(Sty|n)(Sty)\b/,     ["n","Sty"]         ],
-      [ "silver",    /\b(Z|n)(Z)\b/,         ["n","Z"]           ],
-      [ "pangare",   /\b(P|n)(P)\b/,         ["n","P"]           ],
-      [ "cream",     /\b(Cr|n)(Cr)\b/,       ["n","Cr"]          ],
-      [ "grey",      /\b(G|n)(G)\b/,         ["n","G"]           ],
-      [ "roan",      /\b(R|n)(R)\b/,         ["n","R"]           ],
-      [ "dun",       /\b(D|n)(D)\b/,         ["n","D"]           ],
-      [ "pearl",     /\b(prl|n)(prl)\b/,     ["n","prl"]         ],
-      [ "flaxen",    /\b(f|n)(f)\b/,         ["n","f"]           ],
+      [ "champagne", /\b(Ch|n)(Ch)\b/,   ["n","Ch"]  ],
+      [ "sooty",     /\b(Sty|n)(Sty)\b/, ["n","Sty"] ],
+      [ "silver",    /\b(Z|n)(Z)\b/,     ["n","Z"]   ],
+      [ "pangare",   /\b(P|n)(P)\b/,     ["n","P"]   ],
+      [ "cream",     /\b(Cr|n)(Cr)\b/,   ["n","Cr"]  ],
+      [ "grey",      /\b(G|n)(G)\b/,     ["n","G"]   ],
+      [ "roan",      /\b(R|n)(R)\b/,     ["n","R"]   ],
+      [ "dun",       /\b(D|n)(D)\b/,     ["n","D"]   ],
+      [ "pearl",     /\b(prl|n)(prl)\b/, ["n","prl"] ],
+      [ "flaxen",    /\b(f|n)(f)\b/,     ["n","f"]   ],
+      [ "mushroom",  /\b(mu|n)(mu)\b/,   ["n","mu"]  ],
     ],
     whites  : [
-      [ "sabino",    /\b(Sb|n)(Sb)\b/,       ["n","Sb"]          ],
-      [ "tobiano",   /\b(Tb|n)(Tb)\b/,       ["n","Tb"]          ],
-      [ "rabicano",  /\b(Rb|n)(Rb)\b/,       ["n","Rb"]          ],
-      [ "overo",     /\b(O|n)(O)\b/,         ["n","O"]           ],
-      [ "splash",    /\b(Spl|n)(Spl)\b/,     ["n","Spl"]         ],
-      [ "white",     /\b(W|n)(W)\b/,         ["n","W"]           ],
+      [ "sabino",   /\b(Sb|n)(Sb)\b/,   ["n","Sb"]  ],
+      [ "tobiano",  /\b(Tb|n)(Tb)\b/,   ["n","Tb"]  ],
+      [ "rabicano", /\b(Rb|n)(Rb)\b/,   ["n","Rb"]  ],
+      [ "overo",    /\b(O|n)(O)\b/,     ["n","O"]   ],
+      [ "splash",   /\b(Spl|n)(Spl)\b/, ["n","Spl"] ],
+      [ "white",    /\b(W|n)(W)\b/,     ["n","W"]   ],
     ],
   },
 
   // list of all appaloosa patterns
-  patternData : [ "No Pattern", "patn1", "patn2", "varn", "snow", "frost", "fall" ],
+  patternData : [
+    "No Pattern",
+    "patn1",
+    "patn2",
+    "varn",
+    "snow",
+    "frost",
+    "fall"
+  ],
 
   // details of different mutations
   // [ name, rgx, sort, [month] ]
@@ -107,6 +116,7 @@ nord.breeding = {
       [ "Sooty",          /\b(?:n|Sty)Sty\b/ ],
       [ "Splash",         /\b(?:n|Spl)Spl\b/ ],
       [ "Tobiano",        /\b(?:n|Tb)Tb\b/   ],
+      [ "Mushroom",       /\b(?:n|mu)mu\b/   ],
     ],
     appaloosa : [
       [ "Semi-Leopard Appaloosa",    /\bLpLp\s(\w{4,5})\s(?!\1)\w{4,5}\b/    ],
@@ -165,13 +175,26 @@ nord.breeding = {
   },
 
   // breeding potion data
-  potionData : [ "No Potion", "Atmospherica", "Cookiedanner", "Firedapple", "Glitch", "Guardian", "Houndanner", "Lava", "Pastel Dun", "Pot 'o' Gold", "Wrapping Paper" ],
+  potionData : [
+    "No Potion",
+    "Atmospherica",
+    "Cookiedanner",
+    "Firedapple",
+    "Glitch",
+    "Guardian",
+    "Houndanner",
+    "Lava",
+    "Pastel Dun",
+    "Pot 'o' Gold",
+    "Wrapping Paper"
+  ],
 
   // Horse class for constructing Horse objects
   Horse : class {
-    constructor(geno="",appy=[],potions=false) {
+    constructor(geno="",appy=[],traitmod=[],potions=false) {
       this._geno = "", this._genes = [], this._appaloosa = [];
       this._pheno = "", this._geneticsChanged = false, this._potions = [];
+      this._traitmod = traitmod;
       this.geno = geno;
       this.appaloosa = appy;
 
@@ -286,6 +309,90 @@ nord.breeding = {
             name = "Pearl";
             phenoStrings.splice(phenoStrings.indexOf(name),1);
             carrier.push(name);
+          }
+
+          // Mushroom
+          if (/\b(?:n|mu)mu\b/.test(horse.geno)) {
+            name = "Mushroom";
+            phenoStrings.splice(phenoStrings.indexOf(name),1);
+            if (!phenoStrings.includes("Chestnut")||/\bnmu\b/.test(horse.geno)){
+              carrier.push(name);
+            } else {
+              phenoStrings.splice(phenoStrings.indexOf("Chestnut"));
+              switch (true) {
+                case (/(?:(?:[nD]{2}|CrCr).*){2}/.test(horse.geno)):
+                  phenoStrings.splice(phenoStrings.indexOf("Cream"),1);
+                  phenoStrings.splice(phenoStrings.indexOf("Dun"),1,"Mushmello Dun");
+                break;
+
+                case (/(?:[nD](?:D|Cr).*){2}/.test(horse.geno)):
+                  phenoStrings.splice(phenoStrings.indexOf("Cream"),1);
+                  phenoStrings.splice(phenoStrings.indexOf("Dun"),1,"Mushmino Dun");
+                break;
+
+                case (/(?:(?:(?:n|Ch){2}|CrCr).*){2}/.test(horse.geno)):
+                  phenoStrings.splice(phenoStrings.indexOf("Cream"),1);
+                  phenoStrings.splice(phenoStrings.indexOf("Champagne"),1,"Mushmello Champagne");
+                break;
+
+                case (/(?:(?:(?:n|prl){2}|CrCr).*){2}/.test(horse.geno)):
+                  phenoStrings.splice(phenoStrings.indexOf("Cream"),1);
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Pearl"),1,"Mushmello Pearl");
+                break;
+
+                case (/(?:(?:(?:n|Ch|prl){2}|nCr).*){3}/.test(horse.geno)):
+                  phenoStrings.splice(phenoStrings.indexOf("Champagne"),1);
+                  phenoStrings.splice(phenoStrings.indexOf("Cream"),1);
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Pearl"),1,"Mushmino Champagne Pearl");
+                break;
+
+                case (/(?:(?:(?:n|Ch){2}|prlprl).*){2}/.test(horse.geno)):
+                  phenoStrings.splice(phenoStrings.indexOf("Champagne"),1);
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Pearl"),1,"Mushroom Champagne Pearl");
+                break;
+
+                case (/(?:.*(?:n|Ch|Cr){2}.*){2}/.test(horse.geno)):
+                  phenoStrings.splice(phenoStrings.indexOf("Cream"),1);
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Champagne"),1,"Mushmino Champagne");
+                break;
+
+                case (/(?:.*(?:n|prl|Cr){2}.*){2}/.test(horse.geno)):
+                  phenoStrings.splice(phenoStrings.indexOf("Cream"),1);
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Pearl"),1,"Mushmino Pearl");
+                break;
+
+                case (/(?:n|Ch)Ch/.test(horse.geno)):
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Champagne"),1,"Mushroom Champagne");
+                break;
+
+                case (/CrCr/.test(horse.geno)):
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Cream"),1,"Mushmello");
+                break;
+
+                case (/nCr/.test(horse.geno)):
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Cream"),1,"Mushmino");
+                break;
+
+                case (/[nD]D/.test(horse.geno)):
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Dun"),1,"Dunshroom");
+                break;
+
+                case (/prlprl/.test(horse.geno)):
+                  phenoStrings.splice(phenoStrings.indexOf("Pearl"),1,"Mushroom Pearl");
+                break;
+
+                default: phenoStrings.unshift(name);
+              }
+            }
           }
 
         })();
@@ -438,22 +545,10 @@ nord.breeding = {
                   phenoStrings[index] = bases[base][6];
                 break;
 
-                case (/prl{2}/.test(horse.geno)):
-                  phenoStrings.splice(phenoStrings.indexOf("Pearl"),1);
-                  index = phenoStrings.indexOf(base);
-                  phenoStrings[index] = bases[base][7];
-                break;
-
-                case (/[nR]R\s/.test(horse.geno)):
-                  phenoStrings.splice(phenoStrings.indexOf("Roan"),1);
-                  index = phenoStrings.indexOf(base);
-                  phenoStrings[index] = bases[base][8];
-                break;
-
-                case (/[nD]D/.test(horse.geno)):
-                  phenoStrings.splice(phenoStrings.indexOf("Dun"),1);
-                  index = phenoStrings.indexOf(base);
-                  phenoStrings[index] = bases[base][9];
+                case (/(?:n|Ch)Ch/.test(horse.geno)):
+                phenoStrings.splice(phenoStrings.indexOf("Champagne"),1);
+                index = phenoStrings.indexOf(base);
+                phenoStrings[index] = bases[base][12];
                 break;
 
                 case (/CrCr/.test(horse.geno)):
@@ -468,10 +563,22 @@ nord.breeding = {
                   phenoStrings[index] = bases[base][11];
                 break;
 
-                case (/(?:n|Ch)Ch/.test(horse.geno)):
-                  phenoStrings.splice(phenoStrings.indexOf("Champagne"),1);
+                case (/[nD]D/.test(horse.geno)):
+                  phenoStrings.splice(phenoStrings.indexOf("Dun"),1);
                   index = phenoStrings.indexOf(base);
-                  phenoStrings[index] = bases[base][12];
+                  phenoStrings[index] = bases[base][9];
+                break;
+
+                case (/prl{2}/.test(horse.geno)):
+                phenoStrings.splice(phenoStrings.indexOf("Pearl"),1);
+                index = phenoStrings.indexOf(base);
+                phenoStrings[index] = bases[base][7];
+                break;
+
+                case (/[nR]R\s/.test(horse.geno)):
+                phenoStrings.splice(phenoStrings.indexOf("Roan"),1);
+                index = phenoStrings.indexOf(base);
+                phenoStrings[index] = bases[base][8];
                 break;
 
               }
@@ -629,6 +736,11 @@ nord.breeding = {
           }
         }
 
+        console.log(horse.traitmod)
+        horse.traitmod.forEach(v => {
+          if (!phenoStrings.includes(v)) phenoStrings.push(v);
+        });
+
       })();
 
       // roll breeding potions
@@ -702,6 +814,12 @@ nord.breeding = {
       this._geneticsChanged = true;
     }
 
+    get traitmod() { return this._traitmod; }
+    set traitmod(traits) {
+      if (typeof traits !== 'object') return;
+      this._traitmod = traits;
+    }
+
     addGene(gene) {
       if (!gene||typeof gene !== "string") return false;
       let genes = this.genes;
@@ -744,7 +862,6 @@ nord.breeding = {
             foals = nord.state.breeding.breed.foals;
       this.rollTwinsChance();
       this.rollFoals();
-      console.log(foals[0].isAppaloosa())
 
       const join = (twins) ? "AND" : "OR",
             appy0 = (foals[0].isAppaloosa()) ? " ( "+foals[0].appaloosa.join(" ") + " ) " : "",
@@ -767,7 +884,7 @@ nord.breeding = {
 
   // initialise breed data
   initBreed : function() {
-    let luck,potions;
+    let luck = 0, potions = [], traits = [];
     const breed = nord.state.breeding.breed,
           fields = nord.state.breeding.fields,
           siregeno = fields.siregeno.value,
@@ -775,6 +892,46 @@ nord.breeding = {
           damgeno = fields.damgeno.value,
           damappy = [fields.dampattern1.value,fields.dampattern2.value];
     if (!siregeno||!damgeno) return false;
+
+    // prepare trait mods
+    if (typeof breed.traitmod === 'object') {
+      let idx = false, val = false;
+      let exc = [
+        "Birdcatcher spots",
+        "Brindle",
+        "Bend-or spots",
+        "Somatic",
+        "Chimera"
+      ];
+      let inc = [...exc,"Twins","Mimicry"];
+
+      traits = [...breed.traitmod]
+      .map((v,i) => {
+        switch (v) {
+          case 'Random (exc)':
+          idx = rzl.rng0to(exc.length-1);
+          val = exc[idx];
+          exc.splice(idx,1);
+          if (val) return val;
+          break;
+
+          case 'Random (inc)':
+          idx = rzl.rng0to(inc.length-1);
+          val = inc[idx];
+          exc.splice(idx,1);
+          inc.splice(idx,1);
+          if (val) return val;
+          break;
+
+          default:
+          idx = exc.indexOf(v.value);
+          exc.splice(idx,1);
+          inc.splice(idx,1);
+          return v;
+        }
+      })
+      .filter(v => { if (v) return v });
+    }
 
     // prepare potion data
     if (fields.luck1.checked) { luck = 1 }
@@ -793,8 +950,8 @@ nord.breeding = {
     breed.sire = new this.Horse(siregeno,sireappy,false);
     breed.dam = new this.Horse(damgeno,damappy,false);
     breed.foals = [
-      new this.Horse("",[],potions),
-      new this.Horse("",[],potions)
+      new this.Horse("",[],traits,potions),
+      new this.Horse("",[],traits,potions)
     ];
     return true;
   },
@@ -805,8 +962,9 @@ nord.breeding = {
           potion = state.fields.luck2.checked;
           cap = 1000,
           rng = rzl.rng1to(cap),
-          chance = (potion) ? 150 : 8,
-    state.breed.twins = (rng <= chance) ? true : false;
+          chance = (potion) ? 150 : 8;
+    state.breed.twins = (rng <= chance ||
+      state.breed.traitmod.includes('Twins')) ? true : false;
     state.breed.stats.twins = {
       potion  : potion,
       rng     : rng,
@@ -1015,8 +1173,7 @@ nord.breeding = {
 
     // console.log(add,rmv)
 
-    if (add[0] !== "") {
-      add.forEach((v,k,i) => {
+    if (add[0]) add.forEach((v,k,i) => {
         let match = v.match(/\b(n?(A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|D|Em|f|F(?:lm|spl|wn)|G(?:ft|lb|lm|lm\^r)|H(?:mg|n)|Iks|Ja|Kc|Lht|M(?:nd|sq)?|Nog|O|prl|P(?:[ak]n|wl)?|Rb?|S(?:[bd]|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?){1,2}?)\b/);
         // console.log("add",match)
         switch (true) {
@@ -1034,10 +1191,8 @@ nord.breeding = {
             foal.addGene(match[1]);
         }
       })
-    }
 
-    if (rmv[0] !== "") {
-      rmv.forEach((v,k,i) => {
+    if (rmv[0]) rmv.forEach((v,k,i) => {
         const fgenes = foal.genes,
               match = v.match(/((n?)(A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|D|Em|f|F(?:lm|spl|wn)|G(?:ft|lb|lm|lm\^r)|H(?:mg|n)|Iks|Ja|Kc|Lht|M(?:nd|sq)?|Nog|O|prl|P(?:[ak]n|wl)?|Rb?|S(?:[bd]|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?)+)/);
         // console.log("remove",match)
@@ -1059,7 +1214,6 @@ nord.breeding = {
         }
         foal.genes = fgenes;
       })
-    }
   },
 
 
@@ -1086,17 +1240,17 @@ nord.breeding = {
 
       let arr = [
         "Birdcatcher spots",
-        "Brindle ",
+        "Brindle",
         "Bend-or spots",
-        "Somatic ",
+        "Somatic",
         "Chimera",
         "Mimicry",
         "Twins",
         "Random (exc)",
         "Random (inc)"
       ];
-      rzl.setSelOpts(this.fields.rngmod,arr);
-      // this.fields.rngmod.size = arr.length;
+      rzl.setSelOpts(this.fields.traitmod,arr);
+      // this.fields.traitmod.size = arr.length;
 
       // this.fields.siregeno.value = "ee aa nMnd";
       // this.fields.damgeno.value = "ee aa nMnd";
@@ -1170,6 +1324,14 @@ nord.breeding = {
     }
   },
 
+  // modify traits based on select field
+  traitsChanged : function(ev) {
+    const state = nord.state.breeding, breed = state.breed;
+
+    breed.traitmod = [...state.fields.traitmod.selectedOptions]
+    .map(v => { return v.value });
+  },
+
 
   //=======================================================================
   // SECTION: Definitions
@@ -1235,8 +1397,10 @@ nord.breeding = {
               ]},
             ]},
             {class:"rzl-form-item",children: [
-              {tag:"label",content:"Traits:",props:{for:"rngmod"}},
-              {tag:"select",id:"rngmod",props:{multiple:true,size:2}},
+              {tag:"label",content:"Traits:",props:{for:"traitmod"}},
+              {tag:"select",id:"traitmod",props:{multiple:true,size:2},events:{
+                change : "nord.breeding.traitsChanged"
+              }},
             ]},
             {class:"rzl-form-item",children: [
               {tag:"label",content:"Genes:",props:{for:"genemod"}},
