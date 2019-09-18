@@ -89,6 +89,14 @@ nord.breeding = {
     ]
   },
 
+  traitData : [
+    "Birdcatcher Spots",
+    "Brindle",
+    "Bend-or Spots",
+    "Somatic",
+    "Chimera"
+  ],
+
   // [ pheno, rgx ]
   phenoData : {
     common : [
@@ -322,17 +330,20 @@ nord.breeding = {
               switch (true) {
                 case (/(?:(?:[nD]{2}|CrCr).*){2}/.test(horse.geno)):
                   phenoStrings.splice(phenoStrings.indexOf("Cream"),1);
-                  phenoStrings.splice(phenoStrings.indexOf("Dun"),1,"Mushmello Dun");
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Dun"),1,"Mushmello Dun");
                 break;
 
                 case (/(?:[nD](?:D|Cr).*){2}/.test(horse.geno)):
                   phenoStrings.splice(phenoStrings.indexOf("Cream"),1);
-                  phenoStrings.splice(phenoStrings.indexOf("Dun"),1,"Mushmino Dun");
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Dun"),1,"Mushmino Dun");
                 break;
 
                 case (/(?:(?:(?:n|Ch){2}|CrCr).*){2}/.test(horse.geno)):
                   phenoStrings.splice(phenoStrings.indexOf("Cream"),1);
-                  phenoStrings.splice(phenoStrings.indexOf("Champagne"),1,"Mushmello Champagne");
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Champagne"),1,"Mushmello Champagne");
                 break;
 
                 case (/(?:(?:(?:n|prl){2}|CrCr).*){2}/.test(horse.geno)):
@@ -387,7 +398,8 @@ nord.breeding = {
                 break;
 
                 case (/prlprl/.test(horse.geno)):
-                  phenoStrings.splice(phenoStrings.indexOf("Pearl"),1,"Mushroom Pearl");
+                  phenoStrings.splice(
+                    phenoStrings.indexOf("Pearl"),1,"Mushroom Pearl");
                 break;
 
                 default: phenoStrings.unshift(name);
@@ -706,13 +718,7 @@ nord.breeding = {
           [ 1500, 3000, 4500, 6000, 7500, 9000 ]
         ];
         // pheno to push, index matches index of respective chance
-        const results = [
-          "Birdcatcher Spots",
-          "Brindle",
-          "Bend-or Spots",
-          "Somatic",
-          "Chimera"
-        ];
+        const results = [...nord.breeding.traitData];
 
         const chance = chances[horse.luck], rng = rzl.rng1to(10000);
 
@@ -722,7 +728,8 @@ nord.breeding = {
 
           if (!rgx.test(horse.geno)) {
             phenoStrings.push("Mimicry");
-            let mimic = phenoData.mutations[rzl.rng0to(phenoData.mutations.length-1)][0];
+            let idx = rzl.rng0to(phenoData.mutations.length-1),
+                mimic = phenoData.mutations[idx][0];
             phenoStrings.push("("+mimic+")");
           }
 
@@ -736,7 +743,7 @@ nord.breeding = {
           }
         }
 
-        console.log(horse.traitmod)
+        // console.log(horse.traitmod)
         horse.traitmod.forEach(v => {
           if (!phenoStrings.includes(v)) phenoStrings.push(v);
         });
@@ -772,8 +779,10 @@ nord.breeding = {
 
       // last few fixes and lethal check
       (function() {
-        horse._pheno = horse._pheno.replace(/(Pumpkin Pie Spice)/, "Spiced Pumpkin Pie");
-        horse._pheno = horse._pheno.replace(/(Dunkin Pie Spice)/, "Spiced Dunkin Pie");
+        horse._pheno = horse._pheno
+        .replace(/(Pumpkin Pie Spice)/, "Spiced Pumpkin Pie");
+        horse._pheno = horse._pheno
+        .replace(/(Dunkin Pie Spice)/, "Spiced Dunkin Pie");
 
         const rng = rzl.rng1to(100);
         if (/\bWW\b/.test(horse.geno)) {
@@ -863,17 +872,15 @@ nord.breeding = {
       this.rollTwinsChance();
       this.rollFoals();
 
-      const join = (twins) ? "AND" : "OR",
-            appy0 = (foals[0].isAppaloosa()) ? " ( "+foals[0].appaloosa.join(" ") + " ) " : "",
-            appy1 = (foals[1].isAppaloosa()) ? " ( "+foals[1].appaloosa.join(" ") + " ) " : "",
-            idx0 = foals[0].geno.lastIndexOf("Lp") + 2 || 0,
-            idx1 = foals[1].geno.lastIndexOf("Lp") + 2 || 0,
-            geno0 = foals[0].geno.slice(0,idx0)+appy0+foals[0].geno.slice(idx0),
-            geno1 = foals[1].geno.slice(0,idx1)+appy1+foals[1].geno.slice(idx1),
-            str0 = "Geno: " + geno0.trim() + "<br>Pheno: " + foals[0].pheno,
-            str1 = "Geno: " + geno1.trim() + "<br>Pheno: " + foals[1].pheno,
-            out = str0 + "<br>" + join + "<br>" + str1;
-      rzl.addDiv(output,{content:out});
+      const join = "<br>" + ((twins) ? "AND" : "OR") + "<br>", strings = [];
+      foals.forEach((v,i) => {
+        let appy = v.isAppaloosa() ? " ( " + v.appaloosa.join(" ") + " ) " : "",
+            idx = v.geno.lastIndexOf("Lp") + 2 || 0,
+            geno = v.geno.slice(0,idx) + appy + v.geno.slice(idx);
+        strings[i] = "Geno: " + geno.trim() + "<br>Pheno: " + v.pheno;
+      });
+
+      rzl.addDiv(output,{content:strings.join(join)});
 
       console.log("breed complete",nord.state.breeding.breed);
       output.classList.remove("rzl-hidden");
@@ -896,17 +903,11 @@ nord.breeding = {
     // prepare trait mods
     if (typeof breed.traitmod === 'object') {
       let idx = false, val = false;
-      let exc = [
-        "Birdcatcher spots",
-        "Brindle",
-        "Bend-or spots",
-        "Somatic",
-        "Chimera"
-      ];
+      let exc = [...nord.breeding.traitData];
       let inc = [...exc,"Twins","Mimicry"];
 
       traits = [...breed.traitmod]
-      .map((v,i) => {
+      .map(v => {
         switch (v) {
           case 'Random (exc)':
           idx = rzl.rng0to(exc.length-1);
@@ -932,6 +933,7 @@ nord.breeding = {
       })
       .filter(v => { if (v) return v });
     }
+    else { breed.traitmod = [] }
 
     // prepare potion data
     if (fields.luck1.checked) { luck = 1 }
@@ -1036,8 +1038,8 @@ nord.breeding = {
         case "LpLp":
           let newsire = [sireappy[0],sireappy[1]],
               newdam = [damappy[0],damappy[1]];
-          if (newsire[1]==="No Pattern") newsire[1] = newsire[0]; // handle sire nLp
-          if (newdam[1]==="No Pattern") newdam[1] = newdam[0]; // handle dam nLp
+          if (newsire[1]==="No Pattern") newsire[1] = newsire[0]; // sire nLp
+          if (newdam[1]==="No Pattern") newdam[1] = newdam[0]; // dam nLp
           foal.appaloosa = this.finalisePart(newsire,newdam,sort);
         break;
         case "nLp":
@@ -1105,8 +1107,12 @@ nord.breeding = {
                 rad = (((srad||drad)&&x<=50)||rng<=80) ? true : false;
                 gfrom = rad ? "Glm" : "Glm^r",
                 gto = rad ? "Glm^r" : "Glm";
-          while (sireGene.includes(gfrom)) {sireGene[sireGene.indexOf(gfrom)]=gto;}
-          while (damGene.includes(gfrom)) {damGene[damGene.indexOf(gfrom)]=gto;}
+          while (sireGene.includes(gfrom)) {
+            sireGene[sireGene.indexOf(gfrom)]=gto;
+          }
+          while (damGene.includes(gfrom)) {
+            damGene[damGene.indexOf(gfrom)]=gto;
+          }
           let foalGene = self.finalisePart(sireGene,damGene,mut[2]);
           foalGene = foalGene.join("");
           if (foalGene!=="nn") foal.addGene(foalGene);
@@ -1193,27 +1199,27 @@ nord.breeding = {
       })
 
     if (rmv[0]) rmv.forEach((v,k,i) => {
-        const fgenes = foal.genes,
-              match = v.match(/((n?)(A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|D|Em|f|F(?:lm|spl|wn)|G(?:ft|lb|lm|lm\^r)|H(?:mg|n)|Iks|Ja|Kc|Lht|M(?:nd|sq)?|Nog|O|prl|P(?:[ak]n|wl)?|Rb?|S(?:[bd]|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?)+)/);
-        // console.log("remove",match)
-        switch (true) {
-          // if rmv dom - remove dom or rec
-          // if rmv rec - dom to rec or remove rec
-          // match[0] is input, match[1] is whole, match[2] if rec, match[3] is gene char
-          case fgenes.includes(match[1]): // remove the target
-            fgenes.splice(fgenes.indexOf(match[1]),1);
-          break;
+      const fgenes = foal.genes,
+            match = v.match(/((n?)(A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|D|Em|f|F(?:lm|spl|wn)|G(?:ft|lb|lm|lm\^r)|H(?:mg|n)|Iks|Ja|Kc|Lht|M(?:nd|sq)?|Nog|O|prl|P(?:[ak]n|wl)?|Rb?|S(?:[bd]|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?)+)/);
+      // console.log("remove",match)
+      switch (true) {
+        // if rmv dom - remove dom or rec
+        // if rmv rec - dom to rec or remove rec
+        // match[0] is input, [1] is whole, [2] if rec, [3] is gene char
+        case fgenes.includes(match[1]): // remove the target
+          fgenes.splice(fgenes.indexOf(match[1]),1);
+        break;
 
-          case !match[2] && fgenes.includes("n"+match[3]): // remove the target
-            fgenes.splice(fgenes.indexOf("n"+match[3]),1);
-          break;
+        case !match[2] && fgenes.includes("n"+match[3]): // remove the target
+          fgenes.splice(fgenes.indexOf("n"+match[3]),1);
+        break;
 
-          case match[2] && fgenes.includes(match[3]+match[3]): // reduce dom
-            fgenes[fgenes.indexOf(match[3]+match[3])] = [match[1]];
-          break;
-        }
-        foal.genes = fgenes;
-      })
+        case match[2] && fgenes.includes(match[3]+match[3]): // reduce dom
+          fgenes[fgenes.indexOf(match[3]+match[3])] = [match[1]];
+        break;
+      }
+      foal.genes = fgenes;
+    })
   },
 
 
@@ -1239,11 +1245,7 @@ nord.breeding = {
       });
 
       let arr = [
-        "Birdcatcher spots",
-        "Brindle",
-        "Bend-or spots",
-        "Somatic",
-        "Chimera",
+        ...nord.breeding.traitData,
         "Mimicry",
         "Twins",
         "Random (exc)",
@@ -1356,13 +1358,15 @@ nord.breeding = {
           {class:"rzl-form-row",children: [
             {class:"rzl-form-item",children: [
               {tag:"label",content:"Sire:",props:{for:"siregeno"}},
-              {tag:"input",id:"siregeno",props:{type:"text",placeholder:"Genotype"},events:{
-                keyup : "nord.breeding.genoUpdated"
-              }}
+              {tag:"input",id:"siregeno",
+              props:{type:"text",placeholder:"Genotype"},
+              events:{keyup : "nord.breeding.genoUpdated"}}
             ]},
             {class:"rzl-form-item",children: [
-              {tag:"select",class:"itemWidth",id:"sirepattern1",props:{disabled:true}},
-              {tag:"select",class:"itemWidth",id:"sirepattern2",props:{disabled:true}}
+              {tag:"select",class:"itemWidth",id:"sirepattern1",
+              props:{disabled:true}},
+              {tag:"select",class:"itemWidth",id:"sirepattern2",
+              props:{disabled:true}}
             ]},
             {class:"rzl-form-item",children: [
               {tag:"select",class:"itemWidth",id:"sirepotion1"},
@@ -1377,8 +1381,10 @@ nord.breeding = {
               }}
             ]},
             {class:"rzl-form-item",children: [
-              {tag:"select",class:"itemWidth",id:"dampattern1",props:{disabled:true}},
-              {tag:"select",class:"itemWidth",id:"dampattern2",props:{disabled:true}}
+              {tag:"select",class:"itemWidth",id:"dampattern1",
+              props:{disabled:true}},
+              {tag:"select",class:"itemWidth",id:"dampattern2",
+              props:{disabled:true}}
             ]},
             {class:"rzl-form-item",children: [
               {tag:"select",class:"itemWidth",id:"dampotion1"},
