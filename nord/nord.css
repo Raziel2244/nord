@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
 
 h1 {
-  font-size: 1.5em;
+  font-size: 1rem;
 }
 
 label,button,div {
-  font-size: 12px;
+  font-size: .75rem;
+}
+
+.iconify {
+  font-size: 1.5rem;
 }
 
 [id*='-root'] .title {

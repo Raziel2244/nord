@@ -1366,7 +1366,8 @@ nord.breeding = {
               {tag:"select",class:"itemWidth",id:"sirepattern1",
               props:{disabled:true}},
               {tag:"select",class:"itemWidth",id:"sirepattern2",
-              props:{disabled:true}}
+              props:{disabled:true}},
+              {tag:"span",class:"appyinfo iconify icon:iwwa:information"}
             ]},
             {class:"rzl-form-item",children: [
               {tag:"select",class:"itemWidth",id:"sirepotion1"},
@@ -1384,7 +1385,8 @@ nord.breeding = {
               {tag:"select",class:"itemWidth",id:"dampattern1",
               props:{disabled:true}},
               {tag:"select",class:"itemWidth",id:"dampattern2",
-              props:{disabled:true}}
+              props:{disabled:true}},
+              {tag:"span",class:"appyinfo iconify icon:iwwa:information"},
             ]},
             {class:"rzl-form-item",children: [
               {tag:"select",class:"itemWidth",id:"dampotion1"},
