@@ -6,9 +6,9 @@ self.addEventListener('install', event => {
       cache.addAll([
         '',
         'index.html',
-        'rzl/css/core.css',
-        'rzl/js/core.js',
-        'rzl/js/ui.js',
+        'inc/rzl/css/core.css',
+        'inc/rzl/js/core.js',
+        'inc/rzl/js/ui.js',
         'nord/nord.css',
         'nord/nord.js',
         'nord/tools/arena/arena.js',
