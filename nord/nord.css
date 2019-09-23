@@ -8,33 +8,48 @@ label,button,div {
   font-size: .75rem;
 }
 
+table {
+  border-spacing: 0;
+  text-align: left;
+}
+tr > * {
+  padding: .125rem 1rem;
+}
+tr:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
 .iconify {
   font-size: 1.5rem;
 }
 
-[id*='-root'] .title {
+.ui-root .title {
   text-align: center;
   margin: 5px;
 }
 
-[id*='-root'] .rzl-form {
+.ui-root .rzl-form {
   padding: 10px;
   border: 1px dashed var(--rzl-color);
   margin-bottom: 1em;
 }
 
-[id*='-root'] #output,
-[id*='-root'] #statsout {
+.ui-root #output,
+.ui-root #statsout {
   border: 1px dashed var(--rzl-color);
   margin-bottom: 1em;
 }
-[id*='-root'] #output > *,
-[id*='-root'] #statsout > * {
+.ui-root #output > *,
+.ui-root #statsout > * {
   margin: 10px;
 }
 
+.modal-box {
+  border-radius: .5rem;
+}
+
 @media only screen and (min-width: 1080px) {
-  [id*='-root'] {
+  .ui-root {
     max-width: 1080px;
     margin: auto;
   }

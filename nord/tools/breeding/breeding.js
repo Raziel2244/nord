@@ -1167,7 +1167,7 @@ nord.breeding = {
     let foalpart = [sirepart[sireIndex],dampart[damIndex]];
 
     // if sort parameter is present then sort the parts
-    if (sort) foalpart.sort((a,b) => {return sort.indexOf(a) - sort.indexOf(b);});
+    if (sort) foalpart.sort((a,b) => sort.indexOf(a) - sort.indexOf(b));
 
     return foalpart;
   },
@@ -1268,6 +1268,11 @@ nord.breeding = {
     nord.breeding.breed();
   },
 
+  infoClick : function(ev) {
+    console.log("info")
+    new rzl.Modal(0,{ blueprint : nord.breeding.blueprints.appyinfo });
+  },
+
   // update form based on geno update
   genoUpdated : function(ev) {
     const fields = nord.state.breeding.fields,
@@ -1330,8 +1335,7 @@ nord.breeding = {
   traitsChanged : function(ev) {
     const state = nord.state.breeding, breed = state.breed;
 
-    breed.traitmod = [...state.fields.traitmod.selectedOptions]
-    .map(v => { return v.value });
+    breed.traitmod = [...state.fields.traitmod.selectedOptions].map(v=>v.value);
   },
 
 
@@ -1359,15 +1363,18 @@ nord.breeding = {
             {class:"rzl-form-item",children: [
               {tag:"label",content:"Sire:",props:{for:"siregeno"}},
               {tag:"input",id:"siregeno",
-              props:{type:"text",placeholder:"Genotype"},
-              events:{keyup : "nord.breeding.genoUpdated"}}
+                props:{type:"text",placeholder:"Genotype"},
+                events:{keyup : "nord.breeding.genoUpdated"}
+              }
             ]},
             {class:"rzl-form-item",children: [
               {tag:"select",class:"itemWidth",id:"sirepattern1",
               props:{disabled:true}},
               {tag:"select",class:"itemWidth",id:"sirepattern2",
               props:{disabled:true}},
-              {tag:"span",class:"appyinfo iconify icon:iwwa:information"}
+              {class:"appyinfo btn",children:[
+                {class:"iconify icon:ion:help-circle-outline"}
+              ],events:{click:"nord.breeding.infoClick"}}
             ]},
             {class:"rzl-form-item",children: [
               {tag:"select",class:"itemWidth",id:"sirepotion1"},
@@ -1377,16 +1384,19 @@ nord.breeding = {
           {class:"rzl-form-row",children: [
             {class:"rzl-form-item",children: [
               {tag:"label",content:"Dam :",props:{for:"damgeno"}},
-              {tag:"input",id:"damgeno",props:{type:"text",placeholder:"Genotype"},events:{
-                keyup : "nord.breeding.genoUpdated"
-              }}
+              {tag:"input",id:"damgeno",
+                props:{type:"text",placeholder:"Genotype"},
+                events:{keyup : "nord.breeding.genoUpdated"}
+              }
             ]},
             {class:"rzl-form-item",children: [
               {tag:"select",class:"itemWidth",id:"dampattern1",
               props:{disabled:true}},
               {tag:"select",class:"itemWidth",id:"dampattern2",
               props:{disabled:true}},
-              {tag:"span",class:"appyinfo iconify icon:iwwa:information"},
+              {class:"appyinfo btn",children:[
+                {class:"iconify icon:ion:help-circle-outline"}
+              ],events:{click:"nord.breeding.infoClick"}}
             ]},
             {class:"rzl-form-item",children: [
               {tag:"select",class:"itemWidth",id:"dampotion1"},
@@ -1440,4 +1450,56 @@ nord.breeding = {
       ]
     },
   },
+
+  blueprints : {
+    appyinfo : {
+      meta : {
+        name : "appyinfo"
+      },
+      view : {
+        children : [
+          { tag: "h2", content: "LpLp and nLp" },
+          { tag: "table", children: [
+            { tag: "tr", children: [
+              { tag: "th", content: "Combo" },
+              { tag: "th", content: "LpLp" },
+              { tag: "th", content: "nLp" }
+            ]},
+            { tag: "tr", children: [
+              { tag: "td", content: "Leopard" },
+              { tag: "td", content: "patn1patn1" },
+              { tag: "td", content: "patn1" }
+            ]},
+            { tag: "tr", children: [
+              { tag: "td", content: "Spotted Blanket" },
+              { tag: "td", content: "patn2patn2" },
+              { tag: "td", content: "patn2" }
+            ]},
+            { tag: "tr", children: [
+              { tag: "td", content: "Varnish Roan" },
+              { tag: "td", content: "varnvarn" },
+              { tag: "td", content: "varn" }
+            ]},
+            { tag: "tr", children: [
+              { tag: "td", content: "Snowflake" },
+              { tag: "td", content: "snowsnow" },
+              { tag: "td", content: "snow" }
+            ]},
+            { tag: "tr", children: [
+              { tag: "td", content: "Frosted" },
+              { tag: "td", content: "frostfrost" },
+              { tag: "td", content: "frost" }
+            ]},
+            { tag: "tr", children: [
+              { tag: "td", content: "Snowfall" },
+              { tag: "td", content: "fallfall" },
+              { tag: "td", content: "fall" }
+            ]}
+          ]},
+          { tag: "h2", content: "Semi-Leopard" },
+          { tag: "p", content: "LpLp with two different leopard types" }
+        ]
+      }
+    }
+  }
 };
