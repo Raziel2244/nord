@@ -1117,8 +1117,8 @@ nord.breeding = {
           foalGene = foalGene.join("");
           if (foalGene!=="nn") foal.addGene(foalGene);
         } else {
-          const siremut = siregeno.match(mut[1]) || [],
-                dammut = damgeno.match(mut[1]) || [];
+          const siremut = siregeno.match(mut[1]) || false,
+                dammut = damgeno.match(mut[1]) || false;
           let foalGene = [];
           switch (true) {
 
