@@ -1,7 +1,6 @@
 nord.tools = {
-
   // initialise variables and other session details
-  init : function() {
+  init: function() {
     console.log("Nordanner tools loaded");
     const state = nord.state;
 
@@ -12,18 +11,18 @@ nord.tools = {
 
     // this.loadToolJS();
     // rzl.loadJS("tools/arena/arena.js",true)
-    this.drawUI({ui: "tools"});
+    this.drawUI({ ui: "tools" });
     // load tool if defined
-    if (hashTool && nord[hashTool]) this.drawUI({ui: hashTool});
+    if (hashTool && nord[hashTool]) this.drawUI({ ui: hashTool });
   },
 
   // draw the UI - ui must be in this.nordui or args.ui
-  drawUI : function(args) {
+  drawUI: function(args) {
     if (!args && !args.nordui && !this.nordui) return;
     let ui = this.nordui || args.ui || false;
     if (!ui) return;
-    document.location.hash = (ui === "tools") ? "" : "/"+ui;
-    if (ui!=="tools") nord.state.tools.activeTool = ui;
+    document.location.hash = ui === "tools" ? "" : "/" + ui;
+    if (ui !== "tools") nord.state.tools.activeTool = ui;
     const def = nord[ui]["uiDef"];
     if (!def) return;
     new rzl.UI(def);
@@ -31,20 +30,20 @@ nord.tools = {
 
   // ======================================================================
   // SECTION: Definitions
-  uiDef : {
+  uiDef: {
     meta: { name: "tools", domain: "nord" },
     view: {
       style: {
-        "max-width":"90vw",
-        margin:"auto"
+        "max-width": "90vw",
+        margin: "auto"
       },
       children: [
         {
           id: "nordToolbar",
           style: {
-            width:"100%",
-            display:"flex",
-            "justify-content":"center"
+            width: "100%",
+            display: "flex",
+            "justify-content": "center"
           },
           children: [
             {
@@ -66,7 +65,7 @@ nord.tools = {
                 click: "nord.tools.drawUI"
               },
               props: {
-                nordui: "breeding",
+                nordui: "breeding"
                 // disabled: true
               }
             },
@@ -78,17 +77,16 @@ nord.tools = {
                 click: "nord.tools.drawUI"
               },
               props: {
-                nordui: "cartography",
+                nordui: "cartography"
               }
-            },
+            }
           ]
         },
         {
           id: "norduiBox",
-          style: {width:"100%"}
-        },
+          style: { width: "100%" }
+        }
       ]
-    },
-}
-
+    }
+  }
 };
