@@ -1,11 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
 
 h1 {
   font-size: 1rem;
 }
 
-label,button,div {
-  font-size: .75rem;
+label,
+button,
+div {
+  font-size: 0.75rem;
 }
 
 table {
@@ -13,10 +15,10 @@ table {
   text-align: left;
 }
 tr > * {
-  padding: .125rem 1rem;
+  padding: 0.125rem 1rem;
 }
 tr:hover {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .iconify {
@@ -45,7 +47,7 @@ tr:hover {
 }
 
 .modal-box {
-  border-radius: .5rem;
+  border-radius: 0.5rem;
 }
 
 @media only screen and (min-width: 1080px) {
