@@ -85,7 +85,8 @@ nord.breeding = {
       ["hummingbird", /\b(Hmg|n)(Hmg)\b/, ["n", "Hmg"]],
       ["henna", /\b(Hn|n)(Hn)\b/, ["n", "Hn"]],
       ["flametouched", /\b(Flm|n)(Flm)\b/, ["n", "Flm"]],
-      ["emblem", /\b(Em|n)(Em)\b/, ["n", "Em"]]
+      ["emblem", /\b(Em|n)(Em)\b/, ["n", "Em"]],
+      ["ortho", /\b(OR|n)(OR)\b/, ["n", "OR"]]
     ]
   },
 
@@ -166,6 +167,7 @@ nord.breeding = {
       ["Mandarin", /\b(?:n|Mnd)Mnd\b/],
       ["Masquerade", /\b(?:n|Msq)Msq\b/],
       ["Moulin", /\b(?:n|M)M\b/],
+      ["Ortho", /\b(?:n|OR)OR\b/],
       ["Panda", /\b(?:n|Pan)Pan\b/],
       ["Peafowl", /\b(?:n|Pwl)Pwl\b/],
       ["Pumpkin", /\b(?:n|Pkn)Pkn\b/],
@@ -1149,10 +1151,10 @@ nord.breeding = {
               foal.appaloosa = [damappy[rzl.rng0to(1)], ""];
               break;
             case sireappy[0] === "No Pattern": // sire nn, damn nLp
-              foal.appaloosa = [damappy[0],""];
+              foal.appaloosa = [damappy[0], ""];
               break;
             case damappy[0] === "No Pattern": // sire nLp, dam nn
-              foal.appaloosa = [sireappy[0],""];
+              foal.appaloosa = [sireappy[0], ""];
               break;
             default:
               let newappy = rzl.rng0to(1) == 0 ? sireappy[0] : damappy[0];
@@ -1375,8 +1377,8 @@ nord.breeding = {
       );
       rzl.setSelOpts(this.fields.seasonmod, seasonmods);
 
-      this.fields.siregeno.value = "ee aa";
-      this.fields.damgeno.value = "ee aa";
+      // this.fields.siregeno.value = "ee aa";
+      // this.fields.damgeno.value = "ee aa";
     } catch (e) {
       console.error(e);
       return;
