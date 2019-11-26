@@ -4,7 +4,7 @@ nord.breeding = {
   geneData: {
     common: [
       ["black", /\b(E|e)(E|e)\b/, ["E", "e"]],
-      ["agouti", /(A[t+]?|a)(A[t+]?|a)/, ["A+", "At", "A", "a"]]
+      ["agouti", /(A[t+]?|a)(A[t+]?|a)/, ["At", "A", "A+", "a"]]
     ],
     dilutes: [
       ["champagne", /\b(Ch|n)(Ch)\b/, ["n", "Ch"]],
@@ -1148,6 +1148,12 @@ nord.breeding = {
             case damappy[1] !== "No Pattern": // dam LpLp
               foal.appaloosa = [damappy[rzl.rng0to(1)], ""];
               break;
+            case sireappy[0] === "No Pattern": // sire nn, damn nLp
+              foal.appaloosa = [damappy[0],""];
+              break;
+            case damappy[0] === "No Pattern": // sire nLp, dam nn
+              foal.appaloosa = [sireappy[0],""];
+              break;
             default:
               let newappy = rzl.rng0to(1) == 0 ? sireappy[0] : damappy[0];
               foal.appaloosa = [newappy, ""];
@@ -1167,6 +1173,9 @@ nord.breeding = {
 
     // breedables
     (function() {
+      const seasonmods = [
+        ...nord.state.breeding.fields.seasonmod.selectedOptions
+      ].map(opt => opt.value);
       for (let m in self.mutationData.breedable) {
         const mut = self.mutationData.breedable[m],
           rng = rzl.rng1to(1000),
@@ -1175,14 +1184,21 @@ nord.breeding = {
         let sireGene = self.matchGenes(siregeno, mut[1]),
           damGene = self.matchGenes(damgeno, mut[1]);
         if (sireGene || damGene) {
-          if (mut[3].includes(curMonth) || rng === 1) {
+          if (
+            mut[3].includes(curMonth) ||
+            seasonmods.includes(mut[0]) ||
+            rng === 1
+          ) {
             if (!sireGene) sireGene = ["n", "n"];
             if (!damGene) damGene = ["n", "n"];
             let foalGene = self.finalisePart(sireGene, damGene, mut[2]);
             foalGene = foalGene.join("");
             if (foalGene !== "nn") foal.addGene(foalGene);
           }
-        } else if (mut[3].includes(curMonth) && rng <= 47) {
+        } else if (
+          rng <= 47 &&
+          (mut[3].includes(curMonth) || seasonmods.includes(mut[0]))
+        ) {
           foal.addGene(mut[2].join(""));
         }
       }
@@ -1344,18 +1360,23 @@ nord.breeding = {
         });
       });
 
-      let arr = [
+      let traitmods = [
         ...nord.breeding.traitData,
         "Mimicry",
         "Twins",
         "Random (exc)",
         "Random (inc)"
       ];
-      rzl.setSelOpts(this.fields.traitmod, arr);
+      rzl.setSelOpts(this.fields.traitmod, traitmods);
       // this.fields.traitmod.size = arr.length;
 
-      // this.fields.siregeno.value = "ee aa nMnd";
-      // this.fields.damgeno.value = "ee aa nMnd";
+      const seasonmods = nord.breeding.mutationData.breedable.map(
+        arr => arr[0]
+      );
+      rzl.setSelOpts(this.fields.seasonmod, seasonmods);
+
+      this.fields.siregeno.value = "ee aa";
+      this.fields.damgeno.value = "ee aa";
     } catch (e) {
       console.error(e);
       return;
@@ -1666,6 +1687,21 @@ nord.breeding = {
                         hidden: true,
                         placeholder: "Remove"
                       }
+                    }
+                  ]
+                },
+                {
+                  class: "rzl-form-item",
+                  children: [
+                    {
+                      tag: "label",
+                      content: "Seasonal:",
+                      props: { for: "seasonmod" }
+                    },
+                    {
+                      tag: "select",
+                      id: "seasonmod",
+                      props: { multiple: true, size: 2 }
                     }
                   ]
                 }
