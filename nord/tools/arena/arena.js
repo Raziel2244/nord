@@ -35,13 +35,13 @@ nord.arena = {
     {
       name: "Pretty plump pumpkin",
       group: "bazaar",
-      count: "100",
+      count: "1",
       season: { month: [9, 10, 11] }
     },
     {
       name: "Glass full of eggnog",
       group: "bazaar",
-      count: "100",
+      count: "1",
       season: { month: [1, 11, 12] }
     },
     { name: "Future glimpse", group: "bazaar", count: "1" },
