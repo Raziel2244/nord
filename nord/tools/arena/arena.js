@@ -7,7 +7,7 @@ nord.arena = {
     { level: "3", title: "Level 3", reward: 500, chance: 55 },
     { level: "4", title: "Level 4", reward: 1000, chance: 40 },
     { level: "5", title: "Level 5", reward: 2000, chance: 25 },
-    { level: "6", title: "Level 6", reward: 3000, chance: 10 }
+    { level: "6", title: "Level 6", reward: 3000, chance: 10 },
   ],
 
   // data for horses entering the arena
@@ -18,7 +18,7 @@ nord.arena = {
     { level: "3", title: "Excellent blood" },
     { level: "4", title: "Supreme blood" },
     { level: "5", title: "Heroic blood" },
-    { level: "6", title: "Legendary blood" }
+    { level: "6", title: "Legendary blood" },
   ],
 
   // items for sneak-o-matic and cache
@@ -36,13 +36,13 @@ nord.arena = {
       name: "Pretty plump pumpkin",
       group: "bazaar",
       count: "1",
-      season: { month: [9, 10, 11] }
+      season: { month: [9, 10, 11] },
     },
     {
       name: "Glass full of eggnog",
       group: "bazaar",
       count: "1",
-      season: { month: [1, 11, 12] }
+      season: { month: [1, 11, 12] },
     },
     { name: "Future glimpse", group: "bazaar", count: "1" },
 
@@ -53,14 +53,14 @@ nord.arena = {
     { name: "Hound familiar", group: "barracks", count: "1" },
     { name: "Battle cry buff", group: "barracks", count: "3" },
     { name: "Live bait x30", group: "barracks", count: "3" },
-    { name: "Energy boost", group: "barracks", count: "3" }
+    { name: "Energy boost", group: "barracks", count: "3" },
   ],
 
   // ======================================================================
   // event handlers
 
   // called on arena UI build
-  built: function(ev) {
+  built: function (ev) {
     // this is ui ()
     try {
       this.form = rzl.findChild(this.rootNode, "form", "arena-form");
@@ -70,11 +70,11 @@ nord.arena = {
 
       this.entry = {
         battle: {
-          rng: { cap: 100, chance: 0, roll: 0 }
+          rng: { cap: 100, chance: 0, roll: 0 },
         },
         battlecry: {
           checked: false,
-          rng: { cap: 100, chance: 15, roll: 0 }
+          rng: { cap: 100, chance: 15, roll: 0 },
         },
         cache: {
           items: { bazaar: false, barracks: false },
@@ -89,16 +89,16 @@ nord.arena = {
               nord.arena.items,
               "count",
               { key: "group", value: "barracks" }
-            )
+            ),
           },
-          rng: { cap: 5000, chance: 1, roll: 0 }
+          rng: { cap: 5000, chance: 1, roll: 0 },
         },
         input: {},
         sneak: {
           checked: false,
           item: false,
-          rng: { cap: 100, chance: 50, roll: 0 }
-        }
+          rng: { cap: 100, chance: 50, roll: 0 },
+        },
       };
 
       this.optsDragon = rzl.getSelectOptionsFromKeyInObjectsInArray(
@@ -118,7 +118,7 @@ nord.arena = {
   },
 
   // click handler for arena roll button
-  rollClick: function(ev) {
+  rollClick: function (ev) {
     //"this" is button
     try {
       const items = nord.arena.items, // items array defined above
@@ -159,7 +159,7 @@ nord.arena = {
         sneak.checked = true;
         sneak.rng.roll = rzl.rng1to(sneak.rng.cap);
         rzl.addDiv(statsout, {
-          content: `Sneak > Chance: ${sneak.rng.chance} Roll: ${sneak.rng.roll}`
+          content: `Sneak > Chance: ${sneak.rng.chance} Roll: ${sneak.rng.roll}`,
         });
 
         if (sneak.rng.roll <= sneak.rng.chance) {
@@ -173,12 +173,12 @@ nord.arena = {
           }
           console.log("sneak item", sneak.item);
           rzl.addDiv(output, {
-            content: `__ sneaks past the dragon and steals ${sneak.item.name}`
+            content: `__ sneaks past the dragon and steals ${sneak.item.name}`,
           });
         } else {
           console.log("no sneak item");
           rzl.addDiv(output, {
-            content: "__ failed to sneak past the dragon."
+            content: "__ failed to sneak past the dragon.",
           });
         }
       }
@@ -205,22 +205,22 @@ nord.arena = {
         cry.checked = true;
         cry.rng.roll = rzl.rng1to(cry.rng.cap);
         rzl.addDiv(statsout, {
-          content: `Cry > Chance: ${cry.rng.chance} Roll: ${cry.rng.roll}`
+          content: `Cry > Chance: ${cry.rng.chance} Roll: ${cry.rng.roll}`,
         });
 
         if (cry.rng.roll <= cry.rng.chance) {
           console.log("battle cry win");
           console.log(`win ${input.dragondata.reward}`);
           rzl.addDiv(output, {
-            content: "Your ferocious battle cry scared off the dragon"
+            content: "Your ferocious battle cry scared off the dragon",
           });
           rzl.addDiv(output, {
-            content: `__ is victorious! They bring home ${input.dragondata.reward}AG`
+            content: `__ is victorious! They bring home ${input.dragondata.reward}AG`,
           });
 
           // cache roll
           rzl.addDiv(statsout, {
-            content: `Cache > Chance: ${cache.rng.chance} Roll: ${cache.rng.roll}`
+            content: `Cache > Chance: ${cache.rng.chance} Roll: ${cache.rng.roll}`,
           });
           if (
             cache.rng.roll <= cache.rng.chance ||
@@ -248,7 +248,7 @@ nord.arena = {
             }
             console.log("cache", bazitem, baritem);
             rzl.addDiv(output, {
-              content: `What’s this? You found a supply cache! It contained 1500AG, ${bazitem.name} and ${baritem.name}`
+              content: `What’s this? You found a supply cache! It contained 1500AG, ${bazitem.name} and ${baritem.name}`,
             });
           } else {
             console.log("no cache");
@@ -283,7 +283,7 @@ nord.arena = {
       // actual roll value
       battle.rng.roll = rzl.rng1to(battle.rng.cap);
       rzl.addDiv(statsout, {
-        content: `Battle > Chance: ${battle.rng.chance} Roll: ${battle.rng.roll}`
+        content: `Battle > Chance: ${battle.rng.chance} Roll: ${battle.rng.roll}`,
       });
 
       // print correct output for victory / loss
@@ -294,20 +294,20 @@ nord.arena = {
         console.log(`win ${input.dragondata.reward}`);
         // rzl.addDiv(output,{content:`Victory : ${input.dragondata.reward}AG`});
         rzl.addDiv(output, {
-          content: `__ is victorious! They bring home ${input.dragondata.reward}AG`
+          content: `__ is victorious! They bring home ${input.dragondata.reward}AG`,
         });
       } else {
         console.log("loss");
         // rzl.addDiv(output,{content:"Battle lost"});
         rzl.addDiv(output, {
           content:
-            "Unfortunately, __ was unsuccessful in their hunt, better luck next time!"
+            "Unfortunately, __ was unsuccessful in their hunt, better luck next time!",
         });
       }
 
       // cache roll
       rzl.addDiv(statsout, {
-        content: `Cache > Chance: ${cache.rng.chance} Roll: ${cache.rng.roll}`
+        content: `Cache > Chance: ${cache.rng.chance} Roll: ${cache.rng.roll}`,
       });
       if (
         cache.rng.roll <= cache.rng.chance ||
@@ -334,7 +334,7 @@ nord.arena = {
         console.log("cache", bazitem, baritem);
         // rzl.addDiv(output,{content:`Cache : 1500AG, ${bazitem.name} and ${baritem.name}`});
         rzl.addDiv(output, {
-          content: `What’s this? You found a supply cache! It contained 1500AG, ${bazitem.name} and ${baritem.name}`
+          content: `What’s this? You found a supply cache! It contained 1500AG, ${bazitem.name} and ${baritem.name}`,
         });
       } else {
         console.log("no cache");
@@ -354,7 +354,7 @@ nord.arena = {
       name: "arena",
       domain: "nord",
       pnode: "norduiBox",
-      builtCB: "nord.arena.built"
+      builtCB: "nord.arena.built",
     },
     view: {
       style: {
@@ -363,7 +363,7 @@ nord.arena = {
         margin: "auto",
         display: "flex",
         "flex-flow": "column nowrap",
-        "align-items": "center"
+        "align-items": "center",
       },
       children: [
         { tag: "h1", class: "title", content: "Arena Roller" },
@@ -381,10 +381,10 @@ nord.arena = {
                     {
                       tag: "label",
                       content: "Dragon:",
-                      props: { htmlFor: "dragon" }
+                      props: { htmlFor: "dragon" },
                     },
-                    { tag: "select", class: "itemWidth", id: "dragon" }
-                  ]
+                    { tag: "select", class: "itemWidth", id: "dragon" },
+                  ],
                 },
                 {
                   class: "rzl-form-item",
@@ -392,12 +392,12 @@ nord.arena = {
                     {
                       tag: "label",
                       content: "Horse:",
-                      props: { htmlFor: "horse" }
+                      props: { htmlFor: "horse" },
                     },
-                    { tag: "select", class: "itemWidth", id: "horse" }
-                  ]
-                }
-              ]
+                    { tag: "select", class: "itemWidth", id: "horse" },
+                  ],
+                },
+              ],
             },
             {
               class: "rzl-form-row",
@@ -409,14 +409,14 @@ nord.arena = {
                     {
                       tag: "label",
                       content: "Battle cry:",
-                      props: { htmlFor: "battlecry" }
+                      props: { htmlFor: "battlecry" },
                     },
                     {
                       tag: "input",
                       id: "battlecry",
-                      props: { type: "checkbox" }
-                    }
-                  ]
+                      props: { type: "checkbox" },
+                    },
+                  ],
                 },
                 // 10% chance boost
                 {
@@ -425,14 +425,14 @@ nord.arena = {
                     {
                       tag: "label",
                       content: "Dragon drawn:",
-                      props: { htmlFor: "dragonDrawn" }
+                      props: { htmlFor: "dragonDrawn" },
                     },
                     {
                       tag: "input",
                       id: "dragonDrawn",
-                      props: { type: "checkbox" }
-                    }
-                  ]
+                      props: { type: "checkbox" },
+                    },
+                  ],
                 },
                 // 20% chance boost
                 {
@@ -441,10 +441,10 @@ nord.arena = {
                     {
                       tag: "label",
                       content: "Enchanted Armour:",
-                      props: { htmlFor: "armour" }
+                      props: { htmlFor: "armour" },
                     },
-                    { tag: "input", id: "armour", props: { type: "checkbox" } }
-                  ]
+                    { tag: "input", id: "armour", props: { type: "checkbox" } },
+                  ],
                 },
                 // 10% chance boost alone, extra 15% if with armour
                 {
@@ -453,12 +453,12 @@ nord.arena = {
                     {
                       tag: "label",
                       content: "Enchanted Weapon:",
-                      props: { htmlFor: "weapon" }
+                      props: { htmlFor: "weapon" },
                     },
-                    { tag: "input", id: "weapon", props: { type: "checkbox" } }
-                  ]
-                }
-              ]
+                    { tag: "input", id: "weapon", props: { type: "checkbox" } },
+                  ],
+                },
+              ],
             },
             {
               class: "rzl-form-row",
@@ -470,10 +470,10 @@ nord.arena = {
                     {
                       tag: "label",
                       content: "Energy boost:",
-                      props: { htmlFor: "energy" }
+                      props: { htmlFor: "energy" },
                     },
-                    { tag: "input", id: "energy", props: { type: "checkbox" } }
-                  ]
+                    { tag: "input", id: "energy", props: { type: "checkbox" } },
+                  ],
                 },
                 // 50% sneak item roll
                 {
@@ -482,10 +482,10 @@ nord.arena = {
                     {
                       tag: "label",
                       content: "Sneak-O-Matic:",
-                      props: { htmlFor: "sneak" }
+                      props: { htmlFor: "sneak" },
                     },
-                    { tag: "input", id: "sneak", props: { type: "checkbox" } }
-                  ]
+                    { tag: "input", id: "sneak", props: { type: "checkbox" } },
+                  ],
                 },
                 // increases chance of end roll, hound
                 {
@@ -494,10 +494,10 @@ nord.arena = {
                     {
                       tag: "label",
                       content: "Hound Familiar:",
-                      props: { htmlFor: "hound" }
+                      props: { htmlFor: "hound" },
                     },
-                    { tag: "input", id: "hound", props: { type: "checkbox" } }
-                  ]
+                    { tag: "input", id: "hound", props: { type: "checkbox" } },
+                  ],
                 },
                 // 10 chance per 10 trust
                 {
@@ -506,7 +506,7 @@ nord.arena = {
                     {
                       tag: "label",
                       content: "Hound trust:",
-                      props: { htmlFor: "trust" }
+                      props: { htmlFor: "trust" },
                     },
                     {
                       tag: "select",
@@ -516,10 +516,10 @@ nord.arena = {
                         { tag: "option", content: "0%" },
                         { tag: "option", content: "30%" },
                         { tag: "option", content: "70%" },
-                        { tag: "option", content: "100%" }
-                      ]
-                    }
-                  ]
+                        { tag: "option", content: "100%" },
+                      ],
+                    },
+                  ],
                 },
                 // 5% boost per live bait
                 {
@@ -528,7 +528,7 @@ nord.arena = {
                     {
                       tag: "label",
                       content: "Live bait:",
-                      props: { htmlFor: "bait" }
+                      props: { htmlFor: "bait" },
                     },
                     {
                       tag: "input",
@@ -539,12 +539,12 @@ nord.arena = {
                         min: "0",
                         max: "5",
                         value: "0",
-                        step: "1"
-                      }
-                    }
-                  ]
-                }
-              ]
+                        step: "1",
+                      },
+                    },
+                  ],
+                },
+              ],
             },
             {
               class: "rzl-form-row",
@@ -555,25 +555,25 @@ nord.arena = {
                   class: "rzl-btn",
                   content: "Roll",
                   events: {
-                    click: "nord.arena.rollClick"
+                    click: "nord.arena.rollClick",
                   },
-                  props: { type: "button" }
-                }
-              ]
-            }
-          ]
+                  props: { type: "button" },
+                },
+              ],
+            },
+          ],
         },
         {
           id: "output",
           class: "rzl-hidden",
-          style: { "text-align": "center" }
+          style: { "text-align": "center" },
         },
         {
           id: "statsout",
           class: "rzl-hidden",
-          style: { "text-align": "center" }
-        }
-      ]
-    }
-  }
+          style: { "text-align": "center" },
+        },
+      ],
+    },
+  },
 };

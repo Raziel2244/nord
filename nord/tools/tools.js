@@ -1,6 +1,6 @@
 nord.tools = {
   // initialise variables and other session details
-  init: function() {
+  init: function () {
     console.log("Nordanner tools loaded");
     const state = nord.state;
 
@@ -17,7 +17,7 @@ nord.tools = {
   },
 
   // draw the UI - ui must be in this.nordui or args.ui
-  drawUI: function(args) {
+  drawUI: function (args) {
     if (!args && !args.nordui && !this.nordui) return;
     let ui = this.nordui || args.ui || false;
     if (!ui) return;
@@ -35,7 +35,7 @@ nord.tools = {
     view: {
       style: {
         "max-width": "90vw",
-        margin: "auto"
+        margin: "auto",
       },
       children: [
         {
@@ -43,7 +43,7 @@ nord.tools = {
           style: {
             width: "100%",
             display: "flex",
-            "justify-content": "center"
+            "justify-content": "center",
           },
           children: [
             {
@@ -51,42 +51,42 @@ nord.tools = {
               class: "rzl-btn",
               content: "Arena",
               events: {
-                click: "nord.tools.drawUI"
+                click: "nord.tools.drawUI",
               },
               props: {
-                nordui: "arena"
-              }
+                nordui: "arena",
+              },
             },
             {
               tag: "button",
               class: "rzl-btn",
               content: "Breeding",
               events: {
-                click: "nord.tools.drawUI"
+                click: "nord.tools.drawUI",
               },
               props: {
-                nordui: "breeding"
+                nordui: "breeding",
                 // disabled: true
-              }
+              },
             },
             {
               tag: "button",
               class: "rzl-btn",
               content: "Cartography",
               events: {
-                click: "nord.tools.drawUI"
+                click: "nord.tools.drawUI",
               },
               props: {
-                nordui: "cartography"
-              }
-            }
-          ]
+                nordui: "cartography",
+              },
+            },
+          ],
         },
         {
           id: "norduiBox",
-          style: { width: "100%" }
-        }
-      ]
-    }
-  }
+          style: { width: "100%" },
+        },
+      ],
+    },
+  },
 };
