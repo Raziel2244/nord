@@ -1,10 +1,10 @@
-// version v1.4.3
+// version v1.4.4
 
-self.addEventListener("install", event => {
+self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
       .open("nord")
-      .then(cache =>
+      .then((cache) =>
         cache.addAll([
           "",
           "index.html",
@@ -16,15 +16,15 @@ self.addEventListener("install", event => {
           "nord/tools/arena/arena.js",
           "nord/tools/breeding/breeding.js",
           "nord/tools/cartography/cartography.js",
-          "nord/tools/tools.js"
+          "nord/tools/tools.js",
         ])
       )
   );
 });
 
-self.addEventListener("fetch", event => {
+self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then(response => {
+    caches.match(event.request).then((response) => {
       if (response) return response;
       else return fetch(event.request);
     })

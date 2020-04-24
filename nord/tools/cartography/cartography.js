@@ -12,9 +12,9 @@ nord.cartography = {
         ["lstk", "ebtl", "smgb"],
         ["lpt1", "smcn", "atgb"],
         ["scps", "glft", "chbs"],
-        ["lsdn", "bcps", "lsct", "lshd", "frfx", "frsn", "atss", "tghs"]
+        ["lsdn", "bcps", "lsct", "lshd", "frfx", "frsn", "atss", "tghs"],
       ],
-      risk: false
+      risk: false,
     },
     {
       name: "Isles of Invermay",
@@ -27,9 +27,9 @@ nord.cartography = {
         ["ntvn", "ebtl", "smgb"],
         ["lstk", "smcn", "gogb"],
         ["scps", "rahb", "edrc"],
-        ["bcps", "tmcl", "lsdn", "prbd", "atss", "tmfl"]
+        ["bcps", "tmcl", "lsdn", "prbd", "atss", "tmfl"],
       ],
-      risk: { chance: 5, cooldown: "1 days" }
+      risk: { chance: 5, cooldown: "1 days" },
     },
     {
       name: "Amadora: Eplana",
@@ -42,9 +42,9 @@ nord.cartography = {
         ["lstk", "smcn", "smgb"],
         ["scps", "pram", "brsp"],
         ["bcps", "plfr", "atss"],
-        ["frwf", "wfsk", "frwl"]
+        ["frwf", "wfsk", "frwl"],
       ],
-      risk: { chance: 7, cooldown: "3 days" }
+      risk: { chance: 7, cooldown: "3 days" },
     },
     {
       name: "Amadora: Estrana",
@@ -59,16 +59,16 @@ nord.cartography = {
         "frst",
         "sndp",
         "snfl",
-        "sngb"
+        "sngb",
       ],
       items: [
         ["plft", "plst", "tcng"],
         ["lstk", "smcn", "smgb"],
         ["scps", "pram", "sthr"],
         ["bcps", "mgld", "atss", "fsdh"],
-        ["fefx", "fsvl", "obsd", "lgld", "sdtm"]
+        ["fefx", "fsvl", "obsd", "lgld", "sdtm"],
       ],
-      risk: { chance: 7, cooldown: "3 days" }
+      risk: { chance: 7, cooldown: "3 days" },
     },
     {
       name: "Korandyire",
@@ -81,9 +81,14 @@ nord.cartography = {
         ["sash", "mggm", "bskm"],
         ["astd", "dngr", "arwt"],
         ["arsh", "vdng", "atss"],
-        ["wdbc", "nksk", "spfm", "dndl", "xfth"]
+        ["wdbc", "nksk", "spfm", "dndl", "xfth"],
       ],
-      risk: { chance: 25, cooldown: "5 days", pchance: 10, potion: "Auralight" }
+      risk: {
+        chance: 25,
+        cooldown: "5 days",
+        pchance: 10,
+        potion: "Auralight",
+      },
     },
     {
       name: "Kisanara",
@@ -96,9 +101,9 @@ nord.cartography = {
         ["dngr", "scps", "smgb"],
         ["vdng", "bcps"],
         ["bkcm", "hfmp", "atss", "acdh"],
-        ["wdsc", "rtgn", "frpl"]
+        ["wdsc", "rtgn", "frpl"],
       ],
-      risk: { chance: 25, cooldown: "7 days", pchance: 10, potion: "Toxicate" }
+      risk: { chance: 25, cooldown: "7 days", pchance: 10, potion: "Toxicate" },
     },
     {
       name: "Quendorin",
@@ -112,7 +117,7 @@ nord.cartography = {
         "frst",
         "sndp",
         "snfl",
-        "sngb"
+        "sngb",
       ],
       disadvantages: ["agis", "atln", "fawn", "lctb", "zbra"],
       items: [
@@ -120,9 +125,9 @@ nord.cartography = {
         ["vdng", "rpft"],
         ["nseg", "aric"],
         ["mtrt", "xdng", "atss", "icfl"],
-        ["wdgc", "tcgl", "fzck"]
+        ["wdgc", "tcgl", "fzck"],
       ],
-      risk: { chance: 12, cooldown: "10 days" }
+      risk: { chance: 12, cooldown: "10 days" },
     },
     {
       name: "Malgosfrom",
@@ -135,15 +140,15 @@ nord.cartography = {
         ["rtgn", "astd"],
         ["mtrt", "xdng", "atss"],
         ["lsdn", "rdsv", "nchd"],
-        ["wdpc", "rtgm"]
+        ["wdpc", "rtgm"],
       ],
       risk: {
         chance: 30,
         cooldown: "14 days",
         pchance: 15,
-        potion: "Blood/Nightshade"
-      }
-    }
+        potion: "Blood/Nightshade",
+      },
+    },
   ],
 
   // data for horses
@@ -154,7 +159,7 @@ nord.cartography = {
     { level: "3", name: "Excellent blood" },
     { level: "4", name: "Supreme blood" },
     { level: "5", name: "Heroic blood" },
-    { level: "6", name: "Legendary blood" }
+    { level: "6", name: "Legendary blood" },
   ],
 
   // reward tiers
@@ -163,7 +168,7 @@ nord.cartography = {
     { name: "Common", chance: 29, binoChance: 26 },
     { name: "Uncommon", chance: 13, binoChance: 23 },
     { name: "Rare", chance: 6, binoChance: 13 },
-    { name: "Very Rare", chance: 2, binoChance: 5 }
+    { name: "Very Rare", chance: 2, binoChance: 5 },
   ],
 
   // possible rewards
@@ -251,7 +256,7 @@ nord.cartography = {
     wdgc: { name: "Weird Gold Coin" },
     wdpc: { name: "Weird Platinum Coin" },
     wdsc: { name: "Weird Silver Coin" },
-    wfsk: { name: "Wolf Skull" }
+    wfsk: { name: "Wolf Skull" },
   },
 
   // nordanner mutations
@@ -296,14 +301,14 @@ nord.cartography = {
     tgrn: { name: "Tiger Roan" },
     unvs: { name: "Universe" },
     wood: { name: "Wooded" },
-    zbra: { name: "Zebra" }
+    zbra: { name: "Zebra" },
   },
 
   // ======================================================================
   // helper functions
 
   // called from roll button handler
-  roll: function() {
+  roll: function () {
     // "this" is module - nord.cartography
     try {
       const output = nord.state.cartography.output,
@@ -330,17 +335,17 @@ nord.cartography = {
   },
 
   // roll for region success
-  rollRegion: function() {
+  rollRegion: function () {
     // "this" is module - nord.cartography
-    const fields = nord.state.cartography.fields,
+    const fields = nord.state.cartography.form.elements,
       output = nord.state.cartography.output,
       statsout = nord.state.cartography.statsout,
       reg = nord.state.cartography.rollState.region;
 
     // get id of region selected and level of horse selected
     reg.id = fields.region.selectedIndex;
-    reg.rlevel = this.regions[reg.id].level;
-    reg.hlevel = fields.horse.selectedIndex;
+    reg.rlevel = nord.cartography.regions[reg.id].level;
+    reg.hlevel = fields.horse.value;
 
     // check horse level is high enough
     if (reg.hlevel < reg.rlevel) {
@@ -350,7 +355,7 @@ nord.cartography = {
     }
 
     // chance calculation
-    reg.chance = this.regions[reg.id].chance; // set base chance from region
+    reg.chance = nord.cartography.regions[reg.id].chance; // set base chance from region
     console.log(reg.chance);
     for (let i = reg.hlevel; i > reg.rlevel; i--) reg.chance += 15; // boost per level
     console.log(reg.chance);
@@ -377,7 +382,7 @@ nord.cartography = {
 
     reg.rng = rzl.rng1to(100);
     rzl.addDiv(statsout, {
-      content: "Region > Chance: " + reg.chance + " Roll: " + reg.rng
+      content: "Region > Chance: " + reg.chance + " Roll: " + reg.rng,
     });
     if (reg.chance === 100 || reg.rng <= reg.chance) {
       console.log("region success");
@@ -395,20 +400,20 @@ nord.cartography = {
   },
 
   // roll risk for region
-  rollRisk: function() {
+  rollRisk: function () {
     // "this" is module - nord.cartography
     const output = nord.state.cartography.output,
       statsout = nord.state.cartography.statsout,
       r = this.regions[nord.state.cartography.rollState.region.id].risk,
       risk = nord.state.cartography.rollState.risk;
 
-    risk.potion = nord.state.cartography.fields.potion.checked;
+    risk.potion = nord.state.cartography.form.elements.potion.checked;
     risk.chance = risk.potion ? r.pchance : r.chance;
     risk.cooldown = r.cooldown;
     risk.rng = rzl.rng1to(100);
 
     rzl.addDiv(statsout, {
-      content: `Risk > Chance: ${risk.chance} Roll: ${risk.rng}`
+      content: `Risk > Chance: ${risk.chance} Roll: ${risk.rng}`,
     });
     if (risk.chance === 100 || risk.rng <= risk.chance) {
       console.log("hurt by risk");
@@ -423,9 +428,9 @@ nord.cartography = {
   },
 
   // roll item rewards
-  rollItems: function() {
+  rollItems: function () {
     // "this" is module - nord.cartography
-    const fields = nord.state.cartography.fields,
+    const fields = nord.state.cartography.form.elements,
       rollState = nord.state.cartography.rollState,
       output = nord.state.cartography.output,
       statsout = nord.state.cartography.statsout,
@@ -439,10 +444,10 @@ nord.cartography = {
 
     let text = "";
     for (let i = 1; i <= item.count; i++) {
-      let tierArr = rzl.arrayForCountInObjectsInArray(
-        this.tiers,
-        item.chanceKey
-      );
+      const tierArr = this.tiers.reduce((a, c, i) => {
+        for (let l = 0; l < c[item.chanceKey]; l++) a.push(i);
+        return a;
+      }, []);
       let tierId = rzl.randomArrayItem(tierArr);
       item.tiers.push(this.tiers[tierId]);
       let itemArr = this.regions[rollState.region.id].items[tierId];
@@ -465,17 +470,16 @@ nord.cartography = {
   },
 
   // update the ui based on region
-  applyRegion: function() {
-    // "this" is module - nord.cartography
-    const fields = nord.state.cartography.fields,
+  applyRegion: function () {
+    // "this" is ui - nord.state.cartography
+    const fields = nord.state.cartography.form.elements,
       rootNode = nord.state.cartography.rootNode,
-      rollState = nord.state.cartography.rollState,
-      region = this.regions[fields.region.selectedIndex],
+      region = nord.cartography.regions[fields.region.selectedIndex],
       potionBox = rzl.findChild(rootNode, "div", "potionBox"),
-      size = rzl.largestOf([
-        region.advantages.length,
-        region.disadvantages.length
-      ]);
+      size =
+        region.advantages.length > region.disadvantages.length
+          ? region.advantages.length
+          : region.disadvantages.length;
 
     if (region.risk && region.risk.pchance) {
       potionBox.classList.remove("rzl-hidden");
@@ -488,12 +492,12 @@ nord.cartography = {
     // mutations
     const adv = {},
       dis = {};
-    region.advantages.forEach(m => {
+    region.advantages.forEach((m) => {
       adv[m] = this.mutations[m].name;
     });
     rzl.setSelOpts(fields.advantages, adv);
     fields.advantages.size = size;
-    region.disadvantages.forEach(m => {
+    region.disadvantages.forEach((m) => {
       dis[m] = this.mutations[m].name;
     });
     rzl.setSelOpts(fields.disadvantages, dis);
@@ -504,25 +508,18 @@ nord.cartography = {
   // event handlers
 
   // called on UI build
-  built: function(ev) {
+  built: function (ev) {
     // this is ui
     try {
       this.form = rzl.findChild(this.rootNode, "form", "arena-form");
-      this.fields = rzl.getFormFields(this.form);
       this.output = rzl.findChild(this.rootNode, "div", "output");
       this.statsout = rzl.findChild(this.rootNode, "div", "statsout");
       this.rollState = { region: {}, risk: {}, stats: {} };
 
-      this.optsRegion = rzl.getSelectOptionsFromKeyInObjectsInArray(
-        nord.cartography.regions,
-        "name"
-      );
-      rzl.setSelOpts(this.fields.region, this.optsRegion);
-      this.optsHorse = rzl.getSelectOptionsFromKeyInObjectsInArray(
-        nord.cartography.horses,
-        "name"
-      );
-      rzl.setSelOpts(this.fields.horse, this.optsHorse);
+      this.optsRegion = nord.cartography.regions.map((o) => o.name);
+      rzl.setSelOpts(this.form.region, this.optsRegion);
+      this.optsHorse = nord.cartography.horses.map((o) => o.name);
+      rzl.setSelOpts(this.form.horse, this.optsHorse);
 
       nord.cartography.applyRegion();
     } catch (e) {
@@ -532,13 +529,13 @@ nord.cartography = {
   },
 
   // click handler for roll button
-  rollClick: function(ev) {
+  rollClick: function (ev) {
     //this is button
     nord.cartography.roll();
   },
 
   // selected region in drop down
-  regionChange: function(ev) {
+  regionChange: function (ev) {
     nord.cartography.applyRegion();
   },
 
@@ -551,14 +548,14 @@ nord.cartography = {
       domain: "nord",
       pnode: "norduiBox",
       builtCB: "nord.cartography.built",
-      displayedCB: "nord.cartography.displayed"
+      displayedCB: "nord.cartography.displayed",
     },
     view: {
       style: {
         margin: "auto",
         display: "flex",
         "flex-flow": "column nowrap",
-        "align-items": "center"
+        "align-items": "center",
       },
       children: [
         { tag: "h1", class: "title", content: "Cartography Roller" },
@@ -576,14 +573,14 @@ nord.cartography = {
                     {
                       tag: "label",
                       content: "Region:",
-                      props: { htmlFor: "region" }
+                      props: { htmlFor: "region" },
                     },
                     {
                       tag: "select",
                       id: "region",
-                      events: { change: "nord.cartography.regionChange" }
-                    }
-                  ]
+                      events: { change: "nord.cartography.regionChange" },
+                    },
+                  ],
                 },
                 {
                   class: "rzl-form-item",
@@ -591,12 +588,12 @@ nord.cartography = {
                     {
                       tag: "label",
                       content: "Horse:",
-                      props: { htmlFor: "horse" }
+                      props: { htmlFor: "horse" },
                     },
-                    { tag: "select", id: "horse" }
-                  ]
-                }
-              ]
+                    { tag: "select", id: "horse" },
+                  ],
+                },
+              ],
             },
             {
               class: "rzl-form-row",
@@ -608,10 +605,10 @@ nord.cartography = {
                     {
                       tag: "label",
                       content: "Group Horse:",
-                      props: { htmlFor: "group" }
+                      props: { htmlFor: "group" },
                     },
-                    { tag: "input", id: "group", props: { type: "checkbox" } }
-                  ]
+                    { tag: "input", id: "group", props: { type: "checkbox" } },
+                  ],
                 },
                 // 20% chance boost
                 {
@@ -620,10 +617,14 @@ nord.cartography = {
                     {
                       tag: "label",
                       content: "Compass:",
-                      props: { htmlFor: "compass" }
+                      props: { htmlFor: "compass" },
                     },
-                    { tag: "input", id: "compass", props: { type: "checkbox" } }
-                  ]
+                    {
+                      tag: "input",
+                      id: "compass",
+                      props: { type: "checkbox" },
+                    },
+                  ],
                 },
                 // risk reduction
                 {
@@ -633,12 +634,12 @@ nord.cartography = {
                     {
                       tag: "label",
                       content: "Potion:",
-                      props: { htmlFor: "potion" }
+                      props: { htmlFor: "potion" },
                     },
-                    { tag: "input", id: "potion", props: { type: "checkbox" } }
-                  ]
-                }
-              ]
+                    { tag: "input", id: "potion", props: { type: "checkbox" } },
+                  ],
+                },
+              ],
             },
             {
               class: "rzl-form-row",
@@ -650,10 +651,10 @@ nord.cartography = {
                     {
                       tag: "label",
                       content: "Falcon/Raptor:",
-                      props: { htmlFor: "falrap" }
+                      props: { htmlFor: "falrap" },
                     },
-                    { tag: "input", id: "falrap", props: { type: "checkbox" } }
-                  ]
+                    { tag: "input", id: "falrap", props: { type: "checkbox" } },
+                  ],
                 },
                 // tier chance boost
                 {
@@ -662,16 +663,16 @@ nord.cartography = {
                     {
                       tag: "label",
                       content: "Binoculars:",
-                      props: { htmlFor: "binoculars" }
+                      props: { htmlFor: "binoculars" },
                     },
                     {
                       tag: "input",
                       id: "binoculars",
-                      props: { type: "checkbox" }
-                    }
-                  ]
-                }
-              ]
+                      props: { type: "checkbox" },
+                    },
+                  ],
+                },
+              ],
             },
             {
               class: "rzl-form-row",
@@ -682,15 +683,15 @@ nord.cartography = {
                     {
                       tag: "label",
                       content: "Advantages:",
-                      props: { htmlFor: "advantages" }
+                      props: { htmlFor: "advantages" },
                     },
                     {
                       tag: "select",
                       id: "advantages",
-                      props: { multiple: true }
-                    }
+                      props: { multiple: true },
+                    },
                     // {tag:"select",id:"advantages",props:{multiple:true},style:{"max-height":"32px"}}
-                  ]
+                  ],
                 },
                 {
                   class: "rzl-form-item",
@@ -698,17 +699,17 @@ nord.cartography = {
                     {
                       tag: "label",
                       content: "Disadvantages:",
-                      props: { htmlFor: "disadvantages" }
+                      props: { htmlFor: "disadvantages" },
                     },
                     {
                       tag: "select",
                       id: "disadvantages",
-                      props: { multiple: true }
-                    }
+                      props: { multiple: true },
+                    },
                     // {tag:"select",id:"disadvantages",props:{multiple:true},style:{"max-height":"32px"}}
-                  ]
-                }
-              ]
+                  ],
+                },
+              ],
             },
             {
               class: "rzl-form-row",
@@ -719,23 +720,23 @@ nord.cartography = {
                   class: "rzl-btn",
                   content: "Roll",
                   events: { click: "nord.cartography.rollClick" },
-                  props: { type: "button" }
-                }
-              ]
-            }
-          ]
+                  props: { type: "button" },
+                },
+              ],
+            },
+          ],
         },
         {
           id: "output",
           class: "rzl-hidden",
-          style: { "text-align": "center" }
+          style: { "text-align": "center" },
         },
         {
           id: "statsout",
           class: "rzl-hidden",
-          style: { "text-align": "center" }
-        }
-      ]
-    }
-  }
+          style: { "text-align": "center" },
+        },
+      ],
+    },
+  },
 };

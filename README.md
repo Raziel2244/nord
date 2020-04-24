@@ -4,4 +4,4 @@ Nordanner Admin Toolbox
 
 **Release available now**
 
-**Documetation is being written currently**
+**Documentation is being written currently**
