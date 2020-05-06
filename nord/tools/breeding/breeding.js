@@ -18,6 +18,7 @@ nord.breeding = {
       ["pearl", /\b(prl|n)(prl)\b/, ["n", "prl"]],
       ["flaxen", /\b(f|n)(f)\b/, ["n", "f"]],
       ["mushroom", /\b(mu|n)(mu)\b/, ["n", "mu"]],
+      ["lilac", /\b(li|n)(li)\b/, ["n", "li"]],
     ],
     whites: [
       ["sabino", /\b(Sb|n)(Sb)\b/, ["n", "Sb"]],
@@ -126,6 +127,7 @@ nord.breeding = {
       ["Splash", /\b(?:n|Spl)Spl\b/],
       ["Tobiano", /\b(?:n|Tb)Tb\b/],
       ["Mushroom", /\b(?:n|mu)mu\b/],
+      ["Lilac", /\b(?:n|li)li\b/],
     ],
     appaloosa: [
       ["Semi-Leopard Appaloosa", /\bLpLp\s(\w{4,5})\s(?!\1)\w{4,5}\b/],
@@ -467,6 +469,23 @@ nord.breeding = {
               }
             }
           }
+
+	        // Lilac
+	        if (/\b(?:n|li)li\b/.test(horse.geno)) {
+	          name = "Lilac";
+	          phenoStrings.splice(phenoStrings.indexOf(name), 1);
+	          if (
+	            !phenoStrings.includes("Black") ||
+	            /\bnli\b/.test(horse.geno)
+	          ) {
+	            carrier.push(name);
+	          } else {
+	            phenoStrings.splice(phenoStrings.indexOf("Chestnut"));
+	            phenoStrings.unshift(name);
+	          }
+	        }
+
+
         })();
         // conditional exceptions
         function baseexception() {
