@@ -199,6 +199,7 @@ nord.breeding = {
     "Pastel Dun",
     "Pot 'o' Gold",
     "Wrapping Paper",
+    "Maple",
   ],
 
   // Horse class for constructing Horse objects
