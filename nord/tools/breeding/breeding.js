@@ -199,6 +199,7 @@ nord.breeding = {
     "Pastel Dun",
     "Pot 'o' Gold",
     "Wrapping Paper",
+    "Maple",
   ],
 
   // Horse class for constructing Horse objects
@@ -349,7 +350,7 @@ nord.breeding = {
             ) {
               carrier.push(name);
             } else {
-              phenoStrings.splice(phenoStrings.indexOf("Chestnut"));
+              phenoStrings.splice(phenoStrings.indexOf("Chestnut"), 1);
               switch (true) {
                 case /(?:(?:[nD]{2}|CrCr).*){2}/.test(horse.geno):
                   phenoStrings.splice(phenoStrings.indexOf("Cream"), 1);
