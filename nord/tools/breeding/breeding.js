@@ -1314,7 +1314,7 @@ nord.breeding = {
     if (add[0])
       add.forEach((v, k, i) => {
         let match = v.match(
-          /\b(n?(A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|D|Em|f|F(?:lm|spl|wn)|G(?:ft|lb|lm|lm\^r)|H(?:mg|n)|Iks|Ja|Kc|Lht|M(?:nd|sq)?|Nog|O|prl|P(?:[ak]n|wl)?|Rb?|S(?:[bd]|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?){1,2}?)\b/
+          /\b(n?(A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|D|Em|f|F(?:lm|spl|wn)|G(?:ft|lb|lm|lm\^r)|H(?:mg|n)|Iks|Ja|Kc|Lht|li|M(?:nd|sq)?|mu|Nog|O|prl|P(?:[ak]n|wl)?|Rb?|S(?:[bd]|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?){1,2}?)\b/
         );
         // console.log("add",match)
         switch (true) {
@@ -1338,7 +1338,7 @@ nord.breeding = {
       rmv.forEach((v, k, i) => {
         const fgenes = foal.genes,
           match = v.match(
-            /((n?)(A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|D|Em|f|F(?:lm|spl|wn)|G(?:ft|lb|lm|lm\^r)|H(?:mg|n)|Iks|Ja|Kc|Lht|M(?:nd|sq)?|Nog|O|prl|P(?:[ak]n|wl)?|Rb?|S(?:[bd]|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?)+)/
+            /((n?)(A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|D|Em|f|F(?:lm|spl|wn)|G(?:ft|lb|lm|lm\^r)|H(?:mg|n)|Iks|Ja|Kc|Lht|li|M(?:nd|sq)?|mu|Nog|O|prl|P(?:[ak]n|wl)?|Rb?|S(?:[bd]|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?)+)/
           );
         // console.log("remove",match)
         switch (true) {
