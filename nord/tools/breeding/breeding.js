@@ -205,8 +205,13 @@ nord.breeding = {
   // Horse class for constructing Horse objects
   Horse: class {
     constructor(geno = "", appy = [], traitmod = [], potions = false) {
-      (this._geno = ""), (this._genes = []), (this._appaloosa = []);
-      (this._pheno = ""), (this._geneticsChanged = false), (this._potions = []);
+      this._geno = "";
+      this._genes = [];
+      this._appaloosa = [];
+      this._pheno = "";
+      this._geneticsChanged = false;
+      this._potions = [];
+
       this._traitmod = traitmod;
       this.geno = geno;
       this.appaloosa = appy;
@@ -471,22 +476,17 @@ nord.breeding = {
             }
           }
 
-	        // Lilac
-	        if (/\b(?:n|li)li\b/.test(horse.geno)) {
-	          name = "Lilac";
-	          phenoStrings.splice(phenoStrings.indexOf(name), 1);
-	          if (
-	            !phenoStrings.includes("Black") ||
-	            /\bnli\b/.test(horse.geno)
-	          ) {
-	            carrier.push(name);
-	          } else {
-	            phenoStrings.splice(phenoStrings.indexOf("Chestnut"));
-	            phenoStrings.unshift(name);
-	          }
-	        }
-
-
+          // Lilac
+          if (/\b(?:n|li)li\b/.test(horse.geno)) {
+            name = "Lilac";
+            phenoStrings.splice(phenoStrings.indexOf(name), 1);
+            if (!phenoStrings.includes("Black") || /\bnli\b/.test(horse.geno)) {
+              carrier.push(name);
+            } else {
+              phenoStrings.splice(phenoStrings.indexOf("Chestnut"));
+              phenoStrings.unshift(name);
+            }
+          }
         })();
         // conditional exceptions
         function baseexception() {
@@ -683,8 +683,6 @@ nord.breeding = {
               index = phenoStrings.indexOf("Chestnut");
             } else if (phenoStrings.includes("Black")) {
               index = phenoStrings.indexOf("Black");
-            } else if (phenoStrings.includes("Bay")) {
-              index = phenoStrings.indexOf("Bay");
             } else if (phenoStrings.includes("Bay")) {
               index = phenoStrings.indexOf("Bay");
             } else if (phenoStrings.includes("Wild Bay")) {
@@ -1058,8 +1056,6 @@ nord.breeding = {
       luck = 1;
     } else if (fields.luck2.checked) {
       luck = 2;
-    } else {
-      luck = 0;
     }
     potions = [
       luck,
@@ -1082,25 +1078,34 @@ nord.breeding = {
 
   // roll for twins
   rollTwinsChance: function () {
-    const state = nord.state.breeding,
-      potion = state.fields.luck2.checked;
-    (cap = 1000), (rng = rzl.rng1to(cap)), (chance = potion ? 150 : 8);
-    state.breed.twins =
-      rng <= chance || state.breed.traitmod.includes("Twins") ? true : false;
+    const state = nord.state.breeding;
+    const potion = state.fields.luck2.checked;
+    const chance = potion ? 150 : 8;
+
+    const cap = 1000;
+    const rng = rzl.rng1to(cap);
+    const result = rng <= chance;
+    const traitmod = state.breed.traitmod.includes("Twins") ? true : false;
+
+    const success = result || traitmod;
+    state.breed.twins = success;
+
     state.breed.stats.twins = {
-      potion: potion,
-      rng: rng,
-      chance: chance,
-      cap: cap,
-      success: state.breed.twins,
+      potion,
+      chance,
+      cap,
+      rng,
+      traitmod,
+      success,
     };
+
     return state.breed.twins;
   },
 
   // roll all steps for each foal
   rollFoals: function () {
     const foals = nord.state.breeding.breed.foals;
-    for (f in foals) {
+    for (let f in foals) {
       this.rollGeneSet(foals[f], "common");
       this.rollGeneSet(foals[f], "dilutes");
       this.rollGeneSet(foals[f], "whites");
@@ -1114,7 +1119,7 @@ nord.breeding = {
   rollGeneSet: function (foal, setName) {
     if (!foal || !setName) return false;
     const geneSet = this.geneData[setName];
-    for (g in geneSet) this.rollGene(foal, geneSet[g]);
+    for (let g in geneSet) this.rollGene(foal, geneSet[g]);
   },
 
   // roll gene for foal using geneArr
@@ -1236,12 +1241,13 @@ nord.breeding = {
         if (!damGene) damGene = ["n", "n"];
 
         if (mut[0] === "glimmer") {
-          const rng = rzl.rng1to(10000),
-            x = rzl.rng1to(100),
-            srad = sireGene.includes("Glm^r"),
-            drad = damGene.includes("Glm^r"),
-            rad = ((srad || drad) && x <= 50) || rng <= 80 ? true : false;
-          (gfrom = rad ? "Glm" : "Glm^r"), (gto = rad ? "Glm^r" : "Glm");
+          const rng = rzl.rng1to(10000);
+          const x = rzl.rng1to(100);
+          const srad = sireGene.includes("Glm^r");
+          const drad = damGene.includes("Glm^r");
+          const rad = ((srad || drad) && x <= 50) || rng <= 80 ? true : false;
+          const gfrom = rad ? "Glm" : "Glm^r";
+          const gto = rad ? "Glm^r" : "Glm";
           while (sireGene.includes(gfrom)) {
             sireGene[sireGene.indexOf(gfrom)] = gto;
           }
@@ -1314,7 +1320,7 @@ nord.breeding = {
     if (add[0])
       add.forEach((v, k, i) => {
         let match = v.match(
-          /\b(n?(A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|D|Em|f|F(?:lm|spl|wn)|G(?:ft|lb|lm|lm\^r)|H(?:mg|n)|Iks|Ja|Kc|Lht|li|M(?:nd|sq)?|mu|Nog|O|prl|P(?:[ak]n|wl)?|Rb?|S(?:[bd]|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?){1,2}?)\b/
+          /\b(n?(A(?:gs|ng|tl)|B(?:ls|p|sh)|C(?:c|h|mp|n?d|rv?)|D|Em|F(?:lm|spl|wn)|f|G(?:ft|l(?:b|m(?:\^r)?))?|H(?:mg|n)|Iks|Ja|Kc|Lht|li|M(?:nd|sq)?|mu|Nog|OR?|P(?:[ak]n|wl)?|prl|Rb?|S(?:b|d|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?){1,2})\b/
         );
         // console.log("add",match)
         switch (true) {
@@ -1338,7 +1344,7 @@ nord.breeding = {
       rmv.forEach((v, k, i) => {
         const fgenes = foal.genes,
           match = v.match(
-            /((n?)(A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|D|Em|f|F(?:lm|spl|wn)|G(?:ft|lb|lm|lm\^r)|H(?:mg|n)|Iks|Ja|Kc|Lht|li|M(?:nd|sq)?|mu|Nog|O|prl|P(?:[ak]n|wl)?|Rb?|S(?:[bd]|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?)+)/
+            /(n?(A(?:gs|ng|tl)|B(?:ls|p|sh)|C(?:c|h|mp|n?d|rv?)|D|Em|F(?:lm|spl|wn)|f|G(?:ft|l(?:b|m(?:\^r)?))?|H(?:mg|n)|Iks|Ja|Kc|Lht|li|M(?:nd|sq)?|mu|Nog|OR?|P(?:[ak]n|wl)?|prl|Rb?|S(?:b|d|[gp]l|ty)|T[bilry]|Unv|Wd?|Ze?){1,2})/
           );
         // console.log("remove",match)
         switch (true) {
