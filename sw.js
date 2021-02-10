@@ -1,4 +1,4 @@
-// version v1.5.0
+// version v1.7.0
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

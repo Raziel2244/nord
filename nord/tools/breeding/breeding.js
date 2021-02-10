@@ -91,6 +91,15 @@ nord.breeding = {
     ],
   },
 
+  // details of anomalies
+  // [ name, rgx, gene ]
+  anomalyData: [
+    ["Albino", /\b(Alb)\b/, "Alb"],
+    ["Melanism", /\b(Mel)\b/, "Mel"],
+    ["Vitiligo", /\b(Vit)\b/, "Vit"],
+    ["Xolo", /\b(Xo)\b/, "Xo"],
+  ],
+
   traitData: [
     "Birdcatcher Spots",
     "Brindle",
@@ -183,6 +192,12 @@ nord.breeding = {
       ["Wooded", /\b(?:n|Wd)Wd\b/],
       ["Universe", /\b(?:n|Unv)Unv\b/],
       ["Zebra", /\b(?:n|Ze)Ze\b/],
+    ],
+    anomalies: [
+      ["Albino", /\bAlb\b/],
+      ["Melanism", /\bMel\b/],
+      ["Vitiligo", /\bVit\b/],
+      ["Xolo", /\bXo\b/],
     ],
   },
 
@@ -879,6 +894,14 @@ nord.breeding = {
           horse._pheno = "LETHAL WHITE";
         } else if (/\bOO\b/.test(horse.geno) && rng <= 60) {
           horse._pheno = "LETHAL OVERO";
+        } else if (/\bAlbAlb\b/.test(horse.geno)) {
+          horse._pheno = "LETHAL ALBINO";
+        } else if (/\bMelMel\b/.test(horse.geno)) {
+          horse._pheno = "LETHAL MELANISM";
+        } else if (/\bVitVit\b/.test(horse.geno)) {
+          horse._pheno = "LETHAL VITILIGO";
+        } else if (/\bXoXo\b/.test(horse.geno)) {
+          horse._pheno = "LETHAL XOLO";
         }
       })();
 
@@ -1111,6 +1134,7 @@ nord.breeding = {
       this.rollGeneSet(foals[f], "whites");
       this.rollAppaloosa(foals[f]);
       this.rollMutations(foals[f]);
+      this.rollAnomalies(foals[f]);
       this.modGenes(foals[f]);
     }
   },
@@ -1261,33 +1285,61 @@ nord.breeding = {
           const siremut = siregeno.match(mut[1]) || [],
             dammut = damgeno.match(mut[1]) || [];
           let foalGene = [];
-          switch (true) {
-            // either dominant
-            case siremut[1] === mut[2][1] || dammut[1] === mut[2][1]:
-              switch (true) {
-                // one dominant and one without
-                case !siremut.length || !dammut.length:
-                  foalGene = [mut[2][0], mut[2][1]]; // push recessive
-                  break;
 
-                // both dominant  or  one dominant and one recessive
-                default:
-                  foalGene = [mut[2][1], mut[2][1]]; // push dominant
-              }
+          const siredom = siremut[1] === mut[2][1];
+          const sirerec = siremut[1] === mut[2][0];
+          const damdom = dammut[1] === mut[2][1];
+          const damrec = dammut[1] === mut[2][0];
+
+          switch (true) {
+            // push dominant
+            case siredom && damdom:
+              foalGene = [mut[2][1], mut[2][1]];
               break;
 
-            // both recessive
-            case siremut[1] === mut[2][0] && dammut[1] === mut[2][0]:
+            // push recessive
+            case siredom:
+            case damdom:
+            case sirerec:
+            case damrec:
               foalGene = [mut[2][0], mut[2][1]];
               break;
           }
-
-          // console.log(foalGene)
 
           foal.addGene(foalGene.join(""));
         }
       }
     })();
+  },
+
+  rollAnomalies: function (foal) {
+    if (!foal) return false;
+    const breed = nord.state.breeding.breed;
+
+    this.anomalyData.forEach((anomalyData) => {
+      const siregene = breed.sire.geno.match(anomalyData[1]);
+      const damgene = breed.dam.geno.match(anomalyData[1]);
+
+      const rng = rzl.rng1to(5000);
+      let pass = false;
+      let lethal = false;
+
+      if (siregene && damgene) {
+        // 25% lethal, 50% pass, 25% nothing
+        if (rng <= 1250) lethal = true;
+        if (rng <= 3750) pass = true;
+      } else if (siregene || damgene) {
+        // 25% pass
+        if (rng <= 1250) pass = true;
+      } else {
+        // 0.02% pass
+        if (rng == 1) pass = true;
+      }
+
+      let gene = anomalyData[2];
+      if (lethal) gene += gene;
+      if (pass) foal.addGene(gene);
+    });
   },
 
   // get gene array from given geno using given regexp
