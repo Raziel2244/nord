@@ -1294,14 +1294,15 @@ nord.breeding = {
           switch (true) {
             // push dominant
             case siredom && damdom:
+            case siredom && damrec:
+            case sirerec && damdom:
               foalGene = [mut[2][1], mut[2][1]];
               break;
 
             // push recessive
             case siredom:
             case damdom:
-            case sirerec:
-            case damrec:
+            case sirerec && damrec:
               foalGene = [mut[2][0], mut[2][1]];
               break;
           }
