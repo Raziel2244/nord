@@ -1,3 +1,7 @@
+.tool {
+  margin: auto;
+}
+
 .tool > .title {
   text-align: center;
 }
@@ -9,7 +13,7 @@
 }
 
 .tool > .input > .row,
-.tool > .input .item {
+.tool > .input > .row > label {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -19,6 +23,48 @@
 
 .tool > .input > .row > * {
   margin: 0.25em;
+}
+
+.tool > .input > .row > label > * {
+  margin-left: 0.25em;
+}
+
+.tool > .input > .row > label > input[type="checkbox"] {
+  background-color: cyan;
+}
+
+.tool > .input > .row > label > input[type="number"] {
+  border-radius: 0.25em;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.tool > .input > .row > label > input[type="number"]:hover {
+  cursor: pointer;
+}
+
+.tool > .input > .row > label > select {
+  border-radius: 0.25em;
+}
+
+.tool > .input > .row > label > select:hover {
+  cursor: pointer;
+}
+
+.tool > .input > .row > #roll {
+  border: 1px solid var(--color);
+  border-radius: 0.25em;
+  margin: 0.25em;
+  padding: 0.25em 0.5em;
+}
+.tool > .input > .row > #roll:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  cursor: pointer;
+}
+.tool > .input > .row > #roll:disabled {
+  border-color: var(--disabled);
+  color: var(--disabled);
 }
 
 @media only screen and (min-width: 1080px) {

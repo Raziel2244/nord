@@ -1,13 +1,13 @@
 import Input from "../input";
 
-export function LabelledInput({ id, label, children, className, ...props }) {
+export function LabelledInput({ id, label, children, ...props }) {
   return (
-    <div className={className}>
-      <label htmlFor={id}>{label}</label>
+    <label htmlFor={id}>
+      {label}
       <Input id={id} {...props}>
         {children}
       </Input>
-    </div>
+    </label>
   );
 }
 

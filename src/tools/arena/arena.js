@@ -69,7 +69,6 @@ export function Arena() {
     <Tool name="arena" title="Arena Roller" onSubmit={handleRoll}>
       <div className="row">
         <LabelledInput
-          className="item"
           id="dragon"
           label="Dragon:"
           type="select"
@@ -79,7 +78,6 @@ export function Arena() {
           {dragonLevels.map(mapSelectOptions)}
         </LabelledInput>
         <LabelledInput
-          className="item"
           id="horse"
           label="Horse:"
           type="select"
@@ -91,7 +89,6 @@ export function Arena() {
       </div>
       <div className="row">
         <LabelledInput
-          className="item"
           id="battleCry"
           label="Battle cry:"
           type="checkbox"
@@ -99,7 +96,6 @@ export function Arena() {
           onChange={setBattleCry}
         />
         <LabelledInput
-          className="item"
           id="dragonDrawn"
           label="Dragon drawn:"
           type="checkbox"
@@ -107,7 +103,6 @@ export function Arena() {
           onChange={setDragonDrawn}
         />
         <LabelledInput
-          className="item"
           id="armour"
           label="Enchanted armour:"
           type="checkbox"
@@ -115,7 +110,6 @@ export function Arena() {
           onChange={setArmour}
         />
         <LabelledInput
-          className="item"
           id="weapon"
           label="Enchanted weapon:"
           type="checkbox"
@@ -125,7 +119,6 @@ export function Arena() {
       </div>
       <div className="row">
         <LabelledInput
-          className="item"
           id="energy"
           label="Energy boost:"
           type="checkbox"
@@ -133,7 +126,6 @@ export function Arena() {
           onChange={setEnergy}
         />
         <LabelledInput
-          className="item"
           id="sneak"
           label="Sneak-O-Matic:"
           type="checkbox"
@@ -141,7 +133,6 @@ export function Arena() {
           onChange={setSneak}
         />
         <LabelledInput
-          className="item"
           id="hound"
           label="Hound familiar:"
           type="checkbox"
@@ -149,7 +140,6 @@ export function Arena() {
           onChange={setHound}
         />
         <LabelledInput
-          className="item"
           id="trust"
           label="Hound trust:"
           type="select"
@@ -159,7 +149,6 @@ export function Arena() {
           {trustLevels.map(mapSelectOptions)}
         </LabelledInput>
         <LabelledInput
-          className="item"
           id="bait"
           label="Live bait:"
           type="number"
