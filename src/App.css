@@ -30,6 +30,11 @@ body {
   overflow-x: hidden;
 }
 
+#app {
+  margin: auto;
+  max-width: 90vw;
+}
+
 #toolbar {
   display: flex;
   justify-content: center;

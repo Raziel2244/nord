@@ -1,0 +1,28 @@
+.tool > .title {
+  text-align: center;
+}
+
+.tool > .input {
+  border: 1px dashed var(--color);
+  justify-content: center;
+  padding: 1em;
+}
+
+.tool > .input > .row,
+.tool > .input .item {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.tool > .input > .row > * {
+  margin: 0.25em;
+}
+
+@media only screen and (min-width: 1080px) {
+  .tool {
+    max-width: 1080px;
+  }
+}

@@ -1,3 +1,5 @@
+import "./cartography.css";
+
 export function Cartography() {
   return <></>;
 }
