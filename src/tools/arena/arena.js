@@ -3,30 +3,39 @@ import { useTargetChecked, useTargetValue } from "../../hooks";
 import "./arena.css";
 
 const dragonLevels = [
-  { level: "0", title: "Beginner", reward: 50, chance: 95 },
-  { level: "1", title: "Level 1", reward: 100, chance: 85 },
-  { level: "2", title: "Level 2", reward: 250, chance: 70 },
-  { level: "3", title: "Level 3", reward: 500, chance: 55 },
-  { level: "4", title: "Level 4", reward: 1000, chance: 40 },
-  { level: "5", title: "Level 5", reward: 2000, chance: 25 },
-  { level: "6", title: "Level 6", reward: 3000, chance: 10 },
+  { level: 0, title: "Beginner", reward: 50, chance: 95 },
+  { level: 1, title: "Level 1", reward: 100, chance: 85 },
+  { level: 2, title: "Level 2", reward: 250, chance: 70 },
+  { level: 3, title: "Level 3", reward: 500, chance: 55 },
+  { level: 4, title: "Level 4", reward: 1000, chance: 40 },
+  { level: 5, title: "Level 5", reward: 2000, chance: 25 },
+  { level: 6, title: "Level 6", reward: 3000, chance: 10 },
 ];
 
 const horseLevels = [
-  { level: "0", title: "No registered level" },
-  { level: "1", title: "Basic training" },
-  { level: "2", title: "Quality blood" },
-  { level: "3", title: "Excellent blood" },
-  { level: "4", title: "Supreme blood" },
-  { level: "5", title: "Heroic blood" },
-  { level: "6", title: "Legendary blood" },
+  { level: 0, title: "No registered level" },
+  { level: 1, title: "Basic training" },
+  { level: 2, title: "Quality blood" },
+  { level: 3, title: "Excellent blood" },
+  { level: 4, title: "Supreme blood" },
+  { level: 5, title: "Heroic blood" },
+  { level: 6, title: "Legendary blood" },
 ];
 
 const trustLevels = [
-  { level: "0", title: "0%" },
-  { level: "1", title: "30%" },
-  { level: "2", title: "70%" },
-  { level: "3", title: "100%" },
+  { level: 0, title: "0%" },
+  { level: 1, title: "30%" },
+  { level: 2, title: "70%" },
+  { level: 3, title: "100%" },
+];
+
+const baitLevels = [
+  { level: 0, title: "0" },
+  { level: 1, title: "1" },
+  { level: 2, title: "2" },
+  { level: 3, title: "3" },
+  { level: 4, title: "4" },
+  { level: 5, title: "5" },
 ];
 
 export function Arena() {
@@ -151,13 +160,12 @@ export function Arena() {
         <LabelledInput
           id="bait"
           label="Live bait:"
-          type="number"
+          type="select"
           value={bait}
           onChange={setBait}
-          min="0"
-          max="5"
-          step="1"
-        />
+        >
+          {baitLevels.map(mapSelectOptions)}
+        </LabelledInput>
       </div>
       <div className="row">
         <button id="roll" type="submit">
