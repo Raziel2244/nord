@@ -19,6 +19,7 @@ nord.breeding = {
       ["flaxen", /\b(f|n)(f)\b/, ["n", "f"]],
       ["mushroom", /\b(mu|n)(mu)\b/, ["n", "mu"]],
       ["lilac", /\b(li|n)(li)\b/, ["n", "li"]],
+      ["shift", /\b(Sft|n)(Sft)\b/, ["n", "Sft"]],
     ],
     whites: [
       ["sabino", /\b(Sb|n)(Sb)\b/, ["n", "Sb"]],
@@ -138,6 +139,7 @@ nord.breeding = {
       ["Tobiano", /\b(?:n|Tb)Tb\b/],
       ["Mushroom", /\b(?:n|mu)mu\b/],
       ["Lilac", /\b(?:n|li)li\b/],
+      ["Shift", /\b(?:n|Sft)Sft\b/],
     ],
     appaloosa: [
       ["Semi-Leopard Appaloosa", /\bLpLp\s(\w{4,5})\s(?!\1)\w{4,5}\b/],
