@@ -813,7 +813,6 @@ nord.breeding = {
         // chosen by horse.luck (which luck potion it was bred with)
         const chances = [
           [460, 540, 620, 700, 780, 860],
-          [1000, 2000, 3000, 4000, 5000, 5080],
           [1500, 3000, 4500, 6000, 7500, 9000],
         ];
         // pheno to push, index matches index of respective chance
@@ -823,7 +822,8 @@ nord.breeding = {
           rng = rzl.rng1to(10000);
 
         function mimicry() {
-          const rgx = /A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|Em|F(?:lm|spl|wn)|G(?:ft|l(?:b|m(?:\^r)?))|H(?:mg|n)|Iks|Ja|Kc|Lht|M(?:nd|sq)?|Nog|P(?:[ak]n|wl)|S(?:d|gl)|T[ilry]|Unv|Wd|Ze/;
+          const rgx =
+            /A(?:gs|ng|tl)|B(?:ls|sh|p)|C(?:c|mp|n?d|rv)|Em|F(?:lm|spl|wn)|G(?:ft|l(?:b|m(?:\^r)?))|H(?:mg|n)|Iks|Ja|Kc|Lht|M(?:nd|sq)?|Nog|P(?:[ak]n|wl)|S(?:d|gl)|T[ilry]|Unv|Wd|Ze/;
 
           if (!rgx.test(horse.geno)) {
             phenoStrings.push("Mimicry");
@@ -1024,8 +1024,7 @@ nord.breeding = {
 
   // initialise breed data
   initBreed: function () {
-    let luck = 0,
-      potions = [],
+    let potions = [],
       traits = [];
     const breed = nord.state.breeding.breed,
       fields = nord.state.breeding.fields,
@@ -1075,13 +1074,8 @@ nord.breeding = {
     }
 
     // prepare potion data
-    if (fields.luck1.checked) {
-      luck = 1;
-    } else if (fields.luck2.checked) {
-      luck = 2;
-    }
     potions = [
-      luck,
+      fields.luck.checked ? 1 : 0,
       fields.sirepotion1.selectedIndex,
       fields.sirepotion2.selectedIndex,
       fields.dampotion1.selectedIndex,
@@ -1102,7 +1096,7 @@ nord.breeding = {
   // roll for twins
   rollTwinsChance: function () {
     const state = nord.state.breeding;
-    const potion = state.fields.luck2.checked;
+    const potion = state.fields.luck.checked;
     const chance = potion ? 150 : 8;
 
     const cap = 1000;
@@ -1110,8 +1104,7 @@ nord.breeding = {
     const result = rng <= chance;
     const traitmod = state.breed.traitmod.includes("Twins") ? true : false;
 
-    const success = result || traitmod;
-    state.breed.twins = success;
+    state.breed.twins = result || traitmod;
 
     state.breed.stats.twins = {
       potion,
@@ -1675,37 +1668,17 @@ nord.breeding = {
               class: "rzl-form-row",
               children: [
                 {
-                  style: { "flex-flow": "column nowrap" },
+                  class: "rzl-form-item",
                   children: [
                     {
-                      class: "rzl-form-item",
-                      children: [
-                        {
-                          tag: "label",
-                          content: "Luck Potion 1:",
-                          props: { for: "luck1" },
-                        },
-                        {
-                          tag: "input",
-                          id: "luck1",
-                          props: { type: "checkbox" },
-                        },
-                      ],
+                      tag: "label",
+                      content: "Luck Potion:",
+                      props: { for: "luck" },
                     },
                     {
-                      class: "rzl-form-item",
-                      children: [
-                        {
-                          tag: "label",
-                          content: "Luck Potion 2:",
-                          props: { for: "luck2" },
-                        },
-                        {
-                          tag: "input",
-                          id: "luck2",
-                          props: { type: "checkbox" },
-                        },
-                      ],
+                      tag: "input",
+                      id: "luck",
+                      props: { type: "checkbox" },
                     },
                   ],
                 },
