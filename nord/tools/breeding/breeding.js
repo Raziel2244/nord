@@ -108,6 +108,7 @@ nord.breeding = {
     "Bend-or Spots",
     "Somatic",
     "Chimera",
+    "Lacing",
   ],
 
   // [ pheno, rgx ]
