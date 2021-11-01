@@ -88,6 +88,7 @@ nord.breeding = {
       ["flametouched", /\b(Flm|n)(Flm)\b/, ["n", "Flm"]],
       ["emblem", /\b(Em|n)(Em)\b/, ["n", "Em"]],
       ["ortho", /\b(OR|n)(OR)\b/, ["n", "OR"]],
+      ["ailurus", /\b(Ai|n)(Ai)\b/, ["n", "Ai"]],
     ],
   },
 
@@ -151,6 +152,7 @@ nord.breeding = {
     ],
     mutations: [
       ["Agis", /\b(?:n|Ags)Ags\b/],
+      ["Ailurus", /\b(?:n|Ai)Ai\b/],
       ["Angler", /\b(?:n|Ang)Ang\b/],
       ["Atlanticus", /\b(?:n|Atl)Atl\b/],
       ["Bloodsplash", /\b(?:n|Bsh)Bsh\b/],
