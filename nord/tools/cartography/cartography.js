@@ -2,7 +2,7 @@ nord.cartography = {
   // regions of the world
   regions: [
     {
-      name: "Aleria",
+      name: "Kisarana",
       level: 0,
       chance: 95,
       advantages: ["chkd", "grfn", "pfwl", "stgl"],
@@ -91,7 +91,7 @@ nord.cartography = {
       },
     },
     {
-      name: "Kisanara",
+      name: "Kothandyl",
       level: 4,
       chance: 40,
       advantages: ["cmph", "flmt", "pnda", "wood"],
