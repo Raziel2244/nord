@@ -1,3 +1,3 @@
 export * from "./useStack";
-export * from "./useTargetChecked";
-export * from "./useTargetValue";
+export * from "./useChecked";
+export * from "./useSelectedIndex";

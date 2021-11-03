@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { LabelledInput, Tool } from "../../components";
-import { useStack, useTargetChecked, useTargetValue } from "../../hooks";
+import { useStack, useChecked, useSelectedIndex } from "../../hooks";
 import "./arena.css";
 
 const dragonLevels = [
@@ -105,20 +104,21 @@ const listMapper = (v) => <div key={v}>{v}</div>;
 const rng = (cap) => Math.floor(Math.random() * cap) + 1;
 
 export function Arena() {
-  const [dragon, setDragon] = useTargetValue(0);
-  const [horse, setHorse] = useTargetValue(0);
-  const [battleCry, setBattleCry] = useTargetChecked(false);
-  const [dragonDrawn, setDragonDrawn] = useTargetChecked(false);
-  const [armour, setArmour] = useTargetChecked(false);
-  const [weapon, setWeapon] = useTargetChecked(false);
-  const [energy, setEnergy] = useTargetChecked(false);
-  const [sneak, setSneak] = useTargetChecked(false);
-  const [hound, setHound] = useTargetChecked(false);
-  const [trust, setTrust] = useTargetValue(0);
-  const [bait, setBait] = useTargetValue(0);
-  const [defeated, setDefeated] = useState(false);
+  const [dragon, setDragon] = useSelectedIndex(0);
+  const [horse, setHorse] = useSelectedIndex(0);
+  const [battleCry, setBattleCry] = useChecked(false);
+  const [dragonDrawn, setDragonDrawn] = useChecked(false);
+  const [armour, setArmour] = useChecked(false);
+  const [weapon, setWeapon] = useChecked(false);
+  const [energy, setEnergy] = useChecked(false);
+  const [sneak, setSneak] = useChecked(false);
+  const [hound, setHound] = useChecked(false);
+  const [trust, setTrust] = useSelectedIndex(0);
+  const [bait, setBait] = useSelectedIndex(0);
   const [output, pushOutput, setOutput] = useStack();
   const [stats, pushStats, setStats] = useStack();
+
+  let defeated = false;
 
   function rollItem(group = "all") {
     const items = cache[group];
@@ -126,14 +126,12 @@ export function Arena() {
   }
 
   function handleRoll() {
-    setDefeated(false);
     setOutput();
     setStats();
 
     if (horse < dragon) return;
 
     if (sneak) handleSneak();
-
     if (battleCry) handleBattleCry();
     if (!defeated) handleBattle();
 
@@ -169,7 +167,7 @@ export function Arena() {
 
     pushStats(`Cry > Chance: ${chance} Roll: ${roll}`);
 
-    setDefeated(roll <= chance);
+    defeated = roll <= chance;
     if (defeated) pushOutput("Your ferocious battle cry scared off the dragon");
   }
 
@@ -178,7 +176,7 @@ export function Arena() {
     const roll = rng(cap);
 
     const advantage = horse + (energy ? 1 : 0) - dragon;
-    let chance = dragonLevels[dragon].chance;
+    let { chance } = dragonLevels[dragon];
     if (advantage > 0) chance += advantage * 15; // boost per level advantage
     if (dragonDrawn) chance += 10; // boost for drawing dragon
     if (armour) chance += 20; // boost for armour
@@ -186,9 +184,11 @@ export function Arena() {
     if (armour && weapon) chance += 15; // boost for combo
     chance += bait * 5; // boost for bait
 
+    console.log({ advantage, horse, energy, dragon });
+
     pushStats(`Battle > Chance: ${chance} Roll: ${roll}`);
 
-    setDefeated(roll <= chance);
+    defeated = roll <= chance;
   }
 
   function handleCache() {
