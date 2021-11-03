@@ -1,10 +1,10 @@
 import Input from "../input";
 
-export function LabelledInput({ id, label, ...props }) {
+export function LabelledInput({ label, ...props }) {
   return (
-    <label htmlFor={id}>
+    <label htmlFor={props.id}>
       {label}
-      <Input id={id} {...props} />
+      <Input {...props} />
     </label>
   );
 }

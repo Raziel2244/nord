@@ -1,8 +1,8 @@
-export function Input({ type, children, ...props }) {
+export function Input(props) {
   return (
     <>
-      {type === "checkbox" && <input type={type} {...props}></input>}
-      {type === "select" && <select {...props}>{children}</select>}
+      {props.type === "checkbox" && <input {...props} />}
+      {props.type === "select" && <select {...props} />}
     </>
   );
 }
