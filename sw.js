@@ -1,9 +1,7 @@
-// version v1.7.0
-
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
-      .open("nord")
+      .open("nord-v1.8.1")
       .then((cache) =>
         cache.addAll([
           "",
