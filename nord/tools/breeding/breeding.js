@@ -1108,8 +1108,9 @@ nord.breeding = {
     const rng = rzl.rng1to(cap);
     const result = rng <= chance;
     const traitmod = state.breed.traitmod.includes("Twins") ? true : false;
+    const success = result || traitmod;
 
-    state.breed.twins = result || traitmod;
+    state.breed.twins = success;
 
     state.breed.stats.twins = {
       potion,
